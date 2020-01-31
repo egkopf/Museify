@@ -1,0 +1,599 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		402824D923E49CF30039C74A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824D823E49CF30039C74A /* AppDelegate.swift */; };
+		402824DB23E49CF30039C74A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824DA23E49CF30039C74A /* SceneDelegate.swift */; };
+		402824DD23E49CF30039C74A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824DC23E49CF30039C74A /* ContentView.swift */; };
+		402824DF23E49CF60039C74A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 402824DE23E49CF60039C74A /* Assets.xcassets */; };
+		402824E223E49CF60039C74A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 402824E123E49CF60039C74A /* Preview Assets.xcassets */; };
+		402824E523E49CF60039C74A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 402824E323E49CF60039C74A /* LaunchScreen.storyboard */; };
+		402824F023E49CF60039C74A /* MuseifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824EF23E49CF60039C74A /* MuseifyTests.swift */; };
+		402824FB23E49CF60039C74A /* MuseifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824FA23E49CF60039C74A /* MuseifyUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		402824EC23E49CF60039C74A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 402824CD23E49CF20039C74A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402824D423E49CF20039C74A;
+			remoteInfo = Museify;
+		};
+		402824F723E49CF60039C74A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 402824CD23E49CF20039C74A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402824D423E49CF20039C74A;
+			remoteInfo = Museify;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		402824D523E49CF30039C74A /* Museify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Museify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		402824D823E49CF30039C74A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		402824DA23E49CF30039C74A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		402824DC23E49CF30039C74A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		402824DE23E49CF60039C74A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		402824E123E49CF60039C74A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		402824E423E49CF60039C74A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		402824E623E49CF60039C74A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		402824EB23E49CF60039C74A /* MuseifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MuseifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		402824EF23E49CF60039C74A /* MuseifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseifyTests.swift; sourceTree = "<group>"; };
+		402824F123E49CF60039C74A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		402824F623E49CF60039C74A /* MuseifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MuseifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		402824FA23E49CF60039C74A /* MuseifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseifyUITests.swift; sourceTree = "<group>"; };
+		402824FC23E49CF60039C74A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		402824D223E49CF20039C74A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		402824E823E49CF60039C74A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		402824F323E49CF60039C74A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		402824CC23E49CF20039C74A = {
+			isa = PBXGroup;
+			children = (
+				402824D723E49CF30039C74A /* Museify */,
+				402824EE23E49CF60039C74A /* MuseifyTests */,
+				402824F923E49CF60039C74A /* MuseifyUITests */,
+				402824D623E49CF30039C74A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		402824D623E49CF30039C74A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				402824D523E49CF30039C74A /* Museify.app */,
+				402824EB23E49CF60039C74A /* MuseifyTests.xctest */,
+				402824F623E49CF60039C74A /* MuseifyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		402824D723E49CF30039C74A /* Museify */ = {
+			isa = PBXGroup;
+			children = (
+				402824D823E49CF30039C74A /* AppDelegate.swift */,
+				402824DA23E49CF30039C74A /* SceneDelegate.swift */,
+				402824DC23E49CF30039C74A /* ContentView.swift */,
+				402824DE23E49CF60039C74A /* Assets.xcassets */,
+				402824E323E49CF60039C74A /* LaunchScreen.storyboard */,
+				402824E623E49CF60039C74A /* Info.plist */,
+				402824E023E49CF60039C74A /* Preview Content */,
+			);
+			path = Museify;
+			sourceTree = "<group>";
+		};
+		402824E023E49CF60039C74A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				402824E123E49CF60039C74A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		402824EE23E49CF60039C74A /* MuseifyTests */ = {
+			isa = PBXGroup;
+			children = (
+				402824EF23E49CF60039C74A /* MuseifyTests.swift */,
+				402824F123E49CF60039C74A /* Info.plist */,
+			);
+			path = MuseifyTests;
+			sourceTree = "<group>";
+		};
+		402824F923E49CF60039C74A /* MuseifyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				402824FA23E49CF60039C74A /* MuseifyUITests.swift */,
+				402824FC23E49CF60039C74A /* Info.plist */,
+			);
+			path = MuseifyUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		402824D423E49CF20039C74A /* Museify */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 402824FF23E49CF60039C74A /* Build configuration list for PBXNativeTarget "Museify" */;
+			buildPhases = (
+				402824D123E49CF20039C74A /* Sources */,
+				402824D223E49CF20039C74A /* Frameworks */,
+				402824D323E49CF20039C74A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Museify;
+			productName = Museify;
+			productReference = 402824D523E49CF30039C74A /* Museify.app */;
+			productType = "com.apple.product-type.application";
+		};
+		402824EA23E49CF60039C74A /* MuseifyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4028250223E49CF60039C74A /* Build configuration list for PBXNativeTarget "MuseifyTests" */;
+			buildPhases = (
+				402824E723E49CF60039C74A /* Sources */,
+				402824E823E49CF60039C74A /* Frameworks */,
+				402824E923E49CF60039C74A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				402824ED23E49CF60039C74A /* PBXTargetDependency */,
+			);
+			name = MuseifyTests;
+			productName = MuseifyTests;
+			productReference = 402824EB23E49CF60039C74A /* MuseifyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		402824F523E49CF60039C74A /* MuseifyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4028250523E49CF60039C74A /* Build configuration list for PBXNativeTarget "MuseifyUITests" */;
+			buildPhases = (
+				402824F223E49CF60039C74A /* Sources */,
+				402824F323E49CF60039C74A /* Frameworks */,
+				402824F423E49CF60039C74A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				402824F823E49CF60039C74A /* PBXTargetDependency */,
+			);
+			name = MuseifyUITests;
+			productName = MuseifyUITests;
+			productReference = 402824F623E49CF60039C74A /* MuseifyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		402824CD23E49CF20039C74A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Ethan Kopf";
+				TargetAttributes = {
+					402824D423E49CF20039C74A = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					402824EA23E49CF60039C74A = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 402824D423E49CF20039C74A;
+					};
+					402824F523E49CF60039C74A = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 402824D423E49CF20039C74A;
+					};
+				};
+			};
+			buildConfigurationList = 402824D023E49CF20039C74A /* Build configuration list for PBXProject "Museify" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 402824CC23E49CF20039C74A;
+			productRefGroup = 402824D623E49CF30039C74A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				402824D423E49CF20039C74A /* Museify */,
+				402824EA23E49CF60039C74A /* MuseifyTests */,
+				402824F523E49CF60039C74A /* MuseifyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		402824D323E49CF20039C74A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				402824E523E49CF60039C74A /* LaunchScreen.storyboard in Resources */,
+				402824E223E49CF60039C74A /* Preview Assets.xcassets in Resources */,
+				402824DF23E49CF60039C74A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		402824E923E49CF60039C74A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		402824F423E49CF60039C74A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		402824D123E49CF20039C74A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				402824D923E49CF30039C74A /* AppDelegate.swift in Sources */,
+				402824DB23E49CF30039C74A /* SceneDelegate.swift in Sources */,
+				402824DD23E49CF30039C74A /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		402824E723E49CF60039C74A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				402824F023E49CF60039C74A /* MuseifyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		402824F223E49CF60039C74A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				402824FB23E49CF60039C74A /* MuseifyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		402824ED23E49CF60039C74A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402824D423E49CF20039C74A /* Museify */;
+			targetProxy = 402824EC23E49CF60039C74A /* PBXContainerItemProxy */;
+		};
+		402824F823E49CF60039C74A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402824D423E49CF20039C74A /* Museify */;
+			targetProxy = 402824F723E49CF60039C74A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		402824E323E49CF60039C74A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				402824E423E49CF60039C74A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		402824FD23E49CF60039C74A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		402824FE23E49CF60039C74A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4028250023E49CF60039C74A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Museify/Preview Content\"";
+				DEVELOPMENT_TEAM = Y2A32J363X;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Museify/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ethankopf.Museify;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4028250123E49CF60039C74A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Museify/Preview Content\"";
+				DEVELOPMENT_TEAM = Y2A32J363X;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Museify/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ethankopf.Museify;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4028250323E49CF60039C74A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y2A32J363X;
+				INFOPLIST_FILE = MuseifyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ethankopf.MuseifyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Museify.app/Museify";
+			};
+			name = Debug;
+		};
+		4028250423E49CF60039C74A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y2A32J363X;
+				INFOPLIST_FILE = MuseifyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ethankopf.MuseifyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Museify.app/Museify";
+			};
+			name = Release;
+		};
+		4028250623E49CF60039C74A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y2A32J363X;
+				INFOPLIST_FILE = MuseifyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ethankopf.MuseifyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Museify;
+			};
+			name = Debug;
+		};
+		4028250723E49CF60039C74A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y2A32J363X;
+				INFOPLIST_FILE = MuseifyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ethankopf.MuseifyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Museify;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		402824D023E49CF20039C74A /* Build configuration list for PBXProject "Museify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				402824FD23E49CF60039C74A /* Debug */,
+				402824FE23E49CF60039C74A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		402824FF23E49CF60039C74A /* Build configuration list for PBXNativeTarget "Museify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4028250023E49CF60039C74A /* Debug */,
+				4028250123E49CF60039C74A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4028250223E49CF60039C74A /* Build configuration list for PBXNativeTarget "MuseifyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4028250323E49CF60039C74A /* Debug */,
+				4028250423E49CF60039C74A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4028250523E49CF60039C74A /* Build configuration list for PBXNativeTarget "MuseifyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4028250623E49CF60039C74A /* Debug */,
+				4028250723E49CF60039C74A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 402824CD23E49CF20039C74A /* Project object */;
+}
