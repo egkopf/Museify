@@ -13,6 +13,7 @@ struct ContentView: View {
         VStack {
             Text("Hello, World!")
             Text("your mum")
+            Text("Ethans mum")
         }
     }
 }
