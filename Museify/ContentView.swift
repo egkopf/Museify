@@ -14,6 +14,7 @@ struct ContentView: View {
             Text("Hello, World!")
             Text("your mum")
             Text("Ethans mum")
+            Text("we set up firebase and it is working properly woo")
         }
     }
 }
