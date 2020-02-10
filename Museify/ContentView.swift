@@ -9,12 +9,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var selectedView = 0
     var body: some View {
-        VStack {
-            Text("Hello, World!")
-            Text("your mum")
-            Text("Ethans mum")
-            Text("we set up firebase and it is working properly woo")
+        TabView(selection: $selectedView) {
+            Rectangle()
+                .tabItem {
+                    Text("Search")
+                        .font(.headline)
+            }.tag(0)
+            Circle()
+                .tabItem {
+                    Text("Create")
+                        .font(.headline)
+            }.tag(1)
+            Rectangle()
+                .tabItem {
+                    Text("Hunt Key")
+                        .font(.headline)
+            }.tag(2)
+            Circle()
+                .tabItem {
+                    Text("Activity")
+                        .font(.headline)
+            }.tag(3)
+            Rectangle()
+                .tabItem {
+                    Text("Profile")
+                        .font(.headline)
+            }.tag(4)
         }
     }
 }
