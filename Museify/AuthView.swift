@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct SigningInView: View {
     @State var email: String = ""
@@ -18,6 +19,9 @@ struct SigningInView: View {
         auth.signIn(email: email, password: password) { (result, error) in
             if let error = error {
                 self.error = error.localizedDescription
+            } else {
+                self.email = ""
+                self.password = ""
             }
         }
     }
