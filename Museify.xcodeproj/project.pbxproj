@@ -16,6 +16,7 @@
 		402824F023E49CF60039C74A /* MuseifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824EF23E49CF60039C74A /* MuseifyTests.swift */; };
 		402824FB23E49CF60039C74A /* MuseifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824FA23E49CF60039C74A /* MuseifyUITests.swift */; };
 		4038047223F245B40067F979 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4038047123F245B40067F979 /* Authentication.swift */; };
+		4038047423F248CA0067F979 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4038047323F248CA0067F979 /* AuthView.swift */; };
 		403C51BD23F0DB2E0040C47D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 403C51BC23F0DB2E0040C47D /* GoogleService-Info.plist */; };
 		BC391EEE0BC9D923574EA15D /* Pods_Museify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3A8909C8A4B50CDCA699A1 /* Pods_Museify.framework */; };
 		F3DF62A7C06E1DDF5408F2FA /* Pods_Museify_MuseifyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6645B03DD39EEE588E1CDBC /* Pods_Museify_MuseifyUITests.framework */; };
@@ -57,6 +58,7 @@
 		402824FA23E49CF60039C74A /* MuseifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseifyUITests.swift; sourceTree = "<group>"; };
 		402824FC23E49CF60039C74A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4038047123F245B40067F979 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		4038047323F248CA0067F979 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		403C51BC23F0DB2E0040C47D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		548AD5BFDF47EE35A2657A4E /* Pods_MuseifyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MuseifyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FBF0DDE23DB351DE4505B41 /* Pods-Museify-MuseifyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Museify-MuseifyUITests.release.xcconfig"; path = "Target Support Files/Pods-Museify-MuseifyUITests/Pods-Museify-MuseifyUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				402824DA23E49CF30039C74A /* SceneDelegate.swift */,
 				402824DC23E49CF30039C74A /* ContentView.swift */,
 				4038047123F245B40067F979 /* Authentication.swift */,
+				4038047323F248CA0067F979 /* AuthView.swift */,
 				402824DE23E49CF60039C74A /* Assets.xcassets */,
 				402824E323E49CF60039C74A /* LaunchScreen.storyboard */,
 				403C51BC23F0DB2E0040C47D /* GoogleService-Info.plist */,
@@ -423,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				402824D923E49CF30039C74A /* AppDelegate.swift in Sources */,
+				4038047423F248CA0067F979 /* AuthView.swift in Sources */,
 				402824DB23E49CF30039C74A /* SceneDelegate.swift in Sources */,
 				402824DD23E49CF30039C74A /* ContentView.swift in Sources */,
 				4038047223F245B40067F979 /* Authentication.swift in Sources */,
