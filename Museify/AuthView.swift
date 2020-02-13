@@ -7,6 +7,10 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseAuth
+import Combine
+import SwiftUI
 
 struct SigningInView: View {
     @State var email: String = ""
@@ -21,4 +25,9 @@ struct SigningInView: View {
             }
         }
     }
+    
+    var body: some View {
+        Text("yo")
+    }
+
 }
