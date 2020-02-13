@@ -1,0 +1,6 @@
+framework module Pods_Museify {
+  umbrella header "Pods-Museify-umbrella.h"
+
+  export *
+  module * { export * }
+}

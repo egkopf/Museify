@@ -1,0 +1,6 @@
+framework module Pods_Museify_MuseifyUITests {
+  umbrella header "Pods-Museify-MuseifyUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
