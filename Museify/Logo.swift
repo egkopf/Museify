@@ -11,7 +11,7 @@ import SwiftUI
 struct Logo: View {
     var body: some View {
         ZStack {
-            Image("M")
+            Image("M").resizable()
                 .clipShape(Circle())
                 .overlay(
                     Circle().stroke(Color.white, lineWidth: 4))

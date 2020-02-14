@@ -12,7 +12,7 @@ struct ContentView: View {
     @State var selectedView = 0
     var body: some View {
         TabView(selection: $selectedView) {
-            Rectangle()
+            SigningInView()
                 .tabItem {
                     Text("Search")
                         .font(.headline)
