@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400078E223F70F9B0084C8D4 /* Logo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400078E123F70F9B0084C8D4 /* Logo.swift */; };
+		400078E423F710000084C8D4 /* M.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 400078E323F710000084C8D4 /* M.jpg */; };
 		402824D923E49CF30039C74A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824D823E49CF30039C74A /* AppDelegate.swift */; };
 		402824DB23E49CF30039C74A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824DA23E49CF30039C74A /* SceneDelegate.swift */; };
 		402824DD23E49CF30039C74A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824DC23E49CF30039C74A /* ContentView.swift */; };
@@ -43,6 +45,8 @@
 /* Begin PBXFileReference section */
 		12F9DCDB0043B0AB08C46750 /* Pods-Museify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Museify.debug.xcconfig"; path = "Target Support Files/Pods-Museify/Pods-Museify.debug.xcconfig"; sourceTree = "<group>"; };
 		334D51CB520623C18A6D7370 /* Pods-MuseifyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseifyTests.debug.xcconfig"; path = "Target Support Files/Pods-MuseifyTests/Pods-MuseifyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		400078E123F70F9B0084C8D4 /* Logo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logo.swift; sourceTree = "<group>"; };
+		400078E323F710000084C8D4 /* M.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = M.jpg; path = ../../M.jpg; sourceTree = "<group>"; };
 		402824D523E49CF30039C74A /* Museify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Museify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		402824D823E49CF30039C74A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		402824DA23E49CF30039C74A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,8 +129,10 @@
 				402824D823E49CF30039C74A /* AppDelegate.swift */,
 				402824DA23E49CF30039C74A /* SceneDelegate.swift */,
 				402824DC23E49CF30039C74A /* ContentView.swift */,
+				400078E123F70F9B0084C8D4 /* Logo.swift */,
 				4038047123F245B40067F979 /* Authentication.swift */,
 				4038047323F248CA0067F979 /* AuthView.swift */,
+				400078E323F710000084C8D4 /* M.jpg */,
 				402824DE23E49CF60039C74A /* Assets.xcassets */,
 				402824E323E49CF60039C74A /* LaunchScreen.storyboard */,
 				403C51BC23F0DB2E0040C47D /* GoogleService-Info.plist */,
@@ -297,6 +303,7 @@
 				402824E523E49CF60039C74A /* LaunchScreen.storyboard in Resources */,
 				403C51BD23F0DB2E0040C47D /* GoogleService-Info.plist in Resources */,
 				402824E223E49CF60039C74A /* Preview Assets.xcassets in Resources */,
+				400078E423F710000084C8D4 /* M.jpg in Resources */,
 				402824DF23E49CF60039C74A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,6 +436,7 @@
 				4038047423F248CA0067F979 /* AuthView.swift in Sources */,
 				402824DB23E49CF30039C74A /* SceneDelegate.swift in Sources */,
 				402824DD23E49CF30039C74A /* ContentView.swift in Sources */,
+				400078E223F70F9B0084C8D4 /* Logo.swift in Sources */,
 				4038047223F245B40067F979 /* Authentication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,7 +17,7 @@ struct ContentView: View {
                     Text("Search")
                         .font(.headline)
             }.tag(0)
-            Circle()
+            Logo()
                 .tabItem {
                     Text("Create")
                         .font(.headline)
