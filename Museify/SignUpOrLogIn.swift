@@ -15,6 +15,7 @@ struct SignUpOrLogIn: View {
                 NavigationLink(destination: SignUp()) {
                     Text("Create an Account")
                 }
+                
                 NavigationLink(destination: LogIn()) {
                     Text("Log In")
                 }

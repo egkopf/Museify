@@ -20,6 +20,7 @@ struct SignUp: View {
     @EnvironmentObject var auth: Authentication
     
     func signUp() {
+        self.error = ""
         auth.signUp(email: email, password: password) { (result, error) in
             if let error = error {
                 self.error = error.localizedDescription
@@ -35,26 +36,27 @@ struct SignUp: View {
         VStack {
             Text("Sign Up as a New User:")
                 .font(.headline)
+            
             HStack {
                 Text("Email:")
-                TextField("Enter Email", text: $email)//, onCommit: {self.updateColony()})
+                TextField("Enter Email", text: $email)
             }
+            
             HStack{
                 Text("Password:")
-                TextField("Enter Password", text: $password)//, onCommit: {self.updateColony()})
+                TextField("Enter Password", text: $password)
             }
-            Button(action: self.signUp) {
-                Text("sign up")
-            }
-            if didItWork {
-                NavigationView {
-                    VStack {
-                        NavigationLink(destination: ContentView()) {
-                            Text("Proceed to App")
-                        }
-                    }
+            
+            NavigationLink(destination: ContentView(), isActive: $didItWork) {
+                Button(action: self.signUp) {
+                    Text("Sign up")
                 }
             }
+            
+            if error != "" {
+                Text("There was an error creating account.").foregroundColor(.red)
+            }
+            
         }
     }
 }

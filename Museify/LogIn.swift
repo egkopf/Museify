@@ -20,6 +20,7 @@ struct LogIn: View {
     @EnvironmentObject var auth: Authentication
     
     func signIn() {
+        self.error = ""
         auth.signIn(email: email, password: password) { (result, error) in
             if let error = error {
                 self.error = error.localizedDescription
@@ -33,27 +34,27 @@ struct LogIn: View {
     
     var body: some View {
         VStack {
-            Text("Sign In as an Existing User:")
+            Text("Sign in as an existing user:")
                 .font(.headline)
+            
             HStack {
                 Text("Email:")
-                TextField("Enter Email", text: $email)//, onCommit: {self.updateColony()})
+                TextField("Enter email", text: $email)//, onCommit: {self.updateColony()})
             }
+            
             HStack{
                 Text("Password:")
-                TextField("Enter Password", text: $password)//, onCommit: {self.updateColony()})
+                TextField("Enter password", text: $password)//, onCommit: {self.updateColony()})
             }
-            Button(action: self.signIn) {
-                Text("sign in")
-            }
-            if didItWork {
-                NavigationView {
-                    VStack {
-                        NavigationLink(destination: ContentView()) {
-                            Text("Proceed to App")
-                        }
-                    }
+            
+            NavigationLink(destination: ContentView(), isActive: $didItWork) {
+                Button(action: self.signIn) {
+                    Text("Sign in")
                 }
+            }
+            
+            if error != "" {
+                Text("There was an error logging in.").foregroundColor(.red)
             }
         }
     }
