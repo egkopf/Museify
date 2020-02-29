@@ -25,8 +25,8 @@ struct LogIn: View {
             if let error = error {
                 self.error = error.localizedDescription
             } else {
-                self.email = ""
-                self.password = ""
+//                self.email = ""
+//                self.password = ""
                 self.didItWork = true
             }
         }
@@ -34,6 +34,7 @@ struct LogIn: View {
     
     var body: some View {
         VStack {
+            Logo().frame(width: 300, height: 300)
             Text("Sign in as an existing user:")
                 .font(.headline)
             
@@ -47,7 +48,7 @@ struct LogIn: View {
                 TextField("Enter password", text: $password)//, onCommit: {self.updateColony()})
             }
             
-            NavigationLink(destination: ContentView(), isActive: $didItWork) {
+            NavigationLink(destination: ContentView(username: email), isActive: $didItWork) {
                 Button(action: self.signIn) {
                     Text("Sign in")
                 }

@@ -18,8 +18,7 @@ import FirebaseFirestoreSwift
 
 struct ContentView: View {
     @State var selectedView = 0
-    @State var name: String = ""
-    var db = Firestore.firestore()
+    var username: String
 
     var body: some View {
         TabView(selection: $selectedView) {
@@ -44,38 +43,18 @@ struct ContentView: View {
                         .font(.headline)
             }.tag(3)
             
-            VStack {
-                TextField("Enter name", text: $name)
-                Button(action: addPerson) {
-                    Text("Add person")
-                }
-            }
+            ProfilePage(username: self.username)
                 .tabItem {
                     Text("Profile")
                         .font(.headline)
             }.tag(4)
         }
     }
-    
-    
-    func addPerson() {
-        var ref: DocumentReference? = nil
-        ref = db.collection("users").addDocument(data: [
-            "username": name
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document added with ID: \(ref!.documentID)")
-            }
-        }
-    }
 }
-
-
+    
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(username: "lunacoko@gmail.com")
     }
 }

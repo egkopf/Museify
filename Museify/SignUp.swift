@@ -6,11 +6,15 @@
 //  Copyright © 2020 Ethan Kopf. All rights reserved.
 //
 
+import SwiftUI
 import Foundation
 import Firebase
 import FirebaseAuth
 import Combine
-import SwiftUI
+import FirebaseDatabase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct SignUp: View {
     @State var email: String = ""
@@ -18,6 +22,7 @@ struct SignUp: View {
     @State var error: String = ""
     @State var didItWork: Bool = false
     @EnvironmentObject var auth: Authentication
+    var db = Firestore.firestore()
     
     func signUp() {
         self.error = ""
@@ -25,15 +30,36 @@ struct SignUp: View {
             if let error = error {
                 self.error = error.localizedDescription
             } else {
-                self.email = ""
-                self.password = ""
+//                self.email = ""
+//                self.password = ""
                 self.didItWork = true
             }
         }
     }
     
+    func addPerson() {
+        var ref: DocumentReference? = nil
+        ref = db.collection("users").addDocument(data: [
+            "username": email
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(ref!.documentID)")
+            }
+        }
+    }
+    
+    
+    func SignUpAndAddPerson() {
+        signUp()
+        if error == "" {addPerson()}
+        // Adds the new user to the database if signUo succeeds and does not if signUp fails. There is a bug where if signUp fails and then succeeds, it does not add the user to the database.
+    }
+    
     var body: some View {
         VStack {
+            Logo().frame(width: 300, height: 300)
             Text("Sign Up as a New User:")
                 .font(.headline)
             
@@ -47,8 +73,8 @@ struct SignUp: View {
                 TextField("Enter Password", text: $password)
             }
             
-            NavigationLink(destination: ContentView(), isActive: $didItWork) {
-                Button(action: self.signUp) {
+            NavigationLink(destination: ContentView(username: email), isActive: $didItWork) {
+                Button(action: self.SignUpAndAddPerson) {
                     Text("Sign up")
                 }
             }
