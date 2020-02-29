@@ -17,6 +17,9 @@ target 'Museify' do
   end
 
 	pod 'Firebase/Analytics'
+	pod 'Firebase/Database'
 	pod 'Firebase/Auth'
+	pod 'Firebase/Analytics'
+	pod 'FirebaseFirestoreSwift'
 
 end
