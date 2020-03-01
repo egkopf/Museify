@@ -34,19 +34,22 @@ struct LogIn: View {
     
     var body: some View {
         VStack {
-            Logo().frame(width: 300, height: 300)
             Text("Sign in as an existing user:")
                 .font(.headline)
             
-            HStack {
-                Text("Email:")
-                TextField("Enter email", text: $email)//, onCommit: {self.updateColony()})
-            }
+            VStack {
+                HStack {
+                    Text("Email:")
+                    TextField("Enter email", text: $email)
+                }
+                
+                HStack{
+                    Text("Password:")
+                    TextField("Enter password", text: $password)
+                }
+            }.frame(width: 350)
             
-            HStack{
-                Text("Password:")
-                TextField("Enter password", text: $password)//, onCommit: {self.updateColony()})
-            }
+            
             
             NavigationLink(destination: ContentView(username: email), isActive: $didItWork) {
                 Button(action: self.signIn) {
@@ -57,6 +60,7 @@ struct LogIn: View {
             if error != "" {
                 Text("There was an error logging in.").foregroundColor(.red)
             }
+            Spacer()
         }
     }
 }

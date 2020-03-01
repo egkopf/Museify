@@ -59,19 +59,24 @@ struct SignUp: View {
     
     var body: some View {
         VStack {
-            Logo().frame(width: 300, height: 300)
             Text("Sign Up as a New User:")
                 .font(.headline)
             
-            HStack {
-                Text("Email:")
-                TextField("Enter Email", text: $email)
-            }
             
-            HStack{
-                Text("Password:")
-                TextField("Enter Password", text: $password)
-            }
+            VStack {
+                HStack {
+                    Text("Email:")
+                    TextField("Enter Email", text: $email)
+                    
+                }
+                
+                HStack{
+                    Text("Password:")
+                    TextField("Enter Password", text: $password)
+                }
+                
+            }.frame(width: 350)
+            
             
             NavigationLink(destination: ContentView(username: email), isActive: $didItWork) {
                 Button(action: self.SignUpAndAddPerson) {
@@ -82,7 +87,7 @@ struct SignUp: View {
             if error != "" {
                 Text("There was an error creating account.").foregroundColor(.red)
             }
-            
+            Spacer()
         }
     }
 }
