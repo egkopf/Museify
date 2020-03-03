@@ -18,6 +18,22 @@ import FirebaseFirestoreSwift
 
 struct ProfilePage: View {
     var username: String
+   @EnvironmentObject var auth: Authentication
+    var db = Firestore.firestore()
+    
+    private func getDocument() {
+        let docRef = db.collection("users").document("\(String(describing: auth.currentUser?.uid))")
+
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
             Text("Profile").font(.largeTitle)
