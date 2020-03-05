@@ -38,14 +38,15 @@ struct SignUp: View {
     }
     
     func addPerson() {
-        db.collection("users").document("\(String(describing: auth.currentUser?.uid))").setData([
+        var ref: DocumentReference? = nil
+        ref = db.collection("users").addDocument(data: [
             "username": email,
             "password": password
         ]) { err in
             if let err = err {
                 print("Error writing document: \(err)")
             } else {
-                print("Document successfully written!")
+                print("Document added with ID: \(ref!.documentID)")
             }
         }
     }
@@ -85,7 +86,7 @@ struct SignUp: View {
             }
             
             if error != "" {
-                Text("There was an error creating account.").foregroundColor(.red)
+                Text(String(error)).foregroundColor(.red)
             }
             Spacer()
         }

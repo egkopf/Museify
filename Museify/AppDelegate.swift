@@ -20,10 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         let db = Firestore.firestore()
-        let storage = Storage.storage()
+        //let storage = Storage.storage()
 
         // Create a storage reference from our storage service
-        let storageRef = storage.reference()
+        //let storageRef = storage.reference()
         return true
     }
 

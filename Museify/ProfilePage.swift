@@ -18,7 +18,7 @@ import FirebaseFirestoreSwift
 
 struct ProfilePage: View {
     var username: String
-   @EnvironmentObject var auth: Authentication
+    @EnvironmentObject var auth: Authentication
     var db = Firestore.firestore()
     
     private func getDocument() {
@@ -26,7 +26,7 @@ struct ProfilePage: View {
 
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                let dataDescription = document.get("username") ?? "nil"
                 print("Document data: \(dataDescription)")
             } else {
                 print("Document does not exist")
