@@ -27,12 +27,12 @@ struct ContentView: View {
                     Text("Search")
                         .font(.headline)
             }.tag(0)
-            Logo()
+            UploadImage()
                 .tabItem {
                     Text("Create")
                         .font(.headline)
             }.tag(1)
-            Rectangle()
+            Logo()
                 .tabItem {
                     Text("Hunt Key")
                         .font(.headline)

@@ -20,10 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         let db = Firestore.firestore()
-        //let storage = Storage.storage()
+        let storageRef = Storage.storage().reference()
+        let localFile = URL(string: "M.jpg")!
 
-        // Create a storage reference from our storage service
-        //let storageRef = storage.reference()
+        // Create a reference to the file you want to upload
+        let logoRef = storageRef.child("images/logos.jpg")
+
+        // Upload the file to the path "images/rivers.jpg"
+        let uploadTask = logoRef.putFile(from: localFile, metadata: nil) { metadata, error in
+          guard let metadata = metadata else {
+            // Uh-oh, an error occurred!
+            return
+          }
+        }
         return true
     }
 
