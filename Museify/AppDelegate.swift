@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         let db = Firestore.firestore()
-        let storageRef = Storage.storage().reference()
+        /*let storageRef = Storage.storage().reference()
         let localFile = URL(string: "M.jpg")!
 
         // Create a reference to the file you want to upload
@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Uh-oh, an error occurred!
             return
           }
-        }
+        }*/
         return true
     }
 
