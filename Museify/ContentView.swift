@@ -22,14 +22,14 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedView) {
-            Rectangle()
+            UploadImage()
                 .tabItem {
                     Text("Search")
                         .font(.headline)
             }.tag(0)
-            UploadImage()
+            CreateAHunt()
                 .tabItem {
-                    Text("Create")
+                    Text("Create A Hunt")
                         .font(.headline)
             }.tag(1)
             Logo()
