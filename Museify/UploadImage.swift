@@ -12,38 +12,45 @@ import Firebase
 import FirebaseStorage
 
 struct UploadImage: View {
-    func uploadImage(filepath: String, filename: String) {
+    
+    @State var filepath: String = ""
+    @State var filename: String = ""
+    
+    func uploadImage() {
         //Filename does include extension
         let storageRef = Storage.storage().reference()
-        let logoImagesRef = storageRef.child("images/\(filename)")
+        let logoImagesRef = storageRef.child("images/\(self.filename)")
         
-        let localFile = URL(string: "file://\(filepath)")!
-        print("Uploading \(filename) to  images")
+        let localFile = URL(string: "file://\(self.filepath)")!
+        print("Uploading \(self.filename) to  images")
 
         let uploadTask = logoImagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
-            guard let metadata = metadata else {
-                print("metadata error")
-                return
-            }
-
+            guard let metadata = metadata else {print("metadata error"); return}
             //let size = metadata.size
             
             logoImagesRef.downloadURL { (url, error) in
-                guard let downloadURL = url else {
-                    print("url error; url: \(url)")
-                    return
-                }
+                guard let downloadURL = url else {print("url error; url: \(url)"); return}
             }
         }
     }
     
     var body: some View {
-        //put in some text boxes for filepath and filename
-        //something is wrong... whatever
-        Button(action: self.uploadImage(filepath: "sdfgsdf", filename: "sdfgsdfg")) {
-            Text("Upload Image")
+        VStack {
+            HStack {
+                Text("Filepath:")
+                TextField("Enter filepath", text: $filepath)
+                
+            }.padding(25)
+            
+            HStack{
+                Text("Filename:")
+                TextField("Enter filename", text: $filename)
+            }.padding(25)
+            
+            Button(action: self.uploadImage) {
+                Text("Upload Image")
+            }
         }
-        
     }
 }
 

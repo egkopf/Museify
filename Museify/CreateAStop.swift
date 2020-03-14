@@ -15,24 +15,40 @@ import FirebaseDatabase
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 struct CreateAStop: View {
     @State private var name: String = ""
     @State private var description: String = ""
     var huntName: String
     var db = Firestore.firestore()
+    @State var filepath: String = ""
+    @State var filename: String = ""
     
-    func addStop() {
-        db.collection("hunts").document("\(huntName)").collection("stops").document("\(name)").setData([
-            "name": "\(name)",
-            "description": "\(description)"
-        ]) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
+    func uploadImage() {
+        //Filename does include extension
+        let storageRef = Storage.storage().reference()
+        let logoImagesRef = storageRef.child("images/\(self.filename)")
+        
+        let localFile = URL(string: "file://\(self.filepath)")!
+        print("Uploading \(self.filename) to  images")
+
+        let uploadTask = logoImagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
+            guard let metadata = metadata else {print("metadata error"); return}
+            //let size = metadata.size
+            
+            logoImagesRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {print("url error; url: \(url), error: \(error)"); return}
             }
         }
+    }
+    
+    func addStop() {
+        db.collection("hunts").document(huntName).collection("stops").document(name).setData(["name": name, "description": description, "imageName": filename]) { err in
+            if let err = err {print("Error writing document: \(err)")}
+            else {print("Document successfully written!")}
+        }
+        uploadImage()
     }
     
     var body: some View {
@@ -44,6 +60,18 @@ struct CreateAStop: View {
             }
             
             TextField("Enter a description or clues about the stop", text: $description).frame(width: 250, height: 300)
+            Text("IMAGE:")
+            HStack {
+                Text("Filepath:")
+                TextField("Enter filepath", text: $filepath)
+                
+            }.padding(25)
+            
+            HStack{
+                Text("Filename:")
+                TextField("Enter filename", text: $filename)
+            }.padding(25)
+            
             Button(action: self.addStop) {
                 Text("Add to Hunt >")
             }

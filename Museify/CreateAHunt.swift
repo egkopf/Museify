@@ -15,6 +15,7 @@ import FirebaseDatabase
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 struct CreateAHunt: View {
     @State private var name: String = ""
@@ -33,6 +34,15 @@ struct CreateAHunt: View {
             } else {
                 print("Document successfully written!")
             }
+        }
+    }
+    
+    func getLogo() {
+        let imgRef = Storage.storage().reference().child("images/M.jpg")
+
+        imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {return}
+            let image = UIImage(data: data!)
         }
     }
     

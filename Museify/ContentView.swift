@@ -22,7 +22,7 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedView) {
-            UploadLogo()
+            UploadImage()
                 .tabItem {
                     Text("Search")
                         .font(.headline)
