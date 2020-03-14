@@ -2,32 +2,48 @@
 //  UploadImage.swift
 //  Museify
 //
-//  Created by Aron Korsunsky on 3/5/20.
+//  Created by Ethan Kopf on 3/14/20.
 //  Copyright © 2020 Ethan Kopf. All rights reserved.
 //
 
+import Foundation
 import SwiftUI
 import Firebase
 import FirebaseStorage
 
 struct UploadImage: View {
-    func uploadImage() {
+    func uploadImage(filepath: String, filename: String) {
+        //Filename does include extension
         let storageRef = Storage.storage().reference()
-        let localFile = URL(string: "file://desktop/M.jpg")!
+        let logoImagesRef = storageRef.child("images/\(filename)")
+        
+        let localFile = URL(string: "file://\(filepath)")!
+        print("Uploading \(filename) to  images")
 
-        let logoRef = storageRef.child("images/logos.jpg")
+        let uploadTask = logoImagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
+            guard let metadata = metadata else {
+                print("metadata error")
+                return
+            }
 
-        let uploadTask = logoRef.putFile(from: localFile, metadata: nil) { metadata, error in
-          guard let metadata = metadata else {
-            // Uh-oh, an error occurred!
-            return
-          }
+            //let size = metadata.size
+            
+            logoImagesRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {
+                    print("url error; url: \(url)")
+                    return
+                }
+            }
         }
     }
+    
     var body: some View {
-        Button(action: self.uploadImage) {
+        //put in some text boxes for filepath and filename
+        //something is wrong... whatever
+        Button(action: self.uploadImage(filepath: "sdfgsdf", filename: "sdfgsdfg")) {
             Text("Upload Image")
         }
+        
     }
 }
 
