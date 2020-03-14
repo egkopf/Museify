@@ -41,6 +41,9 @@ struct CreateAHunt: View {
         variable = true
     }
     
+    func addCoverImage() {
+        print("add cover image")
+    }
     var body: some View {
         NavigationView{
             VStack {
@@ -55,8 +58,11 @@ struct CreateAHunt: View {
                             TextField("Enter Description", text: $description)
                         }
                     }
-                    Text("Here is where we would \nadd a cover image")
-                }
+                    Button(action: self.addCoverImage) {
+                        Text("Add a cover image\n(+)").multilineTextAlignment(.center)
+                    }
+                    
+                }.padding(10)
                 Text("Stops:")
                 ScrollView {
                     VStack(spacing: 10) {
@@ -82,7 +88,7 @@ struct CreateAHunt: View {
                     Button(action: self.addHunt) {
                         Text("Publish Hunt")
                     }
-                }
+                }.padding(10)
             }
         }
     }

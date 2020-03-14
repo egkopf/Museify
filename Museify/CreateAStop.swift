@@ -42,12 +42,10 @@ struct CreateAStop: View {
                 Text("Name:")
                 TextField("Enter Name", text: $name)
             }
-            TextField("Enter a description or clues about the stop", text: $description).frame(width: 250, height: 200)
-            HStack{
-                Text("Cancel function \ngoes here")
-                Button(action: self.addStop) {
-                    Text("Add to Hunt >")
-                }
+            
+            TextField("Enter a description or clues about the stop", text: $description).frame(width: 250, height: 300)
+            Button(action: self.addStop) {
+                Text("Add to Hunt >")
             }
         }
     }

@@ -8,16 +8,15 @@
 
 import SwiftUI
 import Firebase
+import FirebaseStorage
 
 struct UploadImage: View {
     func uploadImage() {
         let storageRef = Storage.storage().reference()
         let localFile = URL(string: "file://desktop/M.jpg")!
 
-        // Create a reference to the file you want to upload
         let logoRef = storageRef.child("images/logos.jpg")
 
-        // Upload the file to the path "images/rivers.jpg"
         let uploadTask = logoRef.putFile(from: localFile, metadata: nil) { metadata, error in
           guard let metadata = metadata else {
             // Uh-oh, an error occurred!
