@@ -37,7 +37,7 @@ struct ContentView: View {
                     Text("Hunt Key")
                         .font(.headline)
             }.tag(2)
-            Circle()
+            DisplayImage()
                 .tabItem {
                     Text("Activity")
                         .font(.headline)

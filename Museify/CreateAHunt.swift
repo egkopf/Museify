@@ -23,6 +23,7 @@ struct CreateAHunt: View {
     @State private var isItPublic: Bool = true
     @State private var variable: Bool = false
     var db = Firestore.firestore()
+    @State var image = UIImage()
     
     func addHunt() {
         db.collection("hunts").document("\(name)").setData([
@@ -37,23 +38,22 @@ struct CreateAHunt: View {
         }
     }
     
-    func getLogo() {
-        let imgRef = Storage.storage().reference().child("images/M.jpg")
-
-        imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if let error = error {return}
-            let image = UIImage(data: data!)
-        }
-    }
-    
     func addHuntAndCreateStop() {
         addHunt()
         variable = true
     }
     
     func addCoverImage() {
-        print("add cover image")
+        let storageRef = Storage.storage().reference()
+        let imgRef = storageRef.child("images/M image")
+
+
+        imgRef.getData(maxSize: 1 * 5000 * 5000) { data, error in
+            if let error = error {return}
+            self.image = UIImage(data: data!)!
+        }
     }
+    
     var body: some View {
         NavigationView{
             VStack {
@@ -68,8 +68,13 @@ struct CreateAHunt: View {
                             TextField("Enter Description", text: $description)
                         }
                     }
-                    Button(action: self.addCoverImage) {
-                        Text("Add a cover image\n(+)").multilineTextAlignment(.center)
+                    if image == UIImage() {
+                        Button(action: self.addCoverImage) {
+                            Text("Add a cover image\n(+)").multilineTextAlignment(.center)
+                        }
+                    } else {
+                        Image(uiImage: image).resizable()
+                        .frame(height: 100)
                     }
                     
                 }.padding(10)
@@ -90,6 +95,7 @@ struct CreateAHunt: View {
                         Text("Add a Stop (+)")
                     }
                 }
+                
                 HStack{
                     Toggle(isOn: $isItPublic) {
                         Text("Public")

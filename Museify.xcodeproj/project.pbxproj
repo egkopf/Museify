@@ -19,6 +19,7 @@
 		402824FB23E49CF60039C74A /* MuseifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824FA23E49CF60039C74A /* MuseifyUITests.swift */; };
 		4038047223F245B40067F979 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4038047123F245B40067F979 /* Authentication.swift */; };
 		403C51BD23F0DB2E0040C47D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 403C51BC23F0DB2E0040C47D /* GoogleService-Info.plist */; };
+		405391B224241F81008117FE /* DisplayImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405391B124241F81008117FE /* DisplayImage.swift */; };
 		40A1AAF3241D55DE004B0DDD /* UploadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1AAF2241D55DE004B0DDD /* UploadImage.swift */; };
 		40BC9619240AF9BA00DCD4C9 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */; };
 		8D08173E2411DF5B000C217F /* UploadLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08173D2411DF5B000C217F /* UploadLogo.swift */; };
@@ -70,6 +71,7 @@
 		402824FC23E49CF60039C74A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4038047123F245B40067F979 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		403C51BC23F0DB2E0040C47D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		405391B124241F81008117FE /* DisplayImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayImage.swift; sourceTree = "<group>"; };
 		40A1AAF2241D55DE004B0DDD /* UploadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImage.swift; sourceTree = "<group>"; };
 		40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
 		548AD5BFDF47EE35A2657A4E /* Pods_MuseifyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MuseifyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +145,7 @@
 				402824D823E49CF30039C74A /* AppDelegate.swift */,
 				402824DA23E49CF30039C74A /* SceneDelegate.swift */,
 				402824DC23E49CF30039C74A /* ContentView.swift */,
+				405391B124241F81008117FE /* DisplayImage.swift */,
 				40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */,
 				400078E123F70F9B0084C8D4 /* Logo.swift */,
 				8D08173D2411DF5B000C217F /* UploadLogo.swift */,
@@ -463,6 +466,7 @@
 				402824DD23E49CF30039C74A /* ContentView.swift in Sources */,
 				8D9EE32C23FC51730022B9C9 /* SignUpOrLogIn.swift in Sources */,
 				400078E223F70F9B0084C8D4 /* Logo.swift in Sources */,
+				405391B224241F81008117FE /* DisplayImage.swift in Sources */,
 				4038047223F245B40067F979 /* Authentication.swift in Sources */,
 				8D9EE33023FC526D0022B9C9 /* SignUp.swift in Sources */,
 				8D9EE32E23FC51E70022B9C9 /* LogIn.swift in Sources */,
