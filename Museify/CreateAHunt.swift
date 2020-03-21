@@ -24,6 +24,13 @@ struct CreateAHunt: View {
     @State private var variable: Bool = false
     var db = Firestore.firestore()
     @State var image = UIImage()
+    var active: Bool {
+        if self.name == "" || self.description == "" {
+            return false
+        } else {
+            return true
+        }
+    }
     
     func addHunt() {
         db.collection("hunts").document("\(name)").setData([
@@ -93,7 +100,7 @@ struct CreateAHunt: View {
                 NavigationLink(destination: CreateAStop(huntName: "\(name)"), isActive: $variable) {
                     Button(action: self.addHuntAndCreateStop) {
                         Text("Add a Stop (+)")
-                    }
+                    }.disabled(!self.active)
                 }
                 
                 HStack{
@@ -103,7 +110,7 @@ struct CreateAHunt: View {
                     Spacer()
                     Button(action: self.addHunt) {
                         Text("Publish Hunt")
-                    }
+                    }.disabled(!self.active)
                 }.padding(10)
             }
         }
