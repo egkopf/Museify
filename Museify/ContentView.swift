@@ -39,7 +39,7 @@ struct ContentView: View {
             }.tag(2)
             DisplayImage()
                 .tabItem {
-                    Text("Activity")
+                    Text("Download Image")
                         .font(.headline)
             }.tag(3)
             
