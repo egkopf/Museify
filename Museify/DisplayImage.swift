@@ -27,7 +27,7 @@ struct DisplayImage: View {
 
 
         imgRef.getData(maxSize: 1 * 5000 * 5000) { data, error in
-            if let error = error {return}
+            if let _ = error {return}
             self.image = UIImage(data: data!)!
         }
     }

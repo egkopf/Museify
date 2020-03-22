@@ -18,13 +18,13 @@ struct UploadLogo: View {
         let localFile = URL(string: "file:///Users/ethankopf/Desktop/M.jpg")!
         print("Uploading \(localFile) to location \(logoImagesRef)")
 
-        let uploadTask = logoImagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
-            guard let metadata = metadata else {return}
+        let _ = logoImagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
+            guard let _ = metadata else {return}
 
             //let size = metadata.size
             
             logoImagesRef.downloadURL { (url, error) in
-                guard let downloadURL = url else {return}
+                guard let _ = url else {return}
             }
         }
     }

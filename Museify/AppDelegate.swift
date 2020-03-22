@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        let db = Firestore.firestore()
+        let _ = Firestore.firestore()
         /*let storageRef = Storage.storage().reference()
         let localFile = URL(string: "M.jpg")!
 
@@ -54,3 +54,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+class Stop: CustomStringConvertible, Hashable {
+
+    static func == (lhs: Stop, rhs: Stop) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+    }
+    
+    var name: String
+    var imgName: String
+    init(Name: String = "stopName", ImgName: String = "stopImg") {
+        name = Name
+        imgName = ImgName
+    }
+    
+    var hashValue: Int {
+        return ObjectIdentifier(self).hashValue
+    }
+    
+    var description: String {
+        return "|name: \(name), imageName: \(imgName)|"
+    }
+}
