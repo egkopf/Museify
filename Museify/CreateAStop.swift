@@ -24,6 +24,7 @@ struct CreateAStop: View {
     var db = Firestore.firestore()
     @State var filepath: String = ""
     @State var filename: String = ""
+    @Binding var variable: Bool
     
     func uploadImage() {
         //Filename does include extension
@@ -49,6 +50,7 @@ struct CreateAStop: View {
             else {print("Document successfully written!")}
         }
         uploadImage()
+        self.variable.toggle()
     }
     
     var body: some View {

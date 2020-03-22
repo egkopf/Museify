@@ -139,11 +139,12 @@ struct CreateAHunt: View {
                     }
                     
                 }
-                NavigationLink(destination: CreateAStop(huntName: "\(name)"), isActive: $variable) {
                     Button(action: self.addHuntAndCreateStop) {
                         Text("Add a Stop (+)")
                     }.disabled(!self.active)
-                }
+                    .sheet(isPresented: $variable) {
+                        CreateAStop(huntName: "\(self.name)", variable: self.$variable)
+                    }
                 
                 HStack{
                     Toggle(isOn: $isItPublic) {

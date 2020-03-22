@@ -15,6 +15,7 @@ import FirebaseDatabase
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 struct DisplayImage: View {
     
