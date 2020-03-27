@@ -32,12 +32,12 @@ struct ContentView: View {
                     Text("Create A Hunt")
                         .font(.headline)
             }.tag(1)
-            Logo()
+            HuntKey()
                 .tabItem {
                     Text("Hunt Key")
                         .font(.headline)
             }.tag(2)
-            DisplayImage()
+            ChooseImageFromLib()
                 .tabItem {
                     Text("Download Image")
                         .font(.headline)

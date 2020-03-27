@@ -19,6 +19,10 @@
 		402824FB23E49CF60039C74A /* MuseifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824FA23E49CF60039C74A /* MuseifyUITests.swift */; };
 		4038047223F245B40067F979 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4038047123F245B40067F979 /* Authentication.swift */; };
 		403C51BD23F0DB2E0040C47D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 403C51BC23F0DB2E0040C47D /* GoogleService-Info.plist */; };
+		404C81AD242EA7B8003AF2AB /* HuntKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C81AC242EA7B8003AF2AB /* HuntKey.swift */; };
+		404C81AF242EAD60003AF2AB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C81AE242EAD60003AF2AB /* ImagePicker.swift */; };
+		404C81B1242EB2A5003AF2AB /* ChooseImageFromLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C81B0242EB2A5003AF2AB /* ChooseImageFromLib.swift */; };
+		404C81B3242EB391003AF2AB /* PhotoCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C81B2242EB391003AF2AB /* PhotoCaptureView.swift */; };
 		405391B224241F81008117FE /* DisplayImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405391B124241F81008117FE /* DisplayImage.swift */; };
 		40A1AAF3241D55DE004B0DDD /* UploadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1AAF2241D55DE004B0DDD /* UploadImage.swift */; };
 		40BC9619240AF9BA00DCD4C9 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */; };
@@ -71,6 +75,10 @@
 		402824FC23E49CF60039C74A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4038047123F245B40067F979 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		403C51BC23F0DB2E0040C47D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		404C81AC242EA7B8003AF2AB /* HuntKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntKey.swift; sourceTree = "<group>"; };
+		404C81AE242EAD60003AF2AB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		404C81B0242EB2A5003AF2AB /* ChooseImageFromLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseImageFromLib.swift; sourceTree = "<group>"; };
+		404C81B2242EB391003AF2AB /* PhotoCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureView.swift; sourceTree = "<group>"; };
 		405391B124241F81008117FE /* DisplayImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayImage.swift; sourceTree = "<group>"; };
 		40A1AAF2241D55DE004B0DDD /* UploadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImage.swift; sourceTree = "<group>"; };
 		40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
@@ -155,6 +163,10 @@
 				8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */,
 				8D9EE32F23FC526D0022B9C9 /* SignUp.swift */,
 				8D08173F241C1EBE000C217F /* CreateAHunt.swift */,
+				404C81AE242EAD60003AF2AB /* ImagePicker.swift */,
+				404C81B0242EB2A5003AF2AB /* ChooseImageFromLib.swift */,
+				404C81B2242EB391003AF2AB /* PhotoCaptureView.swift */,
+				404C81AC242EA7B8003AF2AB /* HuntKey.swift */,
 				8D081743241C280C000C217F /* CreateAStop.swift */,
 				400078E323F710000084C8D4 /* M.jpg */,
 				402824DE23E49CF60039C74A /* Assets.xcassets */,
@@ -458,6 +470,8 @@
 			files = (
 				40BC9619240AF9BA00DCD4C9 /* ProfilePage.swift in Sources */,
 				8D081740241C1EBE000C217F /* CreateAHunt.swift in Sources */,
+				404C81AD242EA7B8003AF2AB /* HuntKey.swift in Sources */,
+				404C81B1242EB2A5003AF2AB /* ChooseImageFromLib.swift in Sources */,
 				40A1AAF3241D55DE004B0DDD /* UploadImage.swift in Sources */,
 				402824D923E49CF30039C74A /* AppDelegate.swift in Sources */,
 				8D081744241C280C000C217F /* CreateAStop.swift in Sources */,
@@ -468,7 +482,9 @@
 				400078E223F70F9B0084C8D4 /* Logo.swift in Sources */,
 				405391B224241F81008117FE /* DisplayImage.swift in Sources */,
 				4038047223F245B40067F979 /* Authentication.swift in Sources */,
+				404C81AF242EAD60003AF2AB /* ImagePicker.swift in Sources */,
 				8D9EE33023FC526D0022B9C9 /* SignUp.swift in Sources */,
+				404C81B3242EB391003AF2AB /* PhotoCaptureView.swift in Sources */,
 				8D9EE32E23FC51E70022B9C9 /* LogIn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
