@@ -24,7 +24,7 @@ struct ContentView: View {
         TabView(selection: $selectedView) {
             UploadImage()
                 .tabItem {
-                    Text("Search")
+                    Text("Upload Image")
                         .font(.headline)
             }.tag(0)
             CreateAHunt()
@@ -42,12 +42,16 @@ struct ContentView: View {
                     Text("Download Image")
                         .font(.headline)
             }.tag(3)
-            
             ProfilePage(username: self.username)
                 .tabItem {
                     Text("Profile")
                         .font(.headline)
             }.tag(4)
+            Search()
+                .tabItem {
+                    Text("Search")
+                        .font(.headline)
+            }.tag(5)
         }
     }
 }
