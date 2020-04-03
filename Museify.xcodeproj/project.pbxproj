@@ -32,6 +32,8 @@
 		8D9EE32C23FC51730022B9C9 /* SignUpOrLogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */; };
 		8D9EE32E23FC51E70022B9C9 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EE32D23FC51E70022B9C9 /* LogIn.swift */; };
 		8D9EE33023FC526D0022B9C9 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EE32F23FC526D0022B9C9 /* SignUp.swift */; };
+		8DCD67952436B4CA00AA6C44 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCD67942436B4C900AA6C44 /* Search.swift */; };
+		8DCD679B2436B85D00AA6C44 /* HuntRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCD679A2436B85D00AA6C44 /* HuntRow.swift */; };
 		BC391EEE0BC9D923574EA15D /* Pods_Museify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3A8909C8A4B50CDCA699A1 /* Pods_Museify.framework */; };
 		F3DF62A7C06E1DDF5408F2FA /* Pods_Museify_MuseifyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6645B03DD39EEE588E1CDBC /* Pods_Museify_MuseifyUITests.framework */; };
 		F4D9FF6A0A516B56754F8C9D /* Pods_MuseifyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548AD5BFDF47EE35A2657A4E /* Pods_MuseifyTests.framework */; };
@@ -90,6 +92,8 @@
 		8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpOrLogIn.swift; sourceTree = "<group>"; };
 		8D9EE32D23FC51E70022B9C9 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		8D9EE32F23FC526D0022B9C9 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		8DCD67942436B4C900AA6C44 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		8DCD679A2436B85D00AA6C44 /* HuntRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntRow.swift; sourceTree = "<group>"; };
 		B2A58F469DB8BA0ECC12C646 /* Pods-Museify-MuseifyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Museify-MuseifyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Museify-MuseifyUITests/Pods-Museify-MuseifyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D46241219661C9D600006C06 /* Pods-MuseifyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseifyTests.release.xcconfig"; path = "Target Support Files/Pods-MuseifyTests/Pods-MuseifyTests.release.xcconfig"; sourceTree = "<group>"; };
 		D6645B03DD39EEE588E1CDBC /* Pods_Museify_MuseifyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Museify_MuseifyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +157,8 @@
 				402824D823E49CF30039C74A /* AppDelegate.swift */,
 				402824DA23E49CF30039C74A /* SceneDelegate.swift */,
 				402824DC23E49CF30039C74A /* ContentView.swift */,
+				8DCD67942436B4C900AA6C44 /* Search.swift */,
+				8DCD679A2436B85D00AA6C44 /* HuntRow.swift */,
 				405391B124241F81008117FE /* DisplayImage.swift */,
 				40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */,
 				400078E123F70F9B0084C8D4 /* Logo.swift */,
@@ -479,7 +485,9 @@
 				402824DB23E49CF30039C74A /* SceneDelegate.swift in Sources */,
 				402824DD23E49CF30039C74A /* ContentView.swift in Sources */,
 				8D9EE32C23FC51730022B9C9 /* SignUpOrLogIn.swift in Sources */,
+				8DCD679B2436B85D00AA6C44 /* HuntRow.swift in Sources */,
 				400078E223F70F9B0084C8D4 /* Logo.swift in Sources */,
+				8DCD67952436B4CA00AA6C44 /* Search.swift in Sources */,
 				405391B224241F81008117FE /* DisplayImage.swift in Sources */,
 				4038047223F245B40067F979 /* Authentication.swift in Sources */,
 				404C81AF242EAD60003AF2AB /* ImagePicker.swift in Sources */,
