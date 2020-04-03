@@ -32,9 +32,9 @@ struct ContentView: View {
                     Text("Create A Hunt")
                         .font(.headline)
             }.tag(1)
-            HuntKey()
+            Search()
                 .tabItem {
-                    Text("Hunt Key")
+                    Text("Search")
                         .font(.headline)
             }.tag(2)
             ChooseImageFromLib()
@@ -47,11 +47,6 @@ struct ContentView: View {
                     Text("Profile")
                         .font(.headline)
             }.tag(4)
-            Search()
-                .tabItem {
-                    Text("Search")
-                        .font(.headline)
-            }.tag(5)
         }
     }
 }

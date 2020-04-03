@@ -32,6 +32,7 @@
 		8D9EE32C23FC51730022B9C9 /* SignUpOrLogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */; };
 		8D9EE32E23FC51E70022B9C9 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EE32D23FC51E70022B9C9 /* LogIn.swift */; };
 		8D9EE33023FC526D0022B9C9 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EE32F23FC526D0022B9C9 /* SignUp.swift */; };
+		8DB984752436D566009CDBF2 /* HuntStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB984742436D566009CDBF2 /* HuntStops.swift */; };
 		8DCD67952436B4CA00AA6C44 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCD67942436B4C900AA6C44 /* Search.swift */; };
 		8DCD679B2436B85D00AA6C44 /* HuntRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCD679A2436B85D00AA6C44 /* HuntRow.swift */; };
 		BC391EEE0BC9D923574EA15D /* Pods_Museify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3A8909C8A4B50CDCA699A1 /* Pods_Museify.framework */; };
@@ -92,6 +93,7 @@
 		8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpOrLogIn.swift; sourceTree = "<group>"; };
 		8D9EE32D23FC51E70022B9C9 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		8D9EE32F23FC526D0022B9C9 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		8DB984742436D566009CDBF2 /* HuntStops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntStops.swift; sourceTree = "<group>"; };
 		8DCD67942436B4C900AA6C44 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		8DCD679A2436B85D00AA6C44 /* HuntRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntRow.swift; sourceTree = "<group>"; };
 		B2A58F469DB8BA0ECC12C646 /* Pods-Museify-MuseifyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Museify-MuseifyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Museify-MuseifyUITests/Pods-Museify-MuseifyUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,26 +156,16 @@
 		402824D723E49CF30039C74A /* Museify */ = {
 			isa = PBXGroup;
 			children = (
-				402824D823E49CF30039C74A /* AppDelegate.swift */,
+				8DB984772436DA1F009CDBF2 /* Authentication */,
+				8DB984762436D9EB009CDBF2 /* Uploading or Downloading Photos */,
+				8DB984782436DA5F009CDBF2 /* Searching or Participating in Hunt */,
+				8DB984792436DA93009CDBF2 /* Creating a Hunt */,
 				402824DA23E49CF30039C74A /* SceneDelegate.swift */,
 				402824DC23E49CF30039C74A /* ContentView.swift */,
-				8DCD67942436B4C900AA6C44 /* Search.swift */,
-				8DCD679A2436B85D00AA6C44 /* HuntRow.swift */,
-				405391B124241F81008117FE /* DisplayImage.swift */,
+				402824D823E49CF30039C74A /* AppDelegate.swift */,
 				40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */,
 				400078E123F70F9B0084C8D4 /* Logo.swift */,
-				8D08173D2411DF5B000C217F /* UploadLogo.swift */,
-				40A1AAF2241D55DE004B0DDD /* UploadImage.swift */,
-				4038047123F245B40067F979 /* Authentication.swift */,
-				8D9EE32D23FC51E70022B9C9 /* LogIn.swift */,
-				8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */,
-				8D9EE32F23FC526D0022B9C9 /* SignUp.swift */,
-				8D08173F241C1EBE000C217F /* CreateAHunt.swift */,
-				404C81AE242EAD60003AF2AB /* ImagePicker.swift */,
-				404C81B0242EB2A5003AF2AB /* ChooseImageFromLib.swift */,
-				404C81B2242EB391003AF2AB /* PhotoCaptureView.swift */,
 				404C81AC242EA7B8003AF2AB /* HuntKey.swift */,
-				8D081743241C280C000C217F /* CreateAStop.swift */,
 				400078E323F710000084C8D4 /* M.jpg */,
 				402824DE23E49CF60039C74A /* Assets.xcassets */,
 				402824E323E49CF60039C74A /* LaunchScreen.storyboard */,
@@ -208,6 +200,49 @@
 				402824FC23E49CF60039C74A /* Info.plist */,
 			);
 			path = MuseifyUITests;
+			sourceTree = "<group>";
+		};
+		8DB984762436D9EB009CDBF2 /* Uploading or Downloading Photos */ = {
+			isa = PBXGroup;
+			children = (
+				405391B124241F81008117FE /* DisplayImage.swift */,
+				8D08173D2411DF5B000C217F /* UploadLogo.swift */,
+				40A1AAF2241D55DE004B0DDD /* UploadImage.swift */,
+				404C81AE242EAD60003AF2AB /* ImagePicker.swift */,
+				404C81B0242EB2A5003AF2AB /* ChooseImageFromLib.swift */,
+				404C81B2242EB391003AF2AB /* PhotoCaptureView.swift */,
+			);
+			path = "Uploading or Downloading Photos";
+			sourceTree = "<group>";
+		};
+		8DB984772436DA1F009CDBF2 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				4038047123F245B40067F979 /* Authentication.swift */,
+				8D9EE32D23FC51E70022B9C9 /* LogIn.swift */,
+				8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */,
+				8D9EE32F23FC526D0022B9C9 /* SignUp.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		8DB984782436DA5F009CDBF2 /* Searching or Participating in Hunt */ = {
+			isa = PBXGroup;
+			children = (
+				8DB984742436D566009CDBF2 /* HuntStops.swift */,
+				8DCD67942436B4C900AA6C44 /* Search.swift */,
+				8DCD679A2436B85D00AA6C44 /* HuntRow.swift */,
+			);
+			path = "Searching or Participating in Hunt";
+			sourceTree = "<group>";
+		};
+		8DB984792436DA93009CDBF2 /* Creating a Hunt */ = {
+			isa = PBXGroup;
+			children = (
+				8D08173F241C1EBE000C217F /* CreateAHunt.swift */,
+				8D081743241C280C000C217F /* CreateAStop.swift */,
+			);
+			path = "Creating a Hunt";
 			sourceTree = "<group>";
 		};
 		BDCE12044B2D92E8D7D17228 /* Frameworks */ = {
@@ -484,6 +519,7 @@
 				8D08173E2411DF5B000C217F /* UploadLogo.swift in Sources */,
 				402824DB23E49CF30039C74A /* SceneDelegate.swift in Sources */,
 				402824DD23E49CF30039C74A /* ContentView.swift in Sources */,
+				8DB984752436D566009CDBF2 /* HuntStops.swift in Sources */,
 				8D9EE32C23FC51730022B9C9 /* SignUpOrLogIn.swift in Sources */,
 				8DCD679B2436B85D00AA6C44 /* HuntRow.swift in Sources */,
 				400078E223F70F9B0084C8D4 /* Logo.swift in Sources */,

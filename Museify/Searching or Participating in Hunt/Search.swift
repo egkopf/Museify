@@ -30,6 +30,7 @@ class Hunt: Identifiable {
 struct Search: View {
     var db = Firestore.firestore()
     @State public var hunts = [Hunt]()
+    
     func getAllHunts() {
         db.collection("hunts").getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -43,13 +44,17 @@ struct Search: View {
     }
     
     var body: some View {
-        VStack {
-            Button(action: self.getAllHunts) {
-                Text("Get hunts")
-            }
-            
-            List(hunts) { hunt in
-                HuntRow(name: hunt.name, description: hunt.description)
+        NavigationView {
+            VStack {
+                Button(action: self.getAllHunts) {
+                    Text("Get hunts")
+                }
+                
+                List(self.hunts) { hunt in
+                    NavigationLink(destination: HuntStops(name: hunt.name)) {
+                        HuntRow(name: hunt.name, description: hunt.description)
+                    }
+                }
             }
         }
     }
