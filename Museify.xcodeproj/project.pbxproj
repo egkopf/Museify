@@ -26,6 +26,7 @@
 		405391B224241F81008117FE /* DisplayImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405391B124241F81008117FE /* DisplayImage.swift */; };
 		40A1AAF3241D55DE004B0DDD /* UploadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1AAF2241D55DE004B0DDD /* UploadImage.swift */; };
 		40BC9619240AF9BA00DCD4C9 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */; };
+		40F829D22437A64800AF40AB /* ChooseCoverImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F829D12437A64800AF40AB /* ChooseCoverImage.swift */; };
 		8D08173E2411DF5B000C217F /* UploadLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08173D2411DF5B000C217F /* UploadLogo.swift */; };
 		8D081740241C1EBE000C217F /* CreateAHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08173F241C1EBE000C217F /* CreateAHunt.swift */; };
 		8D081744241C280C000C217F /* CreateAStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D081743241C280C000C217F /* CreateAStop.swift */; };
@@ -85,6 +86,7 @@
 		405391B124241F81008117FE /* DisplayImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayImage.swift; sourceTree = "<group>"; };
 		40A1AAF2241D55DE004B0DDD /* UploadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImage.swift; sourceTree = "<group>"; };
 		40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
+		40F829D12437A64800AF40AB /* ChooseCoverImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCoverImage.swift; sourceTree = "<group>"; };
 		548AD5BFDF47EE35A2657A4E /* Pods_MuseifyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MuseifyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FBF0DDE23DB351DE4505B41 /* Pods-Museify-MuseifyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Museify-MuseifyUITests.release.xcconfig"; path = "Target Support Files/Pods-Museify-MuseifyUITests/Pods-Museify-MuseifyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8D08173D2411DF5B000C217F /* UploadLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadLogo.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				8D08173F241C1EBE000C217F /* CreateAHunt.swift */,
+				40F829D12437A64800AF40AB /* ChooseCoverImage.swift */,
 				8D081743241C280C000C217F /* CreateAStop.swift */,
 			);
 			path = "Creating a Hunt";
@@ -525,6 +528,7 @@
 				400078E223F70F9B0084C8D4 /* Logo.swift in Sources */,
 				8DCD67952436B4CA00AA6C44 /* Search.swift in Sources */,
 				405391B224241F81008117FE /* DisplayImage.swift in Sources */,
+				40F829D22437A64800AF40AB /* ChooseCoverImage.swift in Sources */,
 				4038047223F245B40067F979 /* Authentication.swift in Sources */,
 				404C81AF242EAD60003AF2AB /* ImagePicker.swift in Sources */,
 				8D9EE33023FC526D0022B9C9 /* SignUp.swift in Sources */,

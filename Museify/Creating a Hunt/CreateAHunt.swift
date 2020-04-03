@@ -22,8 +22,9 @@ struct CreateAHunt: View {
     @State private var description: String = ""
     @State private var isItPublic: Bool = true
     @State private var variable: Bool = false
+    @State private var showImagePicker: Bool = false
+    @State private var coverImage: UIImage? = nil
     var db = Firestore.firestore()
-    @State var coverImage = UIImage()
     @State var stops = [Stop]()
     @State var images = [String: UIImage]()
     var active: Bool {return !(self.name == "" || self.description == "")}
@@ -40,15 +41,31 @@ struct CreateAHunt: View {
         variable = true
     }
     
-    func addCoverImage() {
+    func uploadCoverImage() {
+
         let storageRef = Storage.storage().reference()
-        let imgRef = storageRef.child("images/M image")
-
-
-        imgRef.getData(maxSize: 1 * 5000 * 5000) { data, error in
-            if let _ = error {return}
-            self.coverImage = UIImage(data: data!)!
+        let storageRefSpecific = storageRef.child("images/newCoverImage")
+        //This is a big problem
+        let imgData = coverImage?.jpegData(compressionQuality: 100)
+        let uploadTask = storageRefSpecific.putData(imgData!, metadata: nil) { (metadata, error) in
+          guard let metadata = metadata else {
+            // Uh-oh, an error occurred!
+            return
+          }
+          // Metadata contains file metadata such as size, content-type.
+          let size = metadata.size
+          // You can also access to download URL after upload.
+          storageRefSpecific.downloadURL { (url, error) in
+            guard let downloadURL = url else {
+              // Uh-oh, an error occurred!
+              return
+            }
+          }
         }
+    }
+        
+    func addCoverImage() {
+        showImagePicker = true
     }
     
     func getStops() {
@@ -104,14 +121,20 @@ struct CreateAHunt: View {
                             TextField("Enter Description", text: $description)
                         }
                     }
-                    if coverImage == UIImage() {
-                        Button(action: self.addCoverImage) {
-                            Text("Add a cover image\n(+)").multilineTextAlignment(.center)
+                    ZStack {
+                        
+                        Button("Choose a \nCover Image") {
+                            self.showImagePicker = true
+                        }.disabled(!self.active)
+                            .sheet(isPresented: self.$showImagePicker) {
+                                PhotoCaptureView(showImagePicker: self.$showImagePicker, image: self.$coverImage)
+                            }
+                        if coverImage != nil {
+                            Image(uiImage: coverImage!).resizable().frame(height: 150)
                         }
-                    } else {
-                        Image(uiImage: coverImage).resizable()
-                        .frame(height: 100)
+                        
                     }
+                    
                     
                 }.padding(10)
                 Text("Stops:")
@@ -145,6 +168,9 @@ struct CreateAHunt: View {
                     .sheet(isPresented: $variable) {
                         CreateAStop(huntName: "\(self.name)", variable: self.$variable)
                     }
+                Button(action: self.uploadCoverImage) {
+                    Text("upload coverimag")
+                }
                 
                 HStack{
                     Toggle(isOn: $isItPublic) {

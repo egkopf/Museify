@@ -10,12 +10,11 @@ import SwiftUI
 
 struct ChooseImageFromLib: View {
     @State private var showImagePicker: Bool = false
-    @State private var image: Image? = nil
+    @State private var image: UIImage? = nil
     var body: some View {
         VStack {
             
-            image?.resizable()
-                .scaledToFit()
+            if image != nil {Image(uiImage: image!)}
             
             Button("Open Camera") {
                 self.showImagePicker = true

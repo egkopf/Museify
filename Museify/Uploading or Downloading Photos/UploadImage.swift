@@ -26,7 +26,6 @@ struct UploadImage: View {
 
         let _ = logoImagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
             guard let _ = metadata else {print("metadata error"); return}
-            //let size = metadata.size
             
             logoImagesRef.downloadURL { (url, error) in
                 guard let _ = url else {print("url error; url: \(String(describing: url))"); return}
