@@ -159,9 +159,9 @@
 			isa = PBXGroup;
 			children = (
 				8DB984772436DA1F009CDBF2 /* Authentication */,
-				8DB984762436D9EB009CDBF2 /* Uploading or Downloading Photos */,
-				8DB984782436DA5F009CDBF2 /* Searching or Participating in Hunt */,
-				8DB984792436DA93009CDBF2 /* Creating a Hunt */,
+				8DB984762436D9EB009CDBF2 /* UploadingOrDownloadingPhotos */,
+				8DB984782436DA5F009CDBF2 /* SearchingOrParticipatingInHunt */,
+				8DB984792436DA93009CDBF2 /* CreatingAHunt */,
 				402824DA23E49CF30039C74A /* SceneDelegate.swift */,
 				402824DC23E49CF30039C74A /* ContentView.swift */,
 				402824D823E49CF30039C74A /* AppDelegate.swift */,
@@ -204,7 +204,7 @@
 			path = MuseifyUITests;
 			sourceTree = "<group>";
 		};
-		8DB984762436D9EB009CDBF2 /* Uploading or Downloading Photos */ = {
+		8DB984762436D9EB009CDBF2 /* UploadingOrDownloadingPhotos */ = {
 			isa = PBXGroup;
 			children = (
 				405391B124241F81008117FE /* DisplayImage.swift */,
@@ -214,7 +214,7 @@
 				404C81B0242EB2A5003AF2AB /* ChooseImageFromLib.swift */,
 				404C81B2242EB391003AF2AB /* PhotoCaptureView.swift */,
 			);
-			path = "Uploading or Downloading Photos";
+			path = UploadingOrDownloadingPhotos;
 			sourceTree = "<group>";
 		};
 		8DB984772436DA1F009CDBF2 /* Authentication */ = {
@@ -228,24 +228,24 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		8DB984782436DA5F009CDBF2 /* Searching or Participating in Hunt */ = {
+		8DB984782436DA5F009CDBF2 /* SearchingOrParticipatingInHunt */ = {
 			isa = PBXGroup;
 			children = (
 				8DB984742436D566009CDBF2 /* HuntStops.swift */,
 				8DCD67942436B4C900AA6C44 /* Search.swift */,
 				8DCD679A2436B85D00AA6C44 /* HuntRow.swift */,
 			);
-			path = "Searching or Participating in Hunt";
+			path = SearchingOrParticipatingInHunt;
 			sourceTree = "<group>";
 		};
-		8DB984792436DA93009CDBF2 /* Creating a Hunt */ = {
+		8DB984792436DA93009CDBF2 /* CreatingAHunt */ = {
 			isa = PBXGroup;
 			children = (
 				8D08173F241C1EBE000C217F /* CreateAHunt.swift */,
 				40F829D12437A64800AF40AB /* ChooseCoverImage.swift */,
 				8D081743241C280C000C217F /* CreateAStop.swift */,
 			);
-			path = "Creating a Hunt";
+			path = CreatingAHunt;
 			sourceTree = "<group>";
 		};
 		BDCE12044B2D92E8D7D17228 /* Frameworks */ = {
