@@ -13,7 +13,7 @@ struct HuntRow: View {
     @State var description: String
     
     var body: some View {
-        VStack{
+        VStack(alignment: .leading) {
             Text("\(name)")
                 .font(.headline)
             Text("\(description)")

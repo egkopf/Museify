@@ -17,7 +17,11 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 
-class Hunt: Identifiable {
+class Hunt: Identifiable, Equatable, CustomStringConvertible {
+    static func == (lhs: Hunt, rhs: Hunt) -> Bool {
+        return lhs.name == lhs.name && lhs.description == lhs.description
+    }
+    
     var name: String
     var description: String
     
@@ -37,6 +41,8 @@ struct Search: View {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
+                    let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String)
+                    for hunt in self.hunts {if hunt.name == newHunt.name {return}}
                     self.hunts.append(Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String))
                 }
             }
@@ -46,14 +52,13 @@ struct Search: View {
     var body: some View {
         NavigationView {
             VStack {
-                Button(action: self.getAllHunts) {
-                    Text("Get hunts")
-                }
-                
+                Text("💙Hunts💙").font(.largeTitle)
                 List(self.hunts) { hunt in
                     NavigationLink(destination: HuntStops(name: hunt.name)) {
                         HuntRow(name: hunt.name, description: hunt.description)
                     }
+                }.onAppear {
+                    self.getAllHunts()
                 }
             }
         }

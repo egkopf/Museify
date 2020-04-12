@@ -64,31 +64,27 @@ struct HuntStops: View {
     
     var body: some View {
         VStack{
-            Text("Stops:")
-            ScrollView {
-                Button(action: self.getStops) {
-                    Text("Get stops")
-                }
-                if self.images.count > 0 && self.stops.count == images.count {
-                    VStack(spacing: 10) {
-                        ForEach(self.stops, id: \.self) { stop in
-                            HStack {
-                                Text("\(stop.name)")
-                                    .foregroundColor(.white)
-                                    .font(.largeTitle)
-                                    .frame(width: 300, height: 40)
-                                    .background(Color.blue)
-                                Image(uiImage: self.images[stop.imgName]!).resizable()
-                                    .frame(width: 50, height: 50)
-                            }
-                            
+            Text("Stops:").font(.largeTitle)
+            if self.images.count > 0 && self.stops.count == images.count {
+                VStack(spacing: 10) {
+                    ForEach(self.stops, id: \.self) { stop in
+                        HStack {
+                            Text("\(stop.name)")
+                                .foregroundColor(.white)
+                                .font(.largeTitle)
+                                .frame(width: 300, height: 40)
+                                .background(Color.blue)
+                            Image(uiImage: self.images[stop.imgName]!).resizable()
+                                .frame(width: 50, height: 50)
                         }
+                        
                     }
-                } else {
-                    Text("No stops yet!")
                 }
+            } else {
+                Text("No stops yet!")
             }
-        }
+            Spacer()
+        }.onAppear {self.getStops()}
     }
 }
 
