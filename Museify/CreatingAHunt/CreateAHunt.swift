@@ -169,7 +169,7 @@ struct CreateAHunt: View {
                         CreateAStop(huntName: "\(self.name)", variable: self.$variable)
                     }
                 Button(action: self.uploadCoverImage) {
-                    Text("upload coverimag")
+                    Text("Upload Cover Image")
                 }
                 
                 HStack{
