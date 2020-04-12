@@ -34,6 +34,7 @@ class Hunt: Identifiable, Equatable, CustomStringConvertible {
 struct Search: View {
     var db = Firestore.firestore()
     @State public var hunts = [Hunt]()
+    @State public var searchBar = "A"
     
     func getAllHunts() {
         db.collection("hunts").getDocuments() { (querySnapshot, err) in
@@ -47,12 +48,23 @@ struct Search: View {
                 }
             }
         }
+        self.hunts.filter{$0.name.contains("\(self.$searchBar)")}
+
+    }
+    
+    func getAllHuntsAndClear() {
+        self.hunts = [Hunt]()
+        self.getAllHunts()
     }
     
     var body: some View {
         NavigationView {
             VStack {
                 Text("💙Hunts💙").font(.largeTitle)
+                HStack {
+                    Text("Search:")
+                    TextField("Search for Hunt", text: $searchBar, onEditingChanged: { _ in self.getAllHuntsAndClear()})
+                }
                 List(self.hunts) { hunt in
                     NavigationLink(destination: HuntStops(name: hunt.name)) {
                         HuntRow(name: hunt.name, description: hunt.description)
