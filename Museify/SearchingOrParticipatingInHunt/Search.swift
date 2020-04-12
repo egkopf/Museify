@@ -96,7 +96,7 @@ struct Search: View {
                 SearchBar(text: $searchBar, placeholder: "Search")
                 List {
                     ForEach(self.hunts) { hunt in
-                        if hunt.name.contains(self.searchBar) || hunt.description.contains(self.searchBar) || self.searchBar == "" {
+                        if hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "" {
                             NavigationLink(destination: HuntStops(name: hunt.name)) {
                                 HuntRow(name: hunt.name, description: hunt.description)
                             }
