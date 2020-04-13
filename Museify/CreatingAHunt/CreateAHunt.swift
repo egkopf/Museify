@@ -139,9 +139,6 @@ struct CreateAHunt: View {
                 }.padding(10)
                 Text("Stops:")
                 ScrollView {
-                    Button(action: self.getStops) {
-                        Text("Get stops")
-                    }
                     if images.count > 0 && stops.count == images.count {
                         VStack(spacing: 10) {
                             ForEach(stops, id: \.self) { stop in
@@ -155,6 +152,8 @@ struct CreateAHunt: View {
                                         .frame(width: 50, height: 50)
                                 }
                                 
+                            }.onAppear {
+                                self.getStops()
                             }
                         }
                     } else {
