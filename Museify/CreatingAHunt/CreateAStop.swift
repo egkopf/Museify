@@ -25,7 +25,16 @@ struct CreateAStop: View {
     @State var filepath: String = ""
     @State var filename: String = ""
     @Binding var variable: Bool
-    
+    @ObservedObject var locationManager = LocationManager()
+
+    var userLatitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
+    }
+
+    var userLongitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
+    }
+
     func uploadImage() {
         //Filename does include extension
         let storageRef = Storage.storage().reference()
@@ -33,7 +42,7 @@ struct CreateAStop: View {
         
         let localFile = URL(string: "file://\(self.filepath)")!
         print("Uploading \(self.filename) to  images")
-
+        
         let _ = logoImagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
             guard let _ = metadata else {print("metadata error"); return}
             //let size = metadata.size
@@ -43,9 +52,16 @@ struct CreateAStop: View {
             }
         }
     }
-    
+
     func addStop() {
-        db.collection("hunts").document(huntName).collection("stops").document(name).setData(["name": name, "description": description, "imageName": filename]) { err in
+        db.collection("hunts").document(huntName).collection("stops").document(name).setData([
+            "name": name,
+            "description": description,
+            "imageName": filename,
+            "locationStatus": locationManager.statusString,
+            "latitude": userLatitude,
+            "logitude": userLongitude
+        ]) { err in
             if let err = err {print("Error writing document: \(err)")}
             else {print("Document successfully written!")}
         }
