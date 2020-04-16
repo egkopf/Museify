@@ -60,7 +60,7 @@ struct CreateAStop: View {
             "imageName": filename,
             "locationStatus": locationManager.statusString,
             "latitude": userLatitude,
-            "logitude": userLongitude
+            "longitude": userLongitude
         ]) { err in
             if let err = err {print("Error writing document: \(err)")}
             else {print("Document successfully written!")}

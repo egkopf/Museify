@@ -11,6 +11,7 @@ import Firebase
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseAuth
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -61,10 +62,16 @@ class Stop: CustomStringConvertible, Hashable {
     }
     
     var name: String
+    var stopDescription: String
     var imgName: String
-    init(Name: String = "stopName", ImgName: String = "stopImg") {
+    var latitude: Double
+    var longitude: Double
+    init(Name: String = "stopName", StopDescription: String = "stopDescription", ImgName: String = "stopImg", Latitude: Double = 0.0, Longitude: Double = 0.0) {
         name = Name
+        stopDescription = StopDescription
         imgName = ImgName
+        latitude = Latitude
+        longitude = Longitude
     }
     
     var hashValue: Int {
@@ -72,6 +79,6 @@ class Stop: CustomStringConvertible, Hashable {
     }
     
     var description: String {
-        return "|name: \(name), imageName: \(imgName)|"
+        return "|name: \(name), description: \(stopDescription) imageName: \(imgName)|"
     }
 }
