@@ -39,11 +39,16 @@ struct CreateAStop: View {
         //Filename does include extension
         let storageRef = Storage.storage().reference()
         let logoImagesRef = storageRef.child("images/\(self.filename)")
+        let metadata = StorageMetadata()
+        metadata.customMetadata = [
+            "latitude": "\(userLatitude)",
+            "longitude": "\(userLongitude)"
+        ]
         
         let localFile = URL(string: "file://\(self.filepath)")!
         print("Uploading \(self.filename) to  images")
         
-        let _ = logoImagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
+        let _ = logoImagesRef.putFile(from: localFile, metadata: metadata) { metadata, error in
             guard let _ = metadata else {print("metadata error"); return}
             //let size = metadata.size
             
@@ -77,7 +82,7 @@ struct CreateAStop: View {
                 TextField("Enter Name", text: $name)
             }
             
-            TextField("Enter a description or clues about the stop", text: $description).frame(width: 250, height: 300)
+            TextField("Enter a description about the stop", text: $description).frame(width: 250, height: 300)
             Text("IMAGE:")
             HStack {
                 Text("Filepath:")

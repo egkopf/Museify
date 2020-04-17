@@ -20,11 +20,16 @@ struct UploadImage: View {
         //Filename does include extension
         let storageRef = Storage.storage().reference()
         let logoImagesRef = storageRef.child("images/\(self.filename)")
+        let metadata = StorageMetadata()
+        metadata.customMetadata = [
+            "latitude": "0.0",
+            "longitude": "0.0"
+        ]
         
         let localFile = URL(string: "file://\(self.filepath)")!
         print("Uploading \(self.filename) to  images")
 
-        let _ = logoImagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
+        let _ = logoImagesRef.putFile(from: localFile, metadata: metadata) { metadata, error in
             guard let _ = metadata else {print("metadata error"); return}
             
             logoImagesRef.downloadURL { (url, error) in
