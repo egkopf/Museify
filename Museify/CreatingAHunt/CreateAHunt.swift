@@ -16,6 +16,7 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
+import CoreLocation
 
 struct CreateAHunt: View {
     @State private var name: String = ""
@@ -28,6 +29,16 @@ struct CreateAHunt: View {
     @State var stops = [Stop]()
     @State var images = [String: UIImage]()
     var active: Bool {return !(self.name == "" || self.description == "")}
+    @ObservedObject var locationManager = LocationManager()
+
+    var userLatitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
+    }
+
+    var userLongitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
+    }
+    
     
     func addHunt() {
         db.collection("hunts").document("\(name)").setData(["name": "\(name)", "description": "\(description)"]) { err in
@@ -45,21 +56,16 @@ struct CreateAHunt: View {
 
         let storageRef = Storage.storage().reference()
         let storageRefSpecific = storageRef.child("images/\(name)CoverImage")
-        //This is a big problem
+
         let imgData = coverImage?.jpegData(compressionQuality: 100)
         let uploadTask = storageRefSpecific.putData(imgData!, metadata: nil) { (metadata, error) in
-          guard let metadata = metadata else {
-            // Uh-oh, an error occurred!
-            return
-          }
+          guard let metadata = metadata else {return}
+            
           // Metadata contains file metadata such as size, content-type.
           let size = metadata.size
           // You can also access to download URL after upload.
           storageRefSpecific.downloadURL { (url, error) in
-            guard let downloadURL = url else {
-              // Uh-oh, an error occurred!
-              return
-            }
+            guard let downloadURL = url else {return}
           }
         }
     }
@@ -70,7 +76,7 @@ struct CreateAHunt: View {
     
     func getStops() {
         let stopRef = db.collection("hunts").document("\(String(describing: name))").collection("stops")
-            
+        
         stopRef.getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -80,12 +86,12 @@ struct CreateAHunt: View {
                     
                     let storageRef = Storage.storage().reference()
                     let imgRef = storageRef.child("images/\(document.data()["imageName"] as! String)")
-
-
+                    
+                    
                     
                     
                     print(document.data())
-                    self.stops.append(Stop(Name: document.data()["name"] as! String, ImgName: document.data()["imageName"] as! String))
+                    self.stops.append(Stop(Name: document.data()["name"] as! String, StopDescription: document.data()["description"] as! String, ImgName: document.data()["imageName"] as! String, Latitude: document.data()["latitude"] as! Double, Longitude: document.data()["longitude"] as! Double))
                     print(self.stops)
                     print("images: \(self.images)")
                     
@@ -138,10 +144,14 @@ struct CreateAHunt: View {
                     
                 }.padding(10)
                 Text("Stops:")
-                ScrollView {
-                    if images.count > 0 && stops.count == images.count {
-                        VStack(spacing: 10) {
-                            ForEach(stops, id: \.self) { stop in
+                Button(action: self.getStops) {
+                    Text("Get Stops")
+                }
+                Spacer()
+                if images.count > 0 && stops.count == images.count {
+                    VStack(spacing: 10) {
+                        ForEach(stops, id: \.self) { stop in
+                            VStack{
                                 HStack {
                                     Text("\(stop.name)")
                                         .foregroundColor(.white)
@@ -151,16 +161,15 @@ struct CreateAHunt: View {
                                     Image(uiImage: self.images[stop.imgName]!).resizable()
                                         .frame(width: 50, height: 50)
                                 }
-                                
-                            }.onAppear {
-                                self.getStops()
+                                Text("\(CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) meters away!")
+                                    .font(.footnote)
                             }
+                            
                         }
-                    } else {
-                        Text("No stops yet!")
                     }
-                    
-                }.onAppear {print(self.images.count); print(self.stops.count)}
+                } else {
+                    Text("No stops yet!")
+                }
                 
                 Button(action: self.addHuntAndCreateStop) {
                     Text("Add a Stop (+)")
@@ -168,6 +177,7 @@ struct CreateAHunt: View {
                 .sheet(isPresented: $variable) {
                     CreateAStop(huntName: "\(self.name)", variable: self.$variable)
                 }
+                
                 Button(action: self.uploadCoverImage) {
                     Text("Upload Cover Image")
                 }
