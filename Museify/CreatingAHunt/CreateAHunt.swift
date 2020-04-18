@@ -44,7 +44,7 @@ struct CreateAHunt: View {
     func uploadCoverImage() {
 
         let storageRef = Storage.storage().reference()
-        let storageRefSpecific = storageRef.child("images/newCoverImage")
+        let storageRefSpecific = storageRef.child("images/\(name)CoverImage")
         //This is a big problem
         let imgData = coverImage?.jpegData(compressionQuality: 100)
         let uploadTask = storageRefSpecific.putData(imgData!, metadata: nil) { (metadata, error) in
@@ -160,13 +160,14 @@ struct CreateAHunt: View {
                         Text("No stops yet!")
                     }
                     
+                }.onAppear {print(self.images.count); print(self.stops.count)}
+                
+                Button(action: self.addHuntAndCreateStop) {
+                    Text("Add a Stop (+)")
+                }.disabled(!self.active)
+                .sheet(isPresented: $variable) {
+                    CreateAStop(huntName: "\(self.name)", variable: self.$variable)
                 }
-                    Button(action: self.addHuntAndCreateStop) {
-                        Text("Add a Stop (+)")
-                    }.disabled(!self.active)
-                    .sheet(isPresented: $variable) {
-                        CreateAStop(huntName: "\(self.name)", variable: self.$variable)
-                    }
                 Button(action: self.uploadCoverImage) {
                     Text("Upload Cover Image")
                 }
