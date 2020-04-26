@@ -25,9 +25,12 @@ struct CreateAHunt: View {
     @State private var variable: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var coverImage: UIImage? = nil
+    @State private var huntID: Int? = nil
     var db = Firestore.firestore()
     @State var stops = [Stop]()
     @State var images = [String: UIImage]()
+    
+    
     var active: Bool {return !(self.name == "" || self.description == "")}
     @ObservedObject var locationManager = LocationManager()
 
@@ -39,12 +42,23 @@ struct CreateAHunt: View {
         return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
     }
     
+    func setID() {
+        huntID = Int.random(in: 100000...999999)
+    }
     
     func addHunt() {
-        db.collection("hunts").document("\(name)").setData(["name": "\(name)", "description": "\(description)"]) { err in
-            if let err = err {print("Error writing document: \(err)")}
-            else {print("Document successfully written!")}
+        if self.huntID == nil {
+            db.collection("hunts").document("\(name)").setData(["name": "\(name)", "description": "\(description)"]) { err in
+                if let err = err {print("Error writing document: \(err)")}
+                else {print("Document successfully written!")}
+            }
+        } else {
+            db.collection("hunts").document("\(name)").setData(["name": "\(name)", "description": "\(description)", "huntID": huntID!]) { err in
+                if let err = err {print("Error writing document: \(err)")}
+                else {print("Document successfully written!")}
+            }
         }
+        
     }
     
     func addHuntAndCreateStop() {
@@ -88,8 +102,6 @@ struct CreateAHunt: View {
                     let imgRef = storageRef.child("images/\(document.data()["imageName"] as! String)")
                     
                     
-                    
-                    
                     print(document.data())
                     self.stops.append(Stop(Name: document.data()["name"] as! String, StopDescription: document.data()["description"] as! String, ImgName: document.data()["imageName"] as! String, Latitude: document.data()["latitude"] as! Double, Longitude: document.data()["longitude"] as! Double))
                     print(self.stops)
@@ -127,6 +139,7 @@ struct CreateAHunt: View {
                             TextField("Enter Description", text: $description)
                         }
                     }
+                    
                     ZStack {
                         
                         Button("Choose a \nCover Image") {
@@ -183,13 +196,27 @@ struct CreateAHunt: View {
                 }
                 
                 HStack{
-                    Toggle(isOn: $isItPublic) {
-                        Text("Public")
-                    }.frame(width: 140)
+                    VStack {
+                        Toggle(isOn: $isItPublic) {
+                            Text("Public")
+                        }.frame(width: 140)
+                        
+                        if !self.isItPublic {
+                            Text("Hunt code:").onAppear {
+                                self.setID()
+                            }
+                            if self.huntID != nil {
+                                Text("\(huntID!.description)")
+                            }
+                        }
+                    }
+                    
                     Spacer()
                     Button(action: self.addHunt) {
                         Text("Publish Hunt")
                     }.disabled(!self.active)
+                    
+                    
                 }.padding(10)
             }
         }
