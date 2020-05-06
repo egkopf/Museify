@@ -37,9 +37,9 @@ struct ContentView: View {
                     Text("Search")
                         .font(.headline)
             }.tag(2)
-            ChooseImageFromLib()
+            HuntKey()
                 .tabItem {
-                    Text("Download Image")
+                    Text("Hunt Key")
                         .font(.headline)
             }.tag(3)
             ProfilePage(username: self.username)

@@ -12,6 +12,10 @@ import CoreLocation
 struct CompleteAStop: View {
     @State var stop: Stop
     @State var images: [String: UIImage]
+    @State var showActionSheet = false
+    @State var showImagePicker = false
+    @State var uiimage: UIImage?
+    @State var sourceType: Int = 0
     @ObservedObject var locationManager = LocationManager()
 
     var userLatitude: Double {
@@ -36,7 +40,36 @@ struct CompleteAStop: View {
                     Text("\(CLLocation(latitude: userLatitude, longitude: userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) meters away!")
                 }
             }
-            ChooseImageFromLib()
+            ZStack {
+                HStack {
+                    Text("Take a picture:")
+                if self.uiimage != nil {
+                    Image(uiImage: uiimage!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 120, height: 120)
+                        .overlay(
+                    CameraButtonView(showActionSheet: $showActionSheet))
+                        .actionSheet(isPresented: $showActionSheet, content: { () -> ActionSheet in
+                            ActionSheet(title: Text("Select Image"), message: Text("Please select an image"), buttons: [
+                                ActionSheet.Button.default(Text("Camera"), action: {
+                                    self.sourceType = 0
+                                    self.showImagePicker.toggle()
+                                }),
+                                ActionSheet.Button.default(Text("Photo Gallery"), action: {
+                                    self.sourceType = 1
+                                    self.showImagePicker.toggle()
+                                }),
+                                ActionSheet.Button.cancel()
+                            ])
+                        })
+                }
+                if showImagePicker {
+                    ImagePicker(isVisible: $showImagePicker, uiimage: $uiimage, sourceType: sourceType)
+                }
+                }
+            }
+            .onAppear { self.uiimage = UIImage(systemName: "star.fill")}
         }
     }
 }

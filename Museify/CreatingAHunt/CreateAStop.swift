@@ -22,9 +22,13 @@ struct CreateAStop: View {
     @State private var description: String = ""
     var huntName: String
     var db = Firestore.firestore()
-    @State var filepath: String = ""
+    //@State var filepath: String = ""
     @State var filename: String = ""
     @Binding var variable: Bool
+    @State var showActionSheet = false
+    @State var showImagePicker = false
+    @State var uiimage: UIImage?
+    @State var sourceType: Int = 0
     @ObservedObject var locationManager = LocationManager()
 
     var userLatitude: Double {
@@ -37,6 +41,7 @@ struct CreateAStop: View {
 
     func uploadImage() {
         //Filename does include extension
+        //let data = Data()
         let storageRef = Storage.storage().reference()
         let logoImagesRef = storageRef.child("images/\(self.filename)")
         let metadata = StorageMetadata()
@@ -45,10 +50,14 @@ struct CreateAStop: View {
             "longitude": "\(userLongitude)"
         ]
         
-        let localFile = URL(string: "file://\(self.filepath)")!
+        //let localFile = URL(string: "file://\(self.filepath)")!
         print("Uploading \(self.filename) to  images")
         
-        let _ = logoImagesRef.putFile(from: localFile, metadata: metadata) { metadata, error in
+        guard let imageData = self.uiimage!.jpegData(compressionQuality: 0.1) else {
+            return
+        }
+        
+        let uploadTask = logoImagesRef.putData(imageData, metadata: metadata) { metadata, error in
             guard let _ = metadata else {print("metadata error"); return}
             //let size = metadata.size
             
@@ -84,16 +93,45 @@ struct CreateAStop: View {
             
             TextField("Enter a description about the stop", text: $description).frame(width: 250, height: 300)
             Text("IMAGE:")
-            HStack {
+            /*HStack {
                 Text("Filepath:")
                 TextField("Enter filepath", text: $filepath)
                 
-            }.padding(25)
+            }.padding(25)*/
             
             HStack{
                 Text("Filename:")
                 TextField("Enter filename", text: $filename)
             }.padding(25)
+            
+            ZStack {
+                if self.uiimage != nil {
+                    Image(uiImage: uiimage!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 40, height: 40)
+                        .overlay(
+                    CameraButtonView(showActionSheet: $showActionSheet))
+                        .actionSheet(isPresented: $showActionSheet, content: { () -> ActionSheet in
+                            ActionSheet(title: Text("Select Image"), message: Text("Please select an image"), buttons: [
+                                ActionSheet.Button.default(Text("Camera"), action: {
+                                    self.sourceType = 0
+                                    self.showImagePicker.toggle()
+                                }),
+                                ActionSheet.Button.default(Text("Photo Gallery"), action: {
+                                    self.sourceType = 1
+                                    self.showImagePicker.toggle()
+                                }),
+                                ActionSheet.Button.cancel()
+                            ])
+                        })
+                }
+                if showImagePicker {
+                    ImagePicker(isVisible: $showImagePicker, uiimage: $uiimage, sourceType: sourceType)
+                }
+                
+            }
+            .onAppear { self.uiimage = UIImage(systemName: "star.fill")}
             
             Button(action: self.addStop) {
                 Text("Add to Hunt >")

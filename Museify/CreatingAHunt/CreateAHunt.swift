@@ -23,9 +23,11 @@ struct CreateAHunt: View {
     @State private var description: String = ""
     @State private var isItPublic: Bool = true
     @State private var variable: Bool = false
-    @State private var showImagePicker: Bool = false
-    @State private var coverImage: UIImage? = nil
+    @State private var coverImage: UIImage?
     @State private var huntID: Int? = nil
+    @State var showActionSheet = false
+    @State var showImagePicker = false
+    @State var sourceType: Int = 0
     var db = Firestore.firestore()
     @State var stops = [Stop]()
     @State var images = [String: UIImage]()
@@ -61,11 +63,6 @@ struct CreateAHunt: View {
         
     }
     
-    func addHuntAndCreateStop() {
-        addHunt()
-        variable = true
-    }
-    
     func uploadCoverImage() {
 
         let storageRef = Storage.storage().reference()
@@ -82,6 +79,12 @@ struct CreateAHunt: View {
             guard let downloadURL = url else {return}
           }
         }
+    }
+    
+    func addHuntAndCreateStop() {
+        addHunt()
+        uploadCoverImage()
+        variable = true
     }
         
     func addCoverImage() {
@@ -145,8 +148,22 @@ struct CreateAHunt: View {
                         Button("Choose a \nCover Image") {
                             self.showImagePicker = true
                         }.disabled(!self.active)
-                            .sheet(isPresented: self.$showImagePicker) {
-                                PhotoCaptureView(showImagePicker: self.$showImagePicker, image: self.$coverImage)
+                            CameraButtonView(showActionSheet: $showActionSheet)
+                                    .actionSheet(isPresented: $showActionSheet, content: { () -> ActionSheet in
+                                        ActionSheet(title: Text("Select Image"), message: Text("Please select an image"), buttons: [
+                                            ActionSheet.Button.default(Text("Camera"), action: {
+                                                self.sourceType = 0
+                                                self.showImagePicker.toggle()
+                                            }),
+                                            ActionSheet.Button.default(Text("Photo Gallery"), action: {
+                                                self.sourceType = 1
+                                                self.showImagePicker.toggle()
+                                            }),
+                                            ActionSheet.Button.cancel()
+                                        ])
+                                    })
+                            if showImagePicker {
+                                ImagePicker(isVisible: $showImagePicker, uiimage: $coverImage, sourceType: sourceType)
                             }
                         if coverImage != nil {
                             Image(uiImage: coverImage!).resizable().frame(height: 150)
@@ -191,9 +208,9 @@ struct CreateAHunt: View {
                     CreateAStop(huntName: "\(self.name)", variable: self.$variable)
                 }
                 
-                Button(action: self.uploadCoverImage) {
+                /*Button(action: self.uploadCoverImage) {
                     Text("Upload Cover Image")
-                }
+                }*/
                 
                 HStack{
                     VStack {
