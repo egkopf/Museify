@@ -62,14 +62,16 @@ class Hunt: Identifiable, Equatable, CustomStringConvertible, Hashable {
     
     var name: String
     var description: String
+    var key: Int?
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
     }
     
-    init(name: String, description: String) {
+    init(name: String, description: String, key: Int?) {
         self.name = name
         self.description = description
+        self.key = key
     }
 }
 
@@ -77,17 +79,32 @@ struct Search: View {
     var db = Firestore.firestore()
     @State public var hunts = [Hunt]()
     @State public var searchBar = ""
+    @State var privKey: String = ""
+    @State var currentHuntName = ""
+    @State var ready: Bool = false
     
     func getAllHunts() {
         db.collection("hunts").getDocuments() { (querySnapshot, err) in
             if let err = err {print("Error getting documents: \(err)")} else {
                 for document in querySnapshot!.documents {
-                    let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String)
+                    let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String, key: (document.data()["huntID"] as? Int))
                     for hunt in self.hunts {if hunt.name == newHunt.name {return}}
-                    self.hunts.append(Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String))
+                    self.hunts.append(newHunt)
                 }
             }
         }
+    }
+    
+    func doNothing() {}
+    
+    func getPrivHunt() {
+        for hunt in self.hunts {
+            if hunt.key == Int(privKey) {
+                self.currentHuntName = hunt.name
+                ready = true
+            }
+        }
+        print("no hunt")
     }
     
     var body: some View {
@@ -96,7 +113,7 @@ struct Search: View {
                 SearchBar(text: $searchBar, placeholder: "Search")
                 List {
                     ForEach(self.hunts) { hunt in
-                        if hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "" {
+                        if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
                             NavigationLink(destination: HuntStops(name: hunt.name)) {
                                 HuntRow(name: hunt.name, description: hunt.description)
                             }
@@ -105,7 +122,24 @@ struct Search: View {
                 }.onAppear {
                     self.getAllHunts()
                 }.navigationBarTitle(Text("Hunts"))
+                VStack {
+                    HStack {
+                        Text("Enter a Private Hunt Key:")
+                        TextField("enter", text: $privKey)
+                        Button(action: self.getPrivHunt) {
+                           Text("Find")
+                        }
+                        Text(currentHuntName)
+                        NavigationLink(destination: HuntStops(name: currentHuntName)) {
+                            Text("embark")
+                        }.padding()
+                        
+                    }
+                    
+
+                }.padding()
             }
+            
         }
     }
 }
