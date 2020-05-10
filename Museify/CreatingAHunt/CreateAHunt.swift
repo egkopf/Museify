@@ -31,18 +31,12 @@ struct CreateAHunt: View {
     var db = Firestore.firestore()
     @State var stops = [Stop]()
     @State var images = [String: UIImage]()
+    @State var userLatitude: Double = 0.0
+    @State var userLongitude: Double = 0.0
+    @State var statusString: String = ""
     
     
     var active: Bool {return !(self.name == "" || self.description == "")}
-    @ObservedObject var locationManager = LocationManager()
-    
-    var userLatitude: Double {
-        return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
-    }
-    
-    var userLongitude: Double {
-        return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
-    }
     
     func setID() {
         huntID = Int.random(in: 100000...999999)
@@ -159,7 +153,7 @@ struct CreateAHunt: View {
                                 ])
                             })
                             .sheet(isPresented: $showImagePicker) {
-                                ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$coverImage, sourceType: self.sourceType)
+                                ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$coverImage, sourceType: self.sourceType, userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, statusString: self.$statusString)
                         }
                         if coverImage != nil {
                             Image(uiImage: coverImage!).resizable().frame(height: 150)

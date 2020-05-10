@@ -17,14 +17,15 @@ struct CompleteAStop: View {
     @State var uiimage: UIImage?
     @State var sourceType: Int = 0
     @ObservedObject var locationManager = LocationManager()
+    @State var userLatitude: Double = 0.0
+    @State var userLongitude: Double = 0.0
+    @State var statusString: String = ""
     
-    var userLatitude: Double {
-        return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
+    func getLocation() {
+        self.userLatitude = Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
+        self.userLongitude = Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
     }
     
-    var userLongitude: Double {
-        return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
-    }
     
     var body: some View {
         VStack{
@@ -58,7 +59,7 @@ struct CompleteAStop: View {
                             ])
                         })
                         .sheet(isPresented: $showImagePicker) {
-                            ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType)
+                            ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType, userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, statusString: self.$statusString)
                     }
                     if self.uiimage != nil {
                         Image(uiImage: uiimage!).resizable().frame(width: 150, height: 150)
@@ -66,6 +67,7 @@ struct CompleteAStop: View {
                 }
             }
         }
+        .onAppear { self.getLocation() }
     }
 }
 

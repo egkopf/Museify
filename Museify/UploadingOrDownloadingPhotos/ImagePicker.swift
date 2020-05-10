@@ -13,20 +13,18 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Binding var isVisible: Bool
     @Binding var uiimage: UIImage?
     var sourceType: Int
-    
-    var userLatitude: Double {
-        return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
-    }
-    
-    var userLongitude: Double {
-        return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
-    }
+    @Binding var userLatitude: Double
+    @Binding var userLongitude: Double
+    @Binding var statusString: String
     
     func makeCoordinator() -> Coordinator {
         Coordinator(isVisible: $isVisible, uiimage: $uiimage)
     }
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
+        userLatitude = Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
+        userLongitude = Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
+        statusString = locationManager.statusString
         let vc = UIImagePickerController()
         vc.allowsEditing = true
         vc.sourceType = sourceType == 1 ? .photoLibrary : .camera
@@ -43,8 +41,6 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         @Binding var isVisible: Bool
         @Binding var uiimage: UIImage?
-        @Binding var userLatitude: Double
-        @Binding var userLongitude: Double
         
         init(isVisible: Binding<Bool>, uiimage: Binding<UIImage?>) {
             _isVisible = isVisible
@@ -52,6 +48,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            
             uiimage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
             //image = Image(uiImage: uiimage)
             isVisible = false

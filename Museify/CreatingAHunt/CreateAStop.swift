@@ -29,7 +29,10 @@ struct CreateAStop: View {
     @State var showImagePicker = false
     @State var uiimage: UIImage?
     @State var sourceType: Int = 0
-    @ObservedObject var locationManager = LocationManager()
+    @State var userLatitude: Double = 0.0
+    @State var userLongitude: Double = 0.0
+    @State var statusString: String = ""
+    /*@ObservedObject var locationManager = LocationManager()
     
     var userLatitude: Double {
         return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
@@ -37,7 +40,7 @@ struct CreateAStop: View {
     
     var userLongitude: Double {
         return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
-    }
+    }*/
     
     func uploadImage() {
         //Filename does include extension
@@ -72,7 +75,7 @@ struct CreateAStop: View {
             "name": name,
             "description": description,
             "imageName": filename,
-            "locationStatus": locationManager.statusString,
+            "locationStatus": statusString,
             "latitude": userLatitude,
             "longitude": userLongitude
         ]) { err in
@@ -92,7 +95,7 @@ struct CreateAStop: View {
                     TextField("Enter Name", text: $name)
                 }
                 
-                TextField("Enter a description about the stop", text: $description).frame(width: 250, height: 300)
+                TextField("Enter a description about the stop", text: $description).frame(width: 250, height: 150)
                 Text("IMAGE:")
                 /*HStack {
                  Text("Filepath:")
@@ -120,10 +123,10 @@ struct CreateAStop: View {
                         ])
                     })
                     .sheet(isPresented: $showImagePicker) {
-                        ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType)
+                        ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType, userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, statusString: self.$statusString)
                 }
                 if self.uiimage != nil {
-                    Image(uiImage: uiimage!).resizable().frame(width: 150, height: 150)
+                    Image(uiImage: uiimage!).resizable().frame(width: 80, height: 80)
                 }
                 
                 Button(action: self.addStop) {
