@@ -17,11 +17,11 @@ struct CompleteAStop: View {
     @State var uiimage: UIImage?
     @State var sourceType: Int = 0
     @ObservedObject var locationManager = LocationManager()
-
+    
     var userLatitude: Double {
         return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
     }
-
+    
     var userLongitude: Double {
         return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
     }
@@ -43,13 +43,7 @@ struct CompleteAStop: View {
             ZStack {
                 HStack {
                     Text("Take a picture:")
-                if self.uiimage != nil {
-                    Image(uiImage: uiimage!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 120, height: 120)
-                        .overlay(
-                    CameraButtonView(showActionSheet: $showActionSheet))
+                    CameraButtonView(showActionSheet: $showActionSheet)
                         .actionSheet(isPresented: $showActionSheet, content: { () -> ActionSheet in
                             ActionSheet(title: Text("Select Image"), message: Text("Please select an image"), buttons: [
                                 ActionSheet.Button.default(Text("Camera"), action: {
@@ -63,13 +57,14 @@ struct CompleteAStop: View {
                                 ActionSheet.Button.cancel()
                             ])
                         })
-                }
-                if showImagePicker {
-                    ImagePicker(isVisible: $showImagePicker, uiimage: $uiimage, sourceType: sourceType)
-                }
+                        .sheet(isPresented: $showImagePicker) {
+                            ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType)
+                    }
+                    if self.uiimage != nil {
+                        Image(uiImage: uiimage!).resizable().frame(width: 150, height: 150)
+                    }
                 }
             }
-            .onAppear { self.uiimage = UIImage(systemName: "star.fill")}
         }
     }
 }

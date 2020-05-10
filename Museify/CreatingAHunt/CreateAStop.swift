@@ -30,15 +30,15 @@ struct CreateAStop: View {
     @State var uiimage: UIImage?
     @State var sourceType: Int = 0
     @ObservedObject var locationManager = LocationManager()
-
+    
     var userLatitude: Double {
         return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
     }
-
+    
     var userLongitude: Double {
         return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
     }
-
+    
     func uploadImage() {
         //Filename does include extension
         //let data = Data()
@@ -66,7 +66,7 @@ struct CreateAStop: View {
             }
         }
     }
-
+    
     func addStop() {
         db.collection("hunts").document(huntName).collection("stops").document(name).setData([
             "name": name,
@@ -84,57 +84,51 @@ struct CreateAStop: View {
     }
     
     var body: some View {
-        VStack{
-            Text("New Stop")
-            HStack{
-                Text("Name:")
-                TextField("Enter Name", text: $name)
-            }
-            
-            TextField("Enter a description about the stop", text: $description).frame(width: 250, height: 300)
-            Text("IMAGE:")
-            /*HStack {
-                Text("Filepath:")
-                TextField("Enter filepath", text: $filepath)
+        ZStack {
+            VStack {
+                Text("New Stop")
+                HStack{
+                    Text("Name:")
+                    TextField("Enter Name", text: $name)
+                }
                 
-            }.padding(25)*/
-            
-            HStack{
-                Text("Filename:")
-                TextField("Enter filename", text: $filename)
-            }.padding(25)
-            
-            ZStack {
+                TextField("Enter a description about the stop", text: $description).frame(width: 250, height: 300)
+                Text("IMAGE:")
+                /*HStack {
+                 Text("Filepath:")
+                 TextField("Enter filepath", text: $filepath)
+                 
+                 }.padding(25)*/
+                
+                HStack{
+                    Text("Filename:")
+                    TextField("Enter filename", text: $filename)
+                }.padding(25)
+                
+                CameraButtonView(showActionSheet: $showActionSheet)
+                    .actionSheet(isPresented: $showActionSheet, content: { () -> ActionSheet in
+                        ActionSheet(title: Text("Select Image"), message: Text("Please select an image"), buttons: [
+                            ActionSheet.Button.default(Text("Camera"), action: {
+                                self.sourceType = 0
+                                self.showImagePicker.toggle()
+                            }),
+                            ActionSheet.Button.default(Text("Photo Gallery"), action: {
+                                self.sourceType = 1
+                                self.showImagePicker.toggle()
+                            }),
+                            ActionSheet.Button.cancel()
+                        ])
+                    })
+                    .sheet(isPresented: $showImagePicker) {
+                        ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType)
+                }
                 if self.uiimage != nil {
-                    Image(uiImage: uiimage!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 40, height: 40)
-                        .overlay(
-                    CameraButtonView(showActionSheet: $showActionSheet))
-                        .actionSheet(isPresented: $showActionSheet, content: { () -> ActionSheet in
-                            ActionSheet(title: Text("Select Image"), message: Text("Please select an image"), buttons: [
-                                ActionSheet.Button.default(Text("Camera"), action: {
-                                    self.sourceType = 0
-                                    self.showImagePicker.toggle()
-                                }),
-                                ActionSheet.Button.default(Text("Photo Gallery"), action: {
-                                    self.sourceType = 1
-                                    self.showImagePicker.toggle()
-                                }),
-                                ActionSheet.Button.cancel()
-                            ])
-                        })
-                }
-                if showImagePicker {
-                    ImagePicker(isVisible: $showImagePicker, uiimage: $uiimage, sourceType: sourceType)
+                    Image(uiImage: uiimage!).resizable().frame(width: 150, height: 150)
                 }
                 
-            }
-            .onAppear { self.uiimage = UIImage(systemName: "star.fill")}
-            
-            Button(action: self.addStop) {
-                Text("Add to Hunt >")
+                Button(action: self.addStop) {
+                    Text("Add to Hunt >")
+                }
             }
         }
     }
