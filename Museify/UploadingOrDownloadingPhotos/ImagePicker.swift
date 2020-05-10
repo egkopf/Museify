@@ -9,9 +9,18 @@
 import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
+    @ObservedObject var locationManager = LocationManager()
     @Binding var isVisible: Bool
     @Binding var uiimage: UIImage?
     var sourceType: Int
+    
+    var userLatitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
+    }
+    
+    var userLongitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
+    }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(isVisible: $isVisible, uiimage: $uiimage)
@@ -34,6 +43,8 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         @Binding var isVisible: Bool
         @Binding var uiimage: UIImage?
+        @Binding var userLatitude: Double
+        @Binding var userLongitude: Double
         
         init(isVisible: Binding<Bool>, uiimage: Binding<UIImage?>) {
             _isVisible = isVisible
