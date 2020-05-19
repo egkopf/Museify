@@ -31,9 +31,6 @@ struct CreateAHunt: View {
     var db = Firestore.firestore()
     @State var stops = [Stop]()
     @State var images = [String: UIImage]()
-    @State var userLatitude: Double = 0.0
-    @State var userLongitude: Double = 0.0
-    @State var statusString: String = ""
     
     
     var active: Bool {return !(self.name == "" || self.description == "")}
@@ -153,7 +150,7 @@ struct CreateAHunt: View {
                                 ])
                             })
                             .sheet(isPresented: $showImagePicker) {
-                                ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$coverImage, sourceType: self.sourceType, userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, statusString: self.$statusString)
+                                ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$coverImage, sourceType: self.sourceType)
                         }
                         if coverImage != nil {
                             Image(uiImage: coverImage!).resizable().frame(height: 150)
@@ -179,8 +176,6 @@ struct CreateAHunt: View {
                                         Image(uiImage: self.images[stop.imgName]!).resizable()
                                             .frame(width: 50, height: 50)
                                     }
-                                    Text("\(CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) meters away!")
-                                        .font(.footnote)
                                 }
                                 
                             }
@@ -195,10 +190,6 @@ struct CreateAHunt: View {
                         .sheet(isPresented: $variable) {
                             CreateAStop(huntName: "\(self.name)", variable: self.$variable)
                     }
-                    
-                    /*Button(action: self.uploadCoverImage) {
-                     Text("Upload Cover Image")
-                     }*/
                     
                     HStack{
                         VStack {

@@ -16,16 +16,25 @@ struct CompleteAStop: View {
     @State var showImagePicker = false
     @State var uiimage: UIImage?
     @State var sourceType: Int = 0
+    @State var photoLatitude: Double = 0.0
+    @State var photoLongitude: Double = 0.0
     @ObservedObject var locationManager = LocationManager()
-    @State var userLatitude: Double = 0.0
-    @State var userLongitude: Double = 0.0
-    @State var statusString: String = ""
     
-    func getLocation() {
-        self.userLatitude = Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
-        self.userLongitude = Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
+    var userLatitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
+    }
+    var userLongitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
+    }
+    var statusString: String {
+        return locationManager.statusString
     }
     
+    func getPhotoCoordinates() {
+        self.photoLatitude = Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0).rounded() / 100
+        self.photoLongitude = Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0).rounded() / 100
+        print("\(photoLatitude), \(photoLongitude)")
+    }
     
     var body: some View {
         VStack{
@@ -59,15 +68,18 @@ struct CompleteAStop: View {
                             ])
                         })
                         .sheet(isPresented: $showImagePicker) {
-                            ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType, userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, statusString: self.$statusString)
+                            ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType)
+                                .onDisappear(perform: {self.getPhotoCoordinates()})
                     }
                     if self.uiimage != nil {
-                        Image(uiImage: uiimage!).resizable().frame(width: 150, height: 150)
+                        VStack{
+                            Image(uiImage: uiimage!).resizable().frame(width: 150, height: 150)
+                            Text("\(self.photoLatitude), \(self.photoLongitude)")
+                        }
                     }
                 }
             }
         }
-        .onAppear { self.getLocation() }
     }
 }
 

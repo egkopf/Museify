@@ -29,18 +29,18 @@ struct CreateAStop: View {
     @State var showImagePicker = false
     @State var uiimage: UIImage?
     @State var sourceType: Int = 0
-    @State var userLatitude: Double = 0.0
-    @State var userLongitude: Double = 0.0
-    @State var statusString: String = ""
-    /*@ObservedObject var locationManager = LocationManager()
+    @ObservedObject var locationManager = LocationManager()
     
     var userLatitude: Double {
         return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
     }
-    
     var userLongitude: Double {
         return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
-    }*/
+    }
+    var statusString: String {
+        return locationManager.statusString
+    }
+    
     
     func uploadImage() {
         //Filename does include extension
@@ -97,11 +97,6 @@ struct CreateAStop: View {
                 
                 TextField("Enter a description about the stop", text: $description).frame(width: 250, height: 150)
                 Text("IMAGE:")
-                /*HStack {
-                 Text("Filepath:")
-                 TextField("Enter filepath", text: $filepath)
-                 
-                 }.padding(25)*/
                 
                 HStack{
                     Text("Filename:")
@@ -123,7 +118,7 @@ struct CreateAStop: View {
                         ])
                     })
                     .sheet(isPresented: $showImagePicker) {
-                        ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType, userLatitude: self.$userLatitude, userLongitude: self.$userLongitude, statusString: self.$statusString)
+                        ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType)
                 }
                 if self.uiimage != nil {
                     Image(uiImage: uiimage!).resizable().frame(width: 80, height: 80)
