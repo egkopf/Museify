@@ -36,6 +36,13 @@ struct CompleteAStop: View {
         print("\(photoLatitude), \(photoLongitude)")
     }
     
+    func amICloseToTheStop(photoLat: Double, photoLon: Double, stopLat: Double, stopLon: Double) -> Bool {
+        if abs(photoLat - stopLat) < 10.0 && abs(photoLon - stopLon) < 10.0 {
+            return true
+        }
+        return false
+    }
+    
     var body: some View {
         VStack{
             HStack {
@@ -77,6 +84,19 @@ struct CompleteAStop: View {
                             Text("\(self.photoLatitude), \(self.photoLongitude)")
                         }
                     }
+                }
+            }
+            if self.uiimage != nil {
+                if amICloseToTheStop(photoLat: self.photoLatitude, photoLon: self.photoLongitude, stopLat: stop.latitude, stopLon: stop.longitude) {
+                    VStack {
+                        Text("Congatualtions! You have completed this stop!")
+                            .foregroundColor(.green)
+                        Text("\(stop.stopDescription)")
+                    }
+                }
+                if !amICloseToTheStop(photoLat: self.photoLatitude, photoLon: self.photoLongitude, stopLat: stop.latitude, stopLon: stop.longitude) {
+                    Text("Sorry! Not quite...")
+                        .foregroundColor(.red)
                 }
             }
         }
