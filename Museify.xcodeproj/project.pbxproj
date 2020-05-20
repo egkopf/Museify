@@ -18,13 +18,13 @@
 		402824F023E49CF60039C74A /* MuseifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824EF23E49CF60039C74A /* MuseifyTests.swift */; };
 		402824FB23E49CF60039C74A /* MuseifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402824FA23E49CF60039C74A /* MuseifyUITests.swift */; };
 		4038047223F245B40067F979 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4038047123F245B40067F979 /* Authentication.swift */; };
+		4041FCFB2475910D00C51404 /* Averia-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4041FCFA2475910D00C51404 /* Averia-Bold.ttf */; };
+		4041FCFC2475910D00C51404 /* Averia-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4041FCFA2475910D00C51404 /* Averia-Bold.ttf */; };
+		4041FCFD2475910D00C51404 /* Averia-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4041FCFA2475910D00C51404 /* Averia-Bold.ttf */; };
 		404C81AD242EA7B8003AF2AB /* HuntKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C81AC242EA7B8003AF2AB /* HuntKey.swift */; };
 		405391B224241F81008117FE /* DisplayImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405391B124241F81008117FE /* DisplayImage.swift */; };
 		40A1AAF3241D55DE004B0DDD /* UploadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1AAF2241D55DE004B0DDD /* UploadImage.swift */; };
 		40BC9619240AF9BA00DCD4C9 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */; };
-		40C0C5C52474EC4000EFBFB4 /* Monteros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C42474EC4000EFBFB4 /* Monteros.ttf */; };
-		40C0C5C62474EC4000EFBFB4 /* Monteros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C42474EC4000EFBFB4 /* Monteros.ttf */; };
-		40C0C5C72474EC4000EFBFB4 /* Monteros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C42474EC4000EFBFB4 /* Monteros.ttf */; };
 		40C0C5C92474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C82474ED5900EFBFB4 /* Averia-Regular.ttf */; };
 		40C0C5CA2474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C82474ED5900EFBFB4 /* Averia-Regular.ttf */; };
 		40C0C5CB2474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C82474ED5900EFBFB4 /* Averia-Regular.ttf */; };
@@ -86,11 +86,11 @@
 		402824FA23E49CF60039C74A /* MuseifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseifyUITests.swift; sourceTree = "<group>"; };
 		402824FC23E49CF60039C74A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4038047123F245B40067F979 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		4041FCFA2475910D00C51404 /* Averia-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Averia-Bold.ttf"; sourceTree = "<group>"; };
 		404C81AC242EA7B8003AF2AB /* HuntKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntKey.swift; sourceTree = "<group>"; };
 		405391B124241F81008117FE /* DisplayImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayImage.swift; sourceTree = "<group>"; };
 		40A1AAF2241D55DE004B0DDD /* UploadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImage.swift; sourceTree = "<group>"; };
 		40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
-		40C0C5C42474EC4000EFBFB4 /* Monteros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Monteros.ttf; path = ../../../../Monteros.ttf; sourceTree = "<group>"; };
 		40C0C5C82474ED5900EFBFB4 /* Averia-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Averia-Regular.ttf"; sourceTree = "<group>"; };
 		40F829D12437A64800AF40AB /* ChooseCoverImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCoverImage.swift; sourceTree = "<group>"; };
 		548AD5BFDF47EE35A2657A4E /* Pods_MuseifyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MuseifyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,7 +220,7 @@
 		40C0C5BD2474EAD600EFBFB4 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				40C0C5C42474EC4000EFBFB4 /* Monteros.ttf */,
+				4041FCFA2475910D00C51404 /* Averia-Bold.ttf */,
 				40C0C5C82474ED5900EFBFB4 /* Averia-Regular.ttf */,
 			);
 			path = Fonts;
@@ -406,8 +406,8 @@
 			files = (
 				402824E523E49CF60039C74A /* LaunchScreen.storyboard in Resources */,
 				402824E223E49CF60039C74A /* Preview Assets.xcassets in Resources */,
+				4041FCFB2475910D00C51404 /* Averia-Bold.ttf in Resources */,
 				8DD37ACF243EDF5800D587CB /* GoogleService-Info.plist in Resources */,
-				40C0C5C52474EC4000EFBFB4 /* Monteros.ttf in Resources */,
 				400078E423F710000084C8D4 /* M.jpg in Resources */,
 				40C0C5C92474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */,
 				402824DF23E49CF60039C74A /* Assets.xcassets in Resources */,
@@ -418,8 +418,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40C0C5C62474EC4000EFBFB4 /* Monteros.ttf in Resources */,
 				40C0C5CA2474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */,
+				4041FCFC2475910D00C51404 /* Averia-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,8 +427,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40C0C5C72474EC4000EFBFB4 /* Monteros.ttf in Resources */,
 				40C0C5CB2474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */,
+				4041FCFD2475910D00C51404 /* Averia-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

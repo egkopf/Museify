@@ -36,7 +36,9 @@ struct ProfilePage: View {
     
     var body: some View {
         VStack {
-            Text("Profile")
+            Logo().frame(width: 300)
+            Spacer().frame(height: 100)
+            Text("Profile").font(.custom("Averia-Bold", size: 28))
             Text("Welcome \(username)")
         }.font(.custom("Averia-Regular", size: 18))
     }

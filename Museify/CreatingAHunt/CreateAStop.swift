@@ -23,7 +23,7 @@ struct CreateAStop: View {
     var huntName: String
     var db = Firestore.firestore()
     //@State var filepath: String = ""
-    @State var filename: String = ""
+//    @State var filename: String = ""
     @Binding var variable: Bool
     @State var showActionSheet = false
     @State var showImagePicker = false
@@ -46,7 +46,7 @@ struct CreateAStop: View {
         //Filename does include extension
         //let data = Data()
         let storageRef = Storage.storage().reference()
-        let logoImagesRef = storageRef.child("images/\(self.filename)")
+        let logoImagesRef = storageRef.child("images/\(huntName)\(name)")
         let metadata = StorageMetadata()
         metadata.customMetadata = [
             "latitude": "\(userLatitude)",
@@ -54,7 +54,7 @@ struct CreateAStop: View {
         ]
         
         //let localFile = URL(string: "file://\(self.filepath)")!
-        print("Uploading \(self.filename) to  images")
+        print("Uploading \(self.name) to  images")
         
         guard let imageData = self.uiimage!.jpegData(compressionQuality: 0.1) else {
             return
@@ -74,7 +74,7 @@ struct CreateAStop: View {
         db.collection("hunts").document(huntName).collection("stops").document(name).setData([
             "name": name,
             "description": description,
-            "imageName": filename,
+            "imageName": huntName + name,
             "locationStatus": statusString,
             "latitude": userLatitude,
             "longitude": userLongitude
@@ -98,10 +98,10 @@ struct CreateAStop: View {
                 TextField("Enter a description about the stop", text: $description).frame(width: 250, height: 150)
                 Text("IMAGE:")
                 
-                HStack{
-                    Text("Filename:")
-                    TextField("Enter filename", text: $filename)
-                }.padding(25)
+//                HStack{
+//                    Text("Filename:")
+//                    TextField("Enter filename", text: $filename)
+//                }.padding(25)
                 
                 CameraButtonView(showActionSheet: $showActionSheet)
                     .actionSheet(isPresented: $showActionSheet, content: { () -> ActionSheet in

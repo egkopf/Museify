@@ -4,8 +4,8 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Averia-Bold.ttf</string>
 		<string>Averia-Regular.ttf</string>
-		<string>Monteros.ttf</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string></string>

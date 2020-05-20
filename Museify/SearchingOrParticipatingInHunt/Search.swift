@@ -126,12 +126,10 @@ struct Search: View {
                 VStack {
                     HStack {
                         Text("Enter a Private Hunt Key:")
-                        VStack {
                             TextField("enter", text: $privKey)
                             Button(action: self.getPrivHunt) {
                                Text("Find")
                             }
-                        }
                         VStack {
                             Text(currentHuntName)
                             NavigationLink(destination: HuntStops(name: currentHuntName)) {
