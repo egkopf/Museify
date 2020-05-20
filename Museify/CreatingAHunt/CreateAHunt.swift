@@ -185,6 +185,7 @@ struct CreateAHunt: View {
                     }
                     
                     Button(action: self.addHuntAndCreateStop) {
+                        
                         Text("Add a Stop (+)")
                     }.disabled(!self.active)
                         .sheet(isPresented: $variable) {
@@ -216,7 +217,7 @@ struct CreateAHunt: View {
                     }.padding(10)
                 }
             }
-        }
+        }.font(.custom("Averia-Regular", size: 18))
     }
 }
 

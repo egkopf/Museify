@@ -22,6 +22,12 @@
 		405391B224241F81008117FE /* DisplayImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405391B124241F81008117FE /* DisplayImage.swift */; };
 		40A1AAF3241D55DE004B0DDD /* UploadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A1AAF2241D55DE004B0DDD /* UploadImage.swift */; };
 		40BC9619240AF9BA00DCD4C9 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */; };
+		40C0C5C52474EC4000EFBFB4 /* Monteros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C42474EC4000EFBFB4 /* Monteros.ttf */; };
+		40C0C5C62474EC4000EFBFB4 /* Monteros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C42474EC4000EFBFB4 /* Monteros.ttf */; };
+		40C0C5C72474EC4000EFBFB4 /* Monteros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C42474EC4000EFBFB4 /* Monteros.ttf */; };
+		40C0C5C92474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C82474ED5900EFBFB4 /* Averia-Regular.ttf */; };
+		40C0C5CA2474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C82474ED5900EFBFB4 /* Averia-Regular.ttf */; };
+		40C0C5CB2474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40C0C5C82474ED5900EFBFB4 /* Averia-Regular.ttf */; };
 		40F829D22437A64800AF40AB /* ChooseCoverImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F829D12437A64800AF40AB /* ChooseCoverImage.swift */; };
 		8D08173E2411DF5B000C217F /* UploadLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08173D2411DF5B000C217F /* UploadLogo.swift */; };
 		8D081740241C1EBE000C217F /* CreateAHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08173F241C1EBE000C217F /* CreateAHunt.swift */; };
@@ -84,6 +90,8 @@
 		405391B124241F81008117FE /* DisplayImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayImage.swift; sourceTree = "<group>"; };
 		40A1AAF2241D55DE004B0DDD /* UploadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImage.swift; sourceTree = "<group>"; };
 		40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
+		40C0C5C42474EC4000EFBFB4 /* Monteros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Monteros.ttf; path = ../../../../Monteros.ttf; sourceTree = "<group>"; };
+		40C0C5C82474ED5900EFBFB4 /* Averia-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Averia-Regular.ttf"; sourceTree = "<group>"; };
 		40F829D12437A64800AF40AB /* ChooseCoverImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCoverImage.swift; sourceTree = "<group>"; };
 		548AD5BFDF47EE35A2657A4E /* Pods_MuseifyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MuseifyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FBF0DDE23DB351DE4505B41 /* Pods-Museify-MuseifyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Museify-MuseifyUITests.release.xcconfig"; path = "Target Support Files/Pods-Museify-MuseifyUITests/Pods-Museify-MuseifyUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -178,6 +186,7 @@
 				8DD37ACE243EDF5800D587CB /* GoogleService-Info.plist */,
 				402824E623E49CF60039C74A /* Info.plist */,
 				402824E023E49CF60039C74A /* Preview Content */,
+				40C0C5BD2474EAD600EFBFB4 /* Fonts */,
 			);
 			path = Museify;
 			sourceTree = "<group>";
@@ -206,6 +215,15 @@
 				402824FC23E49CF60039C74A /* Info.plist */,
 			);
 			path = MuseifyUITests;
+			sourceTree = "<group>";
+		};
+		40C0C5BD2474EAD600EFBFB4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				40C0C5C42474EC4000EFBFB4 /* Monteros.ttf */,
+				40C0C5C82474ED5900EFBFB4 /* Averia-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		8DB984762436D9EB009CDBF2 /* UploadingOrDownloadingPhotos */ = {
@@ -389,7 +407,9 @@
 				402824E523E49CF60039C74A /* LaunchScreen.storyboard in Resources */,
 				402824E223E49CF60039C74A /* Preview Assets.xcassets in Resources */,
 				8DD37ACF243EDF5800D587CB /* GoogleService-Info.plist in Resources */,
+				40C0C5C52474EC4000EFBFB4 /* Monteros.ttf in Resources */,
 				400078E423F710000084C8D4 /* M.jpg in Resources */,
+				40C0C5C92474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */,
 				402824DF23E49CF60039C74A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,6 +418,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40C0C5C62474EC4000EFBFB4 /* Monteros.ttf in Resources */,
+				40C0C5CA2474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +427,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40C0C5C72474EC4000EFBFB4 /* Monteros.ttf in Resources */,
+				40C0C5CB2474ED5A00EFBFB4 /* Averia-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,7 +733,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Museify/Preview Content\"";
-				DEVELOPMENT_TEAM = 49YLFBSVG9;
+				DEVELOPMENT_TEAM = Y2A32J363X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Museify/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
@@ -717,7 +741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Museify;
+				PRODUCT_BUNDLE_IDENTIFIER = Museifyy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -731,7 +755,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Museify/Preview Content\"";
-				DEVELOPMENT_TEAM = 49YLFBSVG9;
+				DEVELOPMENT_TEAM = Y2A32J363X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Museify/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
@@ -739,7 +763,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Museify;
+				PRODUCT_BUNDLE_IDENTIFIER = Museifyy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

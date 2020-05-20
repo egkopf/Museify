@@ -22,31 +22,22 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedView) {
-            UploadImage()
-                .tabItem {
-                    Text("Upload Image")
-                        .font(.headline)
-            }.tag(0)
             CreateAHunt()
                 .tabItem {
-                    Text("Create A Hunt")
-                        .font(.headline)
-            }.tag(1)
+                    Image(systemName: "plus.app")
+                        .font(.system(size: 25))
+            }.tag(0)
             Search()
                 .tabItem {
-                    Text("Search")
-                        .font(.headline)
-            }.tag(2)
-            HuntKey()
-                .tabItem {
-                    Text("Hunt Key")
-                        .font(.headline)
-            }.tag(3)
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 25))
+                    
+            }.tag(1)
             ProfilePage(username: self.username)
                 .tabItem {
-                    Text("Profile")
-                        .font(.headline)
-            }.tag(4)
+                    Image(systemName: "person")
+                        .font(.system(size: 25))
+            }.tag(2)
         }
     }
 }

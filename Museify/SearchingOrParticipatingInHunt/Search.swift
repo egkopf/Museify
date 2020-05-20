@@ -122,25 +122,29 @@ struct Search: View {
                 }.onAppear {
                     self.getAllHunts()
                 }.navigationBarTitle(Text("Hunts"))
+                
                 VStack {
                     HStack {
                         Text("Enter a Private Hunt Key:")
-                        TextField("enter", text: $privKey)
-                        Button(action: self.getPrivHunt) {
-                           Text("Find")
+                        VStack {
+                            TextField("enter", text: $privKey)
+                            Button(action: self.getPrivHunt) {
+                               Text("Find")
+                            }
                         }
-                        Text(currentHuntName)
-                        NavigationLink(destination: HuntStops(name: currentHuntName)) {
-                            Text("embark")
-                        }.padding()
+                        VStack {
+                            Text(currentHuntName)
+                            NavigationLink(destination: HuntStops(name: currentHuntName)) {
+                                Text("embark")
+                            }.padding()
+                        }
                         
-                    }
-                    
-
-                }.padding()
+                        
+                        
+                    }.padding()
+                }.overlay(Rectangle().foregroundColor(.blue).opacity(0.12))
             }
-            
-        }
+        }.font(.custom("Averia-Regular", size: 18))
     }
 }
 

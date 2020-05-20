@@ -15,10 +15,8 @@ struct HuntRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(name)")
-                .font(.headline)
             Text("\(description)")
-                .font(.body)
-        }
+        }.font(.custom("Averia-Regular", size: 18))
     }
 }
 
