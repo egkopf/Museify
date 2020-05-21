@@ -50,10 +50,9 @@ struct CompleteAStop: View {
                     .frame(width: 150, height: 200)
                 VStack {
                     Text("\(stop.name)")
-                        .font(.headline)
-                        .fontWeight(.bold)
+                        .font(.custom("Averia-Bold", size: 22))
                     Text("\(stop.stopDescription)")
-                        .font(.subheadline)
+                        .font(.custom("Averia-Regular", size: 16))
                     Text("\(CLLocation(latitude: userLatitude, longitude: userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) meters away!")
                 }
             }

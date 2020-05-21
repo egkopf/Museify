@@ -82,6 +82,9 @@ struct Search: View {
     @State var privKey: String = ""
     @State var currentHuntName = ""
     @State var ready: Bool = false
+    @State var images = [String: UIImage]()
+    
+
     
     func getAllHunts() {
         db.collection("hunts").getDocuments() { (querySnapshot, err) in
@@ -92,6 +95,26 @@ struct Search: View {
                     self.hunts.append(newHunt)
                 }
             }
+        }
+        print("hunts: \(hunts)")
+    }
+    
+    func getAllImages() {
+        let tempHunts = hunts.filter({$0.key == nil})
+        if tempHunts.count == images.count {return}
+        
+        for hunt in hunts {
+            if hunt.key == nil {
+                let storageRef = Storage.storage().reference()
+                let imgRef = storageRef.child("images/\(hunt.name)CoverImage")
+                
+                imgRef.getData(maxSize: 1 * 8000 * 8000) { data, error in
+                    if let _ = error {print("error"); return}
+                    print("no error")
+                    self.images[hunt.name] = UIImage(data: data!)!
+                }
+            }
+            
         }
     }
     
@@ -115,13 +138,28 @@ struct Search: View {
                     ForEach(self.hunts) { hunt in
                         if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
                             NavigationLink(destination: HuntStops(name: hunt.name)) {
-                                HuntRow(name: hunt.name, description: hunt.description)
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("\(hunt.name)").font(.custom("Averia-Bold", size: 18))
+                                        Text("\(hunt.description)").onAppear() {
+                                            self.getAllImages()
+                                        }
+                                
+                                    }.font(.custom("Averia-Regular", size: 18))
+                                    Spacer()
+                                    if self.images[hunt.name] != nil {
+                                        Image(uiImage: self.images[hunt.name]!).resizable()
+                                            .frame(width: 50, height: 50, alignment: .trailing)
+                                        
+                                    }
+                                    
+                                }
                             }
                         }
                     }
                 }.onAppear {
                     self.getAllHunts()
-                }.navigationBarTitle(Text("Hunts"))
+                    }.navigationBarTitle(Text("Hunts"))
                 
                 VStack {
                     HStack {

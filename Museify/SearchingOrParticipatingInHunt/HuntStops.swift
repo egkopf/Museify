@@ -75,7 +75,7 @@ struct HuntStops: View {
     var body: some View {
         NavigationView {
             VStack{
-                Text("Stops:").font(.largeTitle)
+                Text("Stops:")
                 if self.images.count > 0 && self.stops.count == images.count {
                     List {
                         ForEach(self.stops, id: \.self) { stop in
@@ -84,14 +84,14 @@ struct HuntStops: View {
                                     HStack {
                                         Text("\(stop.name)")
                                             .foregroundColor(.white)
-                                            .font(.largeTitle)
+                                            .font(.custom("Averia-Regular", size: 32))
                                             .frame(width: 300, height: 40)
                                             .background(Color.blue)
                                         Image(uiImage: self.images[stop.imgName]!).resizable()
                                             .frame(width: 50, height: 50)
                                     }
                                     Text("\(CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) meters away!")
-                                        .font(.footnote)
+                                        .font(.custom("Averia-Regular", size: 15))
                                 }
                             }
                         }
@@ -101,7 +101,7 @@ struct HuntStops: View {
                 }
                 Spacer()
             }.onAppear {self.getStops()}
-        }
+        }.font(.custom("Averia-Regular", size: 18))
     }
 }
 
