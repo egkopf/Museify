@@ -66,12 +66,14 @@ class Stop: CustomStringConvertible, Hashable {
     var imgName: String
     var latitude: Double
     var longitude: Double
-    init(Name: String = "stopName", StopDescription: String = "stopDescription", ImgName: String = "stopImg", Latitude: Double = 0.0, Longitude: Double = 0.0) {
+    var direction: Double
+    init(Name: String = "stopName", StopDescription: String = "stopDescription", ImgName: String = "stopImg", Latitude: Double, Longitude: Double, Direction: Double) {
         name = Name
         stopDescription = StopDescription
         imgName = ImgName
         latitude = Latitude
         longitude = Longitude
+        direction = Direction
     }
     
     var hashValue: Int {

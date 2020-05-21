@@ -40,6 +40,9 @@ struct CreateAStop: View {
     var statusString: String {
         return locationManager.statusString
     }
+    var direction: Double {
+        return Double(locationManager.direction ?? 0.0)
+    }
     
     
     func uploadImage() {
@@ -50,7 +53,8 @@ struct CreateAStop: View {
         let metadata = StorageMetadata()
         metadata.customMetadata = [
             "latitude": "\(userLatitude)",
-            "longitude": "\(userLongitude)"
+            "longitude": "\(userLongitude)",
+            "direction": "\(direction)"
         ]
         
         //let localFile = URL(string: "file://\(self.filepath)")!
@@ -77,7 +81,8 @@ struct CreateAStop: View {
             "imageName": huntName + name,
             "locationStatus": statusString,
             "latitude": userLatitude,
-            "longitude": userLongitude
+            "longitude": userLongitude,
+            "direction": direction
         ]) { err in
             if let err = err {print("Error writing document: \(err)")}
             else {print("Document successfully written!")}

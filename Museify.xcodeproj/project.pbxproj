@@ -32,6 +32,7 @@
 		8D08173E2411DF5B000C217F /* UploadLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08173D2411DF5B000C217F /* UploadLogo.swift */; };
 		8D081740241C1EBE000C217F /* CreateAHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08173F241C1EBE000C217F /* CreateAHunt.swift */; };
 		8D081744241C280C000C217F /* CreateAStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D081743241C280C000C217F /* CreateAStop.swift */; };
+		8D53D2E12476EB7D00635B0E /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D53D2E02476EB7D00635B0E /* ArrowView.swift */; };
 		8D9946272443EA9D00A41B43 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9946262443EA9D00A41B43 /* LocationManager.swift */; };
 		8D99462B2449053700A41B43 /* CompleteAStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99462A2449053700A41B43 /* CompleteAStop.swift */; };
 		8D9EE32C23FC51730022B9C9 /* SignUpOrLogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */; };
@@ -98,6 +99,7 @@
 		8D08173D2411DF5B000C217F /* UploadLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadLogo.swift; sourceTree = "<group>"; };
 		8D08173F241C1EBE000C217F /* CreateAHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAHunt.swift; sourceTree = "<group>"; };
 		8D081743241C280C000C217F /* CreateAStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAStop.swift; sourceTree = "<group>"; };
+		8D53D2E02476EB7D00635B0E /* ArrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		8D9946262443EA9D00A41B43 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		8D99462A2449053700A41B43 /* CompleteAStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteAStop.swift; sourceTree = "<group>"; };
 		8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpOrLogIn.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				8DB984782436DA5F009CDBF2 /* SearchingOrParticipatingInHunt */,
 				8DB984792436DA93009CDBF2 /* CreatingAHunt */,
 				402824DA23E49CF30039C74A /* SceneDelegate.swift */,
+				8D53D2E02476EB7D00635B0E /* ArrowView.swift */,
 				402824DC23E49CF30039C74A /* ContentView.swift */,
 				402824D823E49CF30039C74A /* AppDelegate.swift */,
 				40BC9618240AF9BA00DCD4C9 /* ProfilePage.swift */,
@@ -549,6 +552,7 @@
 				402824D923E49CF30039C74A /* AppDelegate.swift in Sources */,
 				8D081744241C280C000C217F /* CreateAStop.swift in Sources */,
 				8D9946272443EA9D00A41B43 /* LocationManager.swift in Sources */,
+				8D53D2E12476EB7D00635B0E /* ArrowView.swift in Sources */,
 				8D08173E2411DF5B000C217F /* UploadLogo.swift in Sources */,
 				402824DB23E49CF30039C74A /* SceneDelegate.swift in Sources */,
 				402824DD23E49CF30039C74A /* ContentView.swift in Sources */,
@@ -733,7 +737,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Museify/Preview Content\"";
-				DEVELOPMENT_TEAM = Y2A32J363X;
+				DEVELOPMENT_TEAM = 49YLFBSVG9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Museify/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
@@ -741,7 +745,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Museifyy;
+				PRODUCT_BUNDLE_IDENTIFIER = Museify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -755,7 +759,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Museify/Preview Content\"";
-				DEVELOPMENT_TEAM = Y2A32J363X;
+				DEVELOPMENT_TEAM = 49YLFBSVG9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Museify/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
@@ -763,7 +767,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Museifyy;
+				PRODUCT_BUNDLE_IDENTIFIER = Museify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
