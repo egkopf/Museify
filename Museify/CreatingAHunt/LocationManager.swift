@@ -73,7 +73,7 @@ extension LocationManager: CLLocationManagerDelegate {
         print(#function, location)
     }
     
-    private func locationManager(_ manager: CLLocationManager, didUpdateHeading headings: [CLHeading]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading headings: [CLHeading]) {
         guard let heading = headings.last else { return }
         self.direction = heading.trueHeading
         print(#function, heading)
