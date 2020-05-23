@@ -22,13 +22,14 @@ struct CreateAStop: View {
     @State private var description: String = ""
     var huntName: String
     var db = Firestore.firestore()
-    //@State var filepath: String = ""
-//    @State var filename: String = ""
     @Binding var variable: Bool
     @State var showActionSheet = false
     @State var showImagePicker = false
     @State var uiimage: UIImage?
     @State var sourceType: Int = 0
+    @State var photoLatitude: Double = 0.0
+    @State var photoLongitude: Double = 0.0
+    @State var photoDirection: Double = 0.0
     @ObservedObject var locationManager = LocationManager()
     
     var userLatitude: Double {
@@ -80,15 +81,22 @@ struct CreateAStop: View {
             "description": description,
             "imageName": huntName + name,
             "locationStatus": statusString,
-            "latitude": userLatitude,
-            "longitude": userLongitude,
-            "direction": direction
+            "latitude": photoLatitude,
+            "longitude": photoLongitude,
+            "direction": photoDirection
         ]) { err in
             if let err = err {print("Error writing document: \(err)")}
             else {print("Document successfully written!")}
         }
         uploadImage()
         self.variable.toggle()
+    }
+    
+    func getPhotoCoordinatesAndDirection() {
+        self.photoLatitude = Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
+        self.photoLongitude = Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
+        self.photoDirection = Double(locationManager.direction ?? 0.0)
+        print("\(photoLatitude), \(photoLongitude)")
     }
     
     var body: some View {
@@ -124,6 +132,7 @@ struct CreateAStop: View {
                     })
                     .sheet(isPresented: $showImagePicker) {
                         ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$uiimage, sourceType: self.sourceType)
+                            .onDisappear(perform: {self.getPhotoCoordinatesAndDirection()})
                 }
                 if self.uiimage != nil {
                     Image(uiImage: uiimage!).resizable().frame(width: 80, height: 80)

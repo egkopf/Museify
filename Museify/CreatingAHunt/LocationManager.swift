@@ -17,8 +17,10 @@ class LocationManager: NSObject, ObservableObject {
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
-        self.locationManager.startUpdatingHeading()
+        if CLLocationManager.headingAvailable() {
+            self.locationManager.startUpdatingLocation()
+            self.locationManager.startUpdatingHeading()
+        }
     }
 
     @Published var locationStatus: CLAuthorizationStatus? {
@@ -73,10 +75,10 @@ extension LocationManager: CLLocationManagerDelegate {
         print(#function, location)
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading headings: [CLHeading]) {
-        guard let heading = headings.last else { return }
-        self.direction = heading.trueHeading
-        print(#function, heading)
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        //guard let heading = headings.last else { return }
+        self.direction = newHeading.magneticHeading
+        print(#function, newHeading)
     }
 
 }

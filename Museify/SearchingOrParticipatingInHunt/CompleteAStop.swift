@@ -42,7 +42,7 @@ struct CompleteAStop: View {
     }
     
     func isMyPhotoRight(photoLat: Double, photoLon: Double, photoDir: Double, stopLat: Double, stopLon: Double, stopDir: Double) -> Bool {
-        if abs(photoLat - stopLat) < 10.0 && abs(photoLon - stopLon) < 10.0 && abs(photoDir - stopDir) < 7.0 {
+        if abs(photoLat - stopLat) < 10.0 && abs(photoLon - stopLon) < 10.0 && abs(photoDir - stopDir) < 13.0 {
             return true
         }
         return false
@@ -52,14 +52,14 @@ struct CompleteAStop: View {
         VStack{
             HStack {
                 Image(uiImage: self.images[stop.imgName]!).resizable()
-                    .frame(width: 150, height: 200)
+                    .frame(width: 80, height: 120)
                 VStack {
                     Text("\(stop.name)")
                         .font(.headline)
                         .fontWeight(.bold)
 //                    Text("\(stop.stopDescription)")
 //                        .font(.subheadline)
-                    Text("\(CLLocation(latitude: userLatitude, longitude: userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) meters away!")
+                    Text("\(CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) meters away!")
                     Text("Your direction: \(self.direction)")
                 }
             }
@@ -86,7 +86,7 @@ struct CompleteAStop: View {
                     }
                     if self.uiimage != nil {
                         VStack{
-                            Image(uiImage: uiimage!).resizable().frame(width: 150, height: 150)
+                            Image(uiImage: uiimage!).resizable().frame(width: 80, height: 120)
                             Text("\(self.photoLatitude), \(self.photoLongitude)")
                             Text("\(self.photoDirection)")
                         }
