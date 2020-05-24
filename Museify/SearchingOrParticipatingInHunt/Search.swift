@@ -93,6 +93,7 @@ struct Search: View {
                     let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String, key: (document.data()["huntID"] as? Int))
                     for hunt in self.hunts {if hunt.name == newHunt.name {return}}
                     self.hunts.append(newHunt)
+                    if querySnapshot!.documents.count == self.hunts.count {self.getAllImages()}
                 }
             }
         }
@@ -109,7 +110,7 @@ struct Search: View {
                 let imgRef = storageRef.child("images/\(hunt.name)CoverImage")
                 
                 imgRef.getData(maxSize: 1 * 8000 * 8000) { data, error in
-                    if let _ = error {print("error"); return}
+                    if let theError = error {print(theError); return}
                     print("no error")
                     self.images[hunt.name] = UIImage(data: data!)!
                 }
@@ -133,6 +134,17 @@ struct Search: View {
     var body: some View {
         NavigationView {
             VStack {
+                Spacer().navigationBarTitle("").navigationBarHidden(true).frame(height: 40)
+                HStack {
+                    Logo().frame(width: 80)
+                    Spacer().frame(width: 100)
+                    ZStack {
+                        Text("Hunts").font(.custom("Averia-Bold", size: 36)).offset(x: 2, y: 2).foregroundColor(.blue).opacity(0.22)
+                        Text("Hunts").font(.custom("Averia-Bold", size: 36))
+                    }
+                }.padding().frame(width: 400, alignment: .leading)
+                
+                
                 SearchBar(text: $searchBar, placeholder: "Search")
                 List {
                     ForEach(self.hunts) { hunt in
@@ -141,15 +153,13 @@ struct Search: View {
                                 HStack {
                                     VStack(alignment: .leading) {
                                         Text("\(hunt.name)").font(.custom("Averia-Bold", size: 18))
-                                        Text("\(hunt.description)").onAppear() {
-                                            self.getAllImages()
-                                        }
+                                        Text("\(hunt.description)")
                                 
                                     }.font(.custom("Averia-Regular", size: 18))
                                     Spacer()
                                     if self.images[hunt.name] != nil {
                                         Image(uiImage: self.images[hunt.name]!).resizable()
-                                            .frame(width: 50, height: 50, alignment: .trailing)
+                                            .frame(width: 50, height: 50, alignment: .trailing).clipShape(RoundedRectangle(cornerRadius: 10))
                                         
                                     }
                                     
@@ -157,29 +167,33 @@ struct Search: View {
                             }
                         }
                     }
-                }.onAppear {
+                    }.onAppear {
                     self.getAllHunts()
-                    }.navigationBarTitle(Text("Hunts"))
+                    }
                 
                 VStack {
                     HStack {
                         Text("Enter a Private Hunt Key:")
-                            TextField("enter", text: $privKey)
-                            Button(action: self.getPrivHunt) {
-                               Text("Find")
-                            }
+                        TextField("enter", text: $privKey).frame(width: 60)
+                        Button(action: self.getPrivHunt) {
+                            Text("find")
+                        }
                         VStack {
-                            Text(currentHuntName)
+                            if currentHuntName != "" {
+                                Text(currentHuntName)
+                            }
+                            
                             NavigationLink(destination: HuntStops(name: currentHuntName)) {
                                 Text("embark")
-                            }.padding()
+                            }.disabled(currentHuntName == "")
                         }
                         
                         
                         
                     }.padding()
-                }.overlay(Rectangle().foregroundColor(.blue).opacity(0.12))
-            }
+                }.background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
+                Spacer().frame(height: 20)
+            }.frame(width: 400)
         }.font(.custom("Averia-Regular", size: 18))
     }
 }

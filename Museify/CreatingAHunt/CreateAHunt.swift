@@ -123,6 +123,16 @@ struct CreateAHunt: View {
         NavigationView {
             ZStack {
                 VStack {
+                    Spacer().navigationBarTitle("").navigationBarHidden(true).frame(height: 40)
+                    HStack {
+                        Logo().frame(width: 80)
+                        Spacer().frame(width: 100)
+                        ZStack {
+                            Text("Create").font(.custom("Averia-Bold", size: 36)).offset(x: 2, y: 2).foregroundColor(.blue).opacity(0.22)
+                            Text("Create").font(.custom("Averia-Bold", size: 36))
+                        }
+                    }.padding().frame(width: 400, alignment: .leading)
+                    
                     HStack {
                         VStack {
                             HStack{
@@ -157,7 +167,7 @@ struct CreateAHunt: View {
                         }
                         
                         
-                    }.padding(10)
+                    }.padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                     Text("Stops:")
                     Button(action: self.getStops) {
                         Text("Get Stops")
@@ -194,28 +204,30 @@ struct CreateAHunt: View {
                     
                     HStack{
                         VStack {
-                            Toggle(isOn: $isItPublic) {
-                                Text("Public")
-                            }.frame(width: 140)
+                            Toggle("", isOn: $isItPublic).frame(width: 140).toggleStyle(ColoredToggleStyle(label: "Public", onColor: .blue, offColor: .gray))
+                            
                             
                             if !self.isItPublic {
-                                Text("Hunt code:").onAppear {
-                                    self.setID()
-                                }
-                                if self.huntID != nil {
-                                    Text("\(huntID!.description)")
-                                }
+                                VStack {
+                                    Text("Hunt code:").onAppear {
+                                        self.setID()
+                                    }
+                                    if self.huntID != nil {
+                                        Text("\(huntID!.description)")
+                                    }
+                                    }.padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.gray).opacity(0.12), alignment: .bottom)
+                                
                             }
                         }
                         
                         Spacer()
                         Button(action: self.addHunt) {
                             Text("Publish Hunt")
-                        }.disabled(!self.active)
+                        }.disabled(!self.active).padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.green).opacity(0.12), alignment: .bottom)
                         
                         
-                    }.padding(10)
-                }
+                    }.padding()
+                }.frame(width: 400)
             }
         }.font(.custom("Averia-Regular", size: 18))
     }

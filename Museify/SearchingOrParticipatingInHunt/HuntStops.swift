@@ -56,7 +56,7 @@ struct HuntStops: View {
                     
                     
                     imgRef.getData(maxSize: 1 * 8000 * 8000) { data, error in
-                        if let _ = error {print("error"); return}
+                        if let theError = error {print(theError); return}
                         print("no error")
                         let imageNm = document.data()["imageName"] as! String
                         print(imageNm)
