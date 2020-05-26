@@ -214,7 +214,7 @@ struct CreateAHunt: View {
                     
                     HStack{
                         VStack {
-                            Toggle("", isOn: $isItPublic).frame(width: 140).toggleStyle(ColoredToggleStyle(label: "Public", onColor: .blue, offColor: .gray)).saturation(self.active ? 1.0 : 0.2)
+                            Toggle("", isOn: $isItPublic).frame(width: 140).toggleStyle(ColoredToggleStyle(label: "Public", onColor: .blue, offColor: .gray)).saturation(self.active ? 1.0 : 0.2).disabled(!self.active)
                             
                             
                             if !self.isItPublic {
