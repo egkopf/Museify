@@ -111,6 +111,25 @@ struct HuntStops: View {
         }
     }
     
+    func calculateAngleToStop(yourLat: Double, yourLon: Double, stopLat: Double, stopLon: Double) -> Double {
+        let deltaLat = stopLat - yourLat
+        let deltaLon = stopLon - yourLon
+        print(deltaLat)
+        print(deltaLon)
+        if deltaLat >= 0.0 {
+            if deltaLat != 0.0 {
+                print(atan(deltaLon/deltaLat) * 180 / Double.pi)
+                return atan(deltaLon/deltaLat) * 180 / Double.pi
+            } else {
+                print(atan(deltaLon/deltaLat - 0.000001) * 180 / Double.pi)
+            return atan(deltaLon/(deltaLat - 0.00001) * 180 / Double.pi)
+            }
+        } else {
+            print(atan(deltaLon/deltaLat) * 180 / Double.pi + 180)
+            return atan(deltaLon/deltaLat) * 180 / Double.pi + 180
+        }
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -133,7 +152,7 @@ struct HuntStops: View {
                                         Text("\(stop.stopDescription)").font(.custom("Averia-Regular", size: 18)).foregroundColor(.green)
                                     }
                                     HStack {
-                                        ArrowView().rotationEffect(.degrees(stop.direction - self.direction))
+                                        ArrowView().rotationEffect(.degrees(self.calculateAngleToStop(yourLat: self.userLatitude, yourLon: self.userLongitude, stopLat: stop.latitude, stopLon: stop.longitude)))
                                         Text("\(self.metersToMiles(meters: CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))), specifier: "%.2f") miles away!")
                                             .font(.custom("Averia-Regular", size: 18))
                                     }
