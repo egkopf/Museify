@@ -10,7 +10,18 @@ import SwiftUI
 
 struct ArrowView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            RoundedRectangle(cornerRadius: 4)
+                .frame(width: 5, height: 45)
+            RoundedRectangle(cornerRadius: 4)
+                .frame(width: 5, height: 17)
+                .rotationEffect(.degrees(40))
+                .offset(x: -4, y: -19)
+            RoundedRectangle(cornerRadius: 4)
+                .frame(width: 5, height: 17)
+                .rotationEffect(.degrees(-40))
+                .offset(x: 4, y: -19)
+        }
     }
 }
 

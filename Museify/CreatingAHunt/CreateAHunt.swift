@@ -33,7 +33,7 @@ struct CreateAHunt: View {
     @State var images = [String: UIImage]()
     
     
-    var active: Bool {return !(self.name == "" || self.description == "")}
+    var active: Bool {return !(self.name == "" || self.description == "" || self.coverImage == nil)}
     
     func setID() {
         huntID = Int.random(in: 100000...999999)
@@ -127,9 +127,16 @@ struct CreateAHunt: View {
                     HStack {
                         Logo().frame(width: 80)
                         Spacer().frame(width: 100)
-                        ZStack {
-                            Text("Create").font(.custom("Averia-Bold", size: 36)).offset(x: 2, y: 2).foregroundColor(.blue).opacity(0.22)
-                            Text("Create").font(.custom("Averia-Bold", size: 36))
+                        VStack {
+                            ZStack {
+                                Text("Create").font(.custom("Averia-Bold", size: 36)).offset(x: 2, y: 2).foregroundColor(.blue).opacity(0.22)
+                                Text("Create").font(.custom("Averia-Bold", size: 36))
+                            }
+                            if self.name != "" && self.description != "" && self.coverImage != nil {
+                                Text("Now, give your hunt some stops!").font(.custom("Averia-Bold", size: 12))
+                            } else {
+                                Text("First, complete the blue box!").font(.custom("Averia-Bold", size: 12))
+                            }
                         }
                     }.padding().frame(width: 400, alignment: .leading)
                     
@@ -144,34 +151,37 @@ struct CreateAHunt: View {
                                 TextField("Enter Description", text: $description)
                             }
                         }
-                        
-                        CameraButtonView(showActionSheet: $showActionSheet)
-                            .actionSheet(isPresented: $showActionSheet, content: { () -> ActionSheet in
-                                ActionSheet(title: Text("Select Image"), message: Text("Please select an image"), buttons: [
-                                    ActionSheet.Button.default(Text("Camera"), action: {
-                                        self.sourceType = 0
-                                        self.showImagePicker.toggle()
-                                    }),
-                                    ActionSheet.Button.default(Text("Photo Gallery"), action: {
-                                        self.sourceType = 1
-                                        self.showImagePicker.toggle()
-                                    }),
-                                    ActionSheet.Button.cancel()
-                                ])
-                            })
-                            .sheet(isPresented: $showImagePicker) {
-                                ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$coverImage, sourceType: self.sourceType)
+                        VStack {
+                            if coverImage == nil {
+                                Text("Add a cover image:")
+                            }
+                            CameraButtonView(showActionSheet: $showActionSheet)
+                                .actionSheet(isPresented: $showActionSheet, content: { () -> ActionSheet in
+                                    ActionSheet(title: Text("Select Image"), message: Text("Please select an image"), buttons: [
+                                        ActionSheet.Button.default(Text("Camera"), action: {
+                                            self.sourceType = 0
+                                            self.showImagePicker.toggle()
+                                        }),
+                                        ActionSheet.Button.default(Text("Photo Gallery"), action: {
+                                            self.sourceType = 1
+                                            self.showImagePicker.toggle()
+                                        }),
+                                        ActionSheet.Button.cancel()
+                                    ])
+                                })
+                                .sheet(isPresented: $showImagePicker) {
+                                    ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$coverImage, sourceType: self.sourceType)
+                            }
+                            if coverImage != nil {
+                                Image(uiImage: coverImage!).resizable().frame(height: 75)
+                            }
                         }
-                        if coverImage != nil {
-                            Image(uiImage: coverImage!).resizable().frame(height: 150)
-                        }
-                        
                         
                     }.padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                     Text("Stops:")
                     Button(action: self.getStops) {
                         Text("Get Stops")
-                    }
+                    }.disabled(!self.active)
                     Spacer()
                     if images.count > 0 && stops.count == images.count {
                         VStack(spacing: 10) {
@@ -204,7 +214,7 @@ struct CreateAHunt: View {
                     
                     HStack{
                         VStack {
-                            Toggle("", isOn: $isItPublic).frame(width: 140).toggleStyle(ColoredToggleStyle(label: "Public", onColor: .blue, offColor: .gray))
+                            Toggle("", isOn: $isItPublic).frame(width: 140).toggleStyle(ColoredToggleStyle(label: "Public", onColor: .blue, offColor: .gray)).saturation(self.active ? 1.0 : 0.2)
                             
                             
                             if !self.isItPublic {
@@ -215,7 +225,7 @@ struct CreateAHunt: View {
                                     if self.huntID != nil {
                                         Text("\(huntID!.description)")
                                     }
-                                    }.padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.gray).opacity(0.12), alignment: .bottom)
+                                }.padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.gray).opacity(0.12), alignment: .bottom)
                                 
                             }
                         }

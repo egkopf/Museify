@@ -24,13 +24,17 @@ struct HuntStops: View {
     @State var name: String
     var db = Firestore.firestore()
     @ObservedObject var locationManager = LocationManager()
-
+    
     var userLatitude: Double {
         return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
     }
-
+    
     var userLongitude: Double {
         return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
+    }
+    
+    var direction: Double {
+        return Double(locationManager.direction ?? 0.0)
     }
     
     func getStops() {
@@ -72,6 +76,10 @@ struct HuntStops: View {
         
     }
     
+    func metersToMiles(meters: Double) -> Double {
+        return Double(meters / 16.0934).rounded() / 100
+    }
+    
     var body: some View {
         NavigationView {
             VStack{
@@ -80,18 +88,17 @@ struct HuntStops: View {
                     List {
                         ForEach(self.stops, id: \.self) { stop in
                             NavigationLink(destination: CompleteAStop(stop: stop, images: self.images)) {
-                                VStack{
-                                    HStack {
-                                        Text("\(stop.name)")
-                                            .foregroundColor(.white)
-                                            .font(.custom("Averia-Regular", size: 32))
-                                            .frame(width: 300, height: 40)
-                                            .background(Color.blue)
-                                        Image(uiImage: self.images[stop.imgName]!).resizable()
-                                            .frame(width: 50, height: 50)
-                                    }
-                                    Text("\(CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) meters away!")
-                                        .font(.custom("Averia-Regular", size: 15))
+                                HStack {
+                                    Image(uiImage: self.images[stop.imgName]!).resizable()
+                                        .frame(width: 120, height: 150)
+                                    VStack {
+                                        Text("\(stop.name)").font(.custom("Averia-Regular", size: 32)).foregroundColor(.blue)
+                                        HStack {
+                                            ArrowView().rotationEffect(.degrees(stop.direction - self.direction))
+                                            Text("\(self.metersToMiles(meters: CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))), specifier: "%.2f") miles away!")
+                                                .font(.custom("Averia-Regular", size: 15))
+                                        }
+                                    }.offset(x: 60)
                                 }
                             }
                         }
