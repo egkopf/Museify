@@ -152,7 +152,7 @@ struct HuntStops: View {
                                         Text("\(stop.stopDescription)").font(.custom("Averia-Regular", size: 18)).foregroundColor(.green)
                                     }
                                     HStack {
-                                        ArrowView().rotationEffect(.degrees(self.calculateAngleToStop(yourLat: self.userLatitude, yourLon: self.userLongitude, stopLat: stop.latitude, stopLon: stop.longitude)))
+                                        ArrowView().rotationEffect(.degrees((self.calculateAngleToStop(yourLat: self.userLatitude, yourLon: self.userLongitude, stopLat: stop.latitude, stopLon: stop.longitude)) - self.direction))
                                         Text("\(self.metersToMiles(meters: CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))), specifier: "%.2f") miles away!")
                                             .font(.custom("Averia-Regular", size: 18))
                                     }
