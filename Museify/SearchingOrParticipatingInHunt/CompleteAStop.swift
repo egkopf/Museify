@@ -42,7 +42,7 @@ struct CompleteAStop: View {
     }
     
     func isMyPhotoRight(photoLat: Double, photoLon: Double, photoDir: Double, stopLat: Double, stopLon: Double, stopDir: Double) -> Bool {
-        if abs(photoLat - stopLat) < 10.0 && abs(photoLon - stopLon) < 10.0 && abs(photoDir - stopDir) < 13.0 {
+        if abs(photoLat - stopLat) < 10.0 && abs(photoLon - stopLon) < 10.0 && abs(photoDir - stopDir) < 60.0 {
             return true
         }
         return false

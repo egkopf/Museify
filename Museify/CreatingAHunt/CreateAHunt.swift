@@ -173,7 +173,7 @@ struct CreateAHunt: View {
                                     ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$coverImage, sourceType: self.sourceType)
                             }
                             if coverImage != nil {
-                                Image(uiImage: coverImage!).resizable().frame(height: 75)
+                                Image(uiImage: coverImage!).resizable().frame(width: 75, height: 75)
                             }
                         }
                         
@@ -184,29 +184,28 @@ struct CreateAHunt: View {
                     }.disabled(!self.active)
                     Spacer()
                     if images.count > 0 && stops.count == images.count {
-                        VStack(spacing: 10) {
+                        ScrollView {
                             ForEach(stops, id: \.self) { stop in
                                 VStack{
                                     HStack {
-                                        Text("\(stop.name)")
+                                        Text("\(stop.name)").font(.custom("Averia-Regular", size: 22))
                                             .foregroundColor(.white)
-                                            .font(.largeTitle)
                                             .frame(width: 300, height: 40)
-                                            .background(Color.blue)
+                                            .background(Color.blue).clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
                                         Image(uiImage: self.images[stop.imgName]!).resizable()
-                                            .frame(width: 50, height: 50)
+                                            .frame(width: 50, height: 50).clipShape(RoundedRectangle(cornerRadius: 10))
                                     }
                                 }
                                 
                             }
-                        }
+                            }.padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.gray).opacity(0.12), alignment: .bottom)
                     } else {
                         Text("No stops yet!")
                     }
                     
                     Button(action: self.addHuntAndCreateStop) {
                         
-                        Text("Add a Stop (+)")
+                        Text("Add a Stop (+)").font(.custom("Averia-Bold", size: 24))
                     }.disabled(!self.active)
                         .sheet(isPresented: $variable) {
                             CreateAStop(huntName: "\(self.name)", variable: self.$variable)

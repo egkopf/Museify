@@ -102,21 +102,24 @@ struct CreateAStop: View {
     var body: some View {
         ZStack {
             VStack {
-                Text("New Stop")
+                Text("New Stop").font(.custom("Averia-Bold", size: 24)).foregroundColor(Color(0x248585))
                 HStack{
                     Text("Name:")
                     TextField("Enter Name", text: $name)
-                }
+                }.font(.custom("Averia-Regular", size: 18)).padding()
                 
-                TextField("Enter a description about the stop", text: $description).frame(width: 250, height: 150)
-                Text("IMAGE:")
+                HStack{
+                    Text("Description:")
+                    TextField("Enter Description", text: $description)
+                }.font(.custom("Averia-Regular", size: 18)).padding()
+                
                 
 //                HStack{
 //                    Text("Filename:")
 //                    TextField("Enter filename", text: $filename)
 //                }.padding(25)
                 
-                CameraButtonView(showActionSheet: $showActionSheet)
+                CameraButtonView(showActionSheet: $showActionSheet).frame(width: 50)
                     .actionSheet(isPresented: $showActionSheet, content: { () -> ActionSheet in
                         ActionSheet(title: Text("Select Image"), message: Text("Please select an image"), buttons: [
                             ActionSheet.Button.default(Text("Camera"), action: {
@@ -135,11 +138,11 @@ struct CreateAStop: View {
                             .onDisappear(perform: {self.getPhotoCoordinatesAndDirection()})
                 }
                 if self.uiimage != nil {
-                    Image(uiImage: uiimage!).resizable().frame(width: 80, height: 80)
+                    Image(uiImage: uiimage!).resizable().frame(width: 180, height: 180)
                 }
                 
                 Button(action: self.addStop) {
-                    Text("Add to Hunt >")
+                    Text("Add to Hunt >").font(.custom("Averia-Regular", size: 24)).foregroundColor(Color(0x248585))
                 }
             }
         }

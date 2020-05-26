@@ -152,8 +152,8 @@ struct HuntStops: View {
                                         Text("\(stop.stopDescription)").font(.custom("Averia-Regular", size: 18)).foregroundColor(.green)
                                     }
                                     HStack {
-                                        ArrowView().rotationEffect(.degrees((self.calculateAngleToStop(yourLat: self.userLatitude, yourLon: self.userLongitude, stopLat: stop.latitude, stopLon: stop.longitude)) - self.direction))
-                                        Text("\(self.metersToMiles(meters: CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))), specifier: "%.2f") miles away!")
+                                        ArrowView().rotationEffect(.degrees((self.calculateAngleToStop(yourLat: self.userLatitude, yourLon: self.userLongitude, stopLat: stop.latitude, stopLon: stop.longitude)) - self.direction)).padding()
+                                        Text("\(self.metersToMiles(meters: CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))), specifier: "%.2f") miles away!").padding()
                                             .font(.custom("Averia-Regular", size: 18))
                                     }
                                     if self.metersToMiles(meters: CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) < 0.15 {
@@ -188,7 +188,7 @@ struct HuntStops: View {
                                     }
                                 }.offset(x: 20)
                                 .alert(isPresented: self.$showingGoodAlert) {
-                                    Alert(title: Text("Congratualtions!"), message: Text("You have successfully completed the stop and have unlocked its information!"), dismissButton: .default(Text("Got it!")))
+                                    Alert(title: Text("Congratulations!"), message: Text("You have successfully completed the stop and have unlocked its information!"), dismissButton: .default(Text("Got it!")))
                                 }
                                 .alert(isPresented: self.$showingWrongAlert) {
                                     Alert(title: Text("Not quite!"), message: Text("Make sure that you are in the right location and are facing the right way!"), dismissButton: .default(Text("Okay")))
