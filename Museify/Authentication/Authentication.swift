@@ -13,6 +13,8 @@ import Combine
 
 class Authentication: ObservableObject {
     @Published var currentUser: User?
+    var currentEmail: String?
+    var currentUID: String?
     
     var handle: AuthStateDidChangeListenerHandle?
     
@@ -20,7 +22,9 @@ class Authentication: ObservableObject {
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if let user = user {
                 self.currentUser = User(uid: user.uid, email: user.email)
+                print(user.email)
             } else {
+                print("No current user")
                 self.currentUser = nil
             }
         })
@@ -28,10 +32,12 @@ class Authentication: ObservableObject {
     
     func signUp(email: String, password: String, handler: @escaping AuthDataResultCallback) {
         Auth.auth().createUser(withEmail: email, password: password, completion: handler)
+        currentEmail = email
     }
     
     func signIn(email: String, password: String, handler: @escaping AuthDataResultCallback) {
         Auth.auth().signIn(withEmail: email, password: password, completion: handler)
+        currentEmail = email
     }
     
     func signOut() {

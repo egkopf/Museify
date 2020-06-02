@@ -38,17 +38,11 @@ struct SignUp: View {
     }
     
     func addPerson() {
-        var ref: DocumentReference? = nil
-        ref = db.collection("users").addDocument(data: [
-            "username": email,
-            "password": password
-        ]) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document added with ID: \(ref!.documentID)")
-            }
+        db.collection("users").document("\(email)").setData(["password": password]) { err in
+            if let err = err {print("Error writing document: \(err)")}
+            else {print("Document successfully written!")}
         }
+        //db.collection("users").document("\(email)").collection("stopsCompleted")
     }
     
     

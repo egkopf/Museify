@@ -35,6 +35,7 @@ struct HuntStops: View {
     @State var completedStops = [String]()
     var db = Firestore.firestore()
     @ObservedObject var locationManager = LocationManager()
+    @EnvironmentObject var auth: Authentication
     
     var userLatitude: Double {
         return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
@@ -130,6 +131,12 @@ struct HuntStops: View {
         }
     }
     
+    func addCompletedStop(name: String) {
+        
+        db.collection("users").document("\(auth.currentEmail!)").collection("stopsCompleted").document(name).setData(["name": name])
+
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -143,7 +150,10 @@ struct HuntStops: View {
                                     Image(uiImage: self.images[stop.imgName]!).resizable()
                                         .frame(width: 120, height: 150)
                                     if self.completedStops.contains(stop.name) {
-                                        Text("Stop completed :)").font(.custom("Averia-Regular", size: 10)).foregroundColor(.green)
+                                        Text("Stop completed :)").font(.custom("Averia-Regular", size: 10)).foregroundColor(.green).onAppear() {
+                                            
+                                            self.addCompletedStop(name: self.name + stop.name)
+                                        }
                                     }
                                 }
                                 VStack {

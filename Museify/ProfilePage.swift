@@ -20,18 +20,19 @@ struct ProfilePage: View {
     var username: String
     @EnvironmentObject var auth: Authentication
     var db = Firestore.firestore()
+    @State var docs = [String]()
     
     private func getDocument() {
-        let docRef = db.collection("users").document("\(String(describing: auth.currentUser?.uid))")
-
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.get("username") ?? "nil"
-                print("Document data: \(dataDescription)")
-            } else {
-                print("Document does not exist")
+        db.collection("users").document(auth.currentEmail!).collection("stopsCompleted").getDocuments() { (querySnapshot, err) in
+            if let err = err {print("Error getting documents: \(err)")} else {
+                self.docs = []
+                for document in querySnapshot!.documents {
+                    let name = document.data()["name"] as! String
+                    self.docs.append(name)
+                }
             }
         }
+
     }
     
     var body: some View {
@@ -40,7 +41,11 @@ struct ProfilePage: View {
             Spacer().frame(height: 100)
             Text("Profile").font(.custom("Averia-Bold", size: 28))
             Text("Welcome \(username)")
-        }.font(.custom("Averia-Regular", size: 18))
+            Text("Completed Stops: \(self.docs.description)")
+        }.font(.custom("Averia-Regular", size: 18)).onAppear {
+            self.getDocument()
+            
+        }
     }
 }
     
