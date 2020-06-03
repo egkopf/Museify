@@ -42,7 +42,7 @@ struct SignUp: View {
             if let err = err {print("Error writing document: \(err)")}
             else {print("Document successfully written!")}
         }
-        //db.collection("users").document("\(email)").collection("stopsCompleted")
+        db.collection("users").document("\(email)").collection("stopsCompleted")
     }
     
     

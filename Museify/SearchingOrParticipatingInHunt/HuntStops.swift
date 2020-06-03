@@ -100,42 +100,62 @@ struct HuntStops: View {
         self.photoLatitude = Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
         self.photoLongitude = Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
         self.photoDirection = Double(locationManager.direction ?? 0.0)
-        print("\(photoLatitude), \(photoLongitude)")
-    }
-    
-    func isMyPhotoRight(photoLat: Double, photoLon: Double, photoDir: Double, stopLat: Double, stopLon: Double, stopDir: Double, stopNam: String) {
-        if abs(photoLat - stopLat) < 15.0 && abs(photoLon - stopLon) < 15.0 && abs(photoDir - stopDir) < 25.0 {
-            self.completedStops.append(stopNam)
-            self.showingGoodAlert = true
-        } else {
-            self.showingWrongAlert = true
-        }
+        //print("\(photoLatitude), \(photoLongitude)")
     }
     
     func calculateAngleToStop(yourLat: Double, yourLon: Double, stopLat: Double, stopLon: Double) -> Double {
         let deltaLat = stopLat - yourLat
         let deltaLon = stopLon - yourLon
-        print(deltaLat)
-        print(deltaLon)
+        //print(deltaLat)
+        //print(deltaLon)
         if deltaLat >= 0.0 {
             if deltaLat != 0.0 {
-                print(atan(deltaLon/deltaLat) * 180 / Double.pi)
+                //print(atan(deltaLon/deltaLat) * 180 / Double.pi)
                 return atan(deltaLon/deltaLat) * 180 / Double.pi
             } else {
-                print(atan(deltaLon/deltaLat - 0.000001) * 180 / Double.pi)
+                //print(atan(deltaLon/deltaLat - 0.000001) * 180 / Double.pi)
             return atan(deltaLon/(deltaLat - 0.00001) * 180 / Double.pi)
             }
         } else {
-            print(atan(deltaLon/deltaLat) * 180 / Double.pi + 180)
+            //print(atan(deltaLon/deltaLat) * 180 / Double.pi + 180)
             return atan(deltaLon/deltaLat) * 180 / Double.pi + 180
         }
     }
     
     func addCompletedStop(name: String) {
         
-        db.collection("users").document("\(auth.currentEmail!)").collection("stopsCompleted").document(name).setData(["name": name])
+        db.collection("users").document("\(auth.currentEmail!)").collection("stopsCompleted").document("\(name)").setData(["name": name])
 
     }
+    
+    func getCompletedStops() {
+        let stopRef = db.collection("users").document("\(auth.currentEmail!)").collection("stopsCompleted")
+        
+        stopRef.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    //if (document.data()["name"] as! String).hasPrefix("\(self.name)") {
+                        //print(document.data())
+                        self.completedStops.append(document.data()["name"] as! String)
+                        //print(self.stops)
+                    //}
+                }
+            }
+        }
+    }
+    
+    func isMyPhotoRight(photoLat: Double, photoLon: Double, photoDir: Double, stopLat: Double, stopLon: Double, stopDir: Double, stopNam: String) {
+        if abs(photoLat - stopLat) < 15.0 && abs(photoLon - stopLon) < 15.0 && abs(photoDir - stopDir) < 25.0 {
+            self.addCompletedStop(name: stopNam)
+            self.showingGoodAlert = true
+        } else {
+            self.showingWrongAlert = true
+        }
+        self.getCompletedStops()
+    }
+    
     
     var body: some View {
         NavigationView {
@@ -149,16 +169,13 @@ struct HuntStops: View {
                                 VStack {
                                     Image(uiImage: self.images[stop.imgName]!).resizable()
                                         .frame(width: 120, height: 150)
-                                    if self.completedStops.contains(stop.name) {
-                                        Text("Stop completed :)").font(.custom("Averia-Regular", size: 10)).foregroundColor(.green).onAppear() {
-                                            
-                                            self.addCompletedStop(name: self.name + stop.name)
-                                        }
+                                    if self.completedStops.contains("\(self.name + stop.name)") {
+                                        Text("Stop completed :)").font(.custom("Averia-Regular", size: 10)).foregroundColor(.green)
                                     }
                                 }
                                 VStack {
                                     Text("\(stop.name)").font(.custom("Averia-Regular", size: 32)).foregroundColor(.blue)
-                                    if self.completedStops.contains(stop.name) {
+                                    if self.completedStops.contains("\(self.name + stop.name)") {
                                         Text("\(stop.stopDescription)").font(.custom("Averia-Regular", size: 18)).foregroundColor(.green)
                                     }
                                     HStack {
@@ -212,6 +229,7 @@ struct HuntStops: View {
                 }
                 Spacer()
             }.onAppear {self.getStops()}
+                .onAppear { self.getCompletedStops() }
                 .offset(y: -60)
         }.font(.custom("Averia-Regular", size: 18))
     }
