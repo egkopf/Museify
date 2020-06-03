@@ -83,7 +83,7 @@ struct SignUp: View {
                 Text(String(error)).foregroundColor(.red)
             }
             Spacer()
-        }
+        }.font(.custom("Averia-Regular", size: 18))
     }
 }
 

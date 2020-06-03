@@ -14,7 +14,7 @@ struct SignUpOrLogIn: View {
             VStack {
                 Spacer().frame(height: 150)
                 Logo().frame(width: 300, height: 300)
-                Text("Museify").font(.largeTitle)
+                Text("Museify").font(.custom("Averia-Regular", size: 36))
                 
                 VStack {
                     
@@ -28,7 +28,7 @@ struct SignUpOrLogIn: View {
                     Spacer()
                 }
             }
-        }
+        }.font(.custom("Averia-Regular", size: 18))
     }
 }
 

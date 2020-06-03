@@ -83,6 +83,9 @@ struct Search: View {
     @State var currentHuntName = ""
     @State var ready: Bool = false
     @State var images = [String: UIImage]()
+    @State var completedStops = [String]()
+    @State var huntsUnderway = [String]()
+    @EnvironmentObject var auth: Authentication
     
 
     
@@ -131,6 +134,24 @@ struct Search: View {
         print("no hunt")
     }
     
+    func getCompletedStops() {
+        let stopRef = db.collection("users").document("\(auth.currentEmail!)").collection("stopsCompleted")
+        
+        stopRef.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    //if (document.data()["name"] as! String).hasPrefix("\(self.name)") {
+                        //print(document.data())
+                        self.completedStops.append(document.data()["name"] as! String)
+                        //print(self.stops)
+                    //}
+                }
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -156,6 +177,9 @@ struct Search: View {
                                         Text("\(hunt.description)")
                                 
                                     }.font(.custom("Averia-Regular", size: 18))
+                                    if self.completedStops.contains { $0.hasPrefix("\(hunt)") } {
+                                        Text("Underway").foregroundColor(.green).font(.custom("Averia-Bold", size: 16))
+                                    }
                                     Spacer()
                                     if self.images[hunt.name] != nil {
                                         Image(uiImage: self.images[hunt.name]!).resizable()
@@ -167,8 +191,6 @@ struct Search: View {
                             }
                         }
                     }
-                    }.onAppear {
-                    self.getAllHunts()
                     }
                 
                 VStack {
@@ -194,6 +216,8 @@ struct Search: View {
                 }.background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                 Spacer().frame(height: 20)
             }.frame(width: 400)
+            .onAppear { self.getAllHunts() }
+            .onAppear { self.getCompletedStops() }
         }.font(.custom("Averia-Regular", size: 18))
     }
 }

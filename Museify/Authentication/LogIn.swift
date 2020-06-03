@@ -61,7 +61,7 @@ struct LogIn: View {
                 Text("There was an error logging in.").foregroundColor(.red)
             }
             Spacer()
-        }
+        }.font(.custom("Averia-Regular", size: 18))
     }
 }
 
