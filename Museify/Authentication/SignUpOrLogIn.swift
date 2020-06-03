@@ -28,7 +28,7 @@ struct SignUpOrLogIn: View {
                     Spacer()
                 }
             }
-        }.font(.custom("Averia-Regular", size: 18))
+            }.font(.custom("Averia-Regular", size: 18))
     }
 }
 

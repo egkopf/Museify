@@ -35,7 +35,7 @@ struct LogIn: View {
     var body: some View {
         VStack {
             Text("Sign in as an existing user:")
-                .font(.headline)
+                .font(.custom("Averia-Bold", size: 24))
             
             VStack {
                 HStack {

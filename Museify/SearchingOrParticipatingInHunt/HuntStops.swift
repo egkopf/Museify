@@ -170,7 +170,7 @@ struct HuntStops: View {
                                     Image(uiImage: self.images[stop.imgName]!).resizable()
                                         .frame(width: 120, height: 150)
                                     if self.completedStops.contains("\(self.name + stop.name)") {
-                                        Text("Stop completed :)").font(.custom("Averia-Regular", size: 10)).foregroundColor(.green)
+                                        Text("Stop completed!").font(.custom("Averia-Regular", size: 10)).foregroundColor(.green).padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                                     }
                                 }
                                 VStack {
@@ -218,7 +218,7 @@ struct HuntStops: View {
                                     Alert(title: Text("Congratulations!"), message: Text("You have successfully completed the stop and have unlocked its information!"), dismissButton: .default(Text("Got it!")))
                                 }
                                 .alert(isPresented: self.$showingWrongAlert) {
-                                    Alert(title: Text("Not quite!"), message: Text("Make sure that you are in the right location and are facing the right way!"), dismissButton: .default(Text("Okay")))
+                                    Alert(title: Text("Not quite!"), message: Text("Make sure that you are facing the right way!"), dismissButton: .default(Text("Okay")))
                                 }
                             }
                             //}

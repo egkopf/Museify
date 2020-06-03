@@ -55,7 +55,7 @@ struct SignUp: View {
     var body: some View {
         VStack {
             Text("Sign Up as a New User:")
-                .font(.headline)
+                .font(.custom("Averia-Bold", size: 24))
             
             
             VStack {
