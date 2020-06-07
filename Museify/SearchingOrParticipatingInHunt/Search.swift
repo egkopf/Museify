@@ -16,6 +16,7 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
+import CoreLocation
 
 
 struct SearchBar: UIViewRepresentable {
@@ -54,7 +55,6 @@ struct SearchBar: UIViewRepresentable {
     }
 }
 
-
 class Hunt: Identifiable, Equatable, CustomStringConvertible, Hashable {
     static func == (lhs: Hunt, rhs: Hunt) -> Bool {
         return lhs.name == lhs.name && lhs.description == lhs.description
@@ -63,6 +63,8 @@ class Hunt: Identifiable, Equatable, CustomStringConvertible, Hashable {
     var name: String
     var description: String
     var key: Int?
+    
+    var id: String { name }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
@@ -77,7 +79,7 @@ class Hunt: Identifiable, Equatable, CustomStringConvertible, Hashable {
 
 struct Search: View {
     var db = Firestore.firestore()
-    @State public var hunts = [Hunt]()
+    @State public var hunts = [Hunt : Double]()
     @State public var searchBar = ""
     @State var privKey: String = ""
     @State var currentHuntName = ""
@@ -86,7 +88,30 @@ struct Search: View {
     @State var completedStops = [String]()
     @State var huntsUnderway = [String]()
     @EnvironmentObject var auth: Authentication
+    @ObservedObject var locationManager = LocationManager()
     
+    var userLatitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
+    }
+    
+    var userLongitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
+    }
+    
+    
+    func calculateClosestStop(hunt: String, currLat: Double, currLon: Double) -> Double {
+        var distances = [Double]()
+        db.collection("hunts").document("\(hunt)").collection("stops").getDocuments() { (querySnapshot, err) in
+            if let err = err {print("Error getting documents: \(err)")} else {
+                for document in querySnapshot!.documents {
+                    let stopLat = document.data()["latitude"] as! Double
+                    let stopLon = document.data()["longitude"] as! Double
+                    distances.append(Double(CLLocation(latitude: currLat, longitude: currLon).distance(from: CLLocation(latitude: stopLat, longitude: stopLon))))
+                }
+            }
+        }
+        return distances.min()!
+    }
 
     
     func getAllHunts() {
@@ -94,20 +119,20 @@ struct Search: View {
             if let err = err {print("Error getting documents: \(err)")} else {
                 for document in querySnapshot!.documents {
                     let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String, key: (document.data()["huntID"] as? Int))
-                    for hunt in self.hunts {if hunt.name == newHunt.name {return}}
-                    self.hunts.append(newHunt)
+                    for (hunt, distance) in self.hunts {if hunt.name == newHunt.name {return}}
+                    self.hunts[newHunt] = self.calculateClosestStop(hunt: newHunt.name, currLat: self.userLatitude, currLon: self.userLongitude)
                     if querySnapshot!.documents.count == self.hunts.count {self.getAllImages()}
                 }
             }
         }
-        print("hunts: \(hunts)")
+        //print("hunts: \(hunts)")
     }
     
     func getAllImages() {
         let tempHunts = hunts.filter({$0.key == nil})
         if tempHunts.count == images.count {return}
         
-        for hunt in hunts {
+        for (hunt, distance) in hunts {
             if hunt.key == nil {
                 let storageRef = Storage.storage().reference()
                 let imgRef = storageRef.child("images/\(hunt.name)CoverImage")
@@ -125,7 +150,7 @@ struct Search: View {
     func doNothing() {}
     
     func getPrivHunt() {
-        for hunt in self.hunts {
+        for (hunt, distance) in self.hunts {
             if hunt.key == Int(privKey) {
                 self.currentHuntName = hunt.name
                 ready = true
@@ -152,6 +177,11 @@ struct Search: View {
         }
     }
     
+    func metersToMiles(meters: Double) -> Double {
+        return Double(meters / 16.0934).rounded() / 100
+    }
+    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -168,30 +198,14 @@ struct Search: View {
                 
                 SearchBar(text: $searchBar, placeholder: "Search")
                 List {
-                    ForEach(self.hunts) { hunt in
+                    ForEach(self.hunts.sorted(by: { $0.value < $1.value })) { (hunt, distance) in
                         if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
                             NavigationLink(destination: HuntStops(name: hunt.name)) {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text("\(hunt.name)").font(.custom("Averia-Bold", size: 18))
-                                        Text("\(hunt.description)")
-                                
-                                    }.font(.custom("Averia-Regular", size: 18))
-                                    if self.completedStops.contains { $0.hasPrefix("\(hunt)") } {
-                                        Text("Underway").foregroundColor(.green).font(.custom("Averia-Bold", size: 16))
-                                    }
-                                    Spacer()
-                                    if self.images[hunt.name] != nil {
-                                        Image(uiImage: self.images[hunt.name]!).resizable()
-                                            .frame(width: 50, height: 50, alignment: .trailing).clipShape(RoundedRectangle(cornerRadius: 10))
-                                        
-                                    }
-                                    
-                                }
+                                HuntRow(hunt: hunt, completedStops: self.$completedStops, distance: distance, images: self.$images)
                             }
                         }
                     }
-                    }
+                }
                 
                 VStack {
                     HStack {
