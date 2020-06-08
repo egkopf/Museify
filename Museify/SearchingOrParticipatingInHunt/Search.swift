@@ -98,6 +98,9 @@ struct Search: View {
         return Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
     }
     
+    func metersToMiles(meters: Double) -> Double {
+        return Double(meters / 16.0934).rounded() / 100
+    }
     
     func calculateClosestStop(hunt: String, currLat: Double, currLon: Double) -> Double {
         var distances = [Double]()
@@ -125,7 +128,7 @@ struct Search: View {
                 }
             }
         }
-        //print("hunts: \(hunts)")
+        // print("hunts: \(hunts)")
     }
     
     func getAllImages() {
@@ -177,9 +180,6 @@ struct Search: View {
         }
     }
     
-    func metersToMiles(meters: Double) -> Double {
-        return Double(meters / 16.0934).rounded() / 100
-    }
     
 
     var body: some View {
@@ -197,15 +197,37 @@ struct Search: View {
                 
                 
                 SearchBar(text: $searchBar, placeholder: "Search")
+                
                 List {
-                    ForEach(self.hunts.sorted(by: { $0.value < $1.value })) { (hunt, distance) in
-                        if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
+                    VStack {
+                        ForEach(Array(self.hunts.keys).sorted(by: {hunts[$0]! < hunts[$1]!})) { hunt in
+                            if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
                             NavigationLink(destination: HuntStops(name: hunt.name)) {
-                                HuntRow(hunt: hunt, completedStops: self.$completedStops, distance: distance, images: self.$images)
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("\(hunt.name)").font(.custom("Averia-Bold", size: 18))
+                                        Text("\(hunt.description)")
+                                
+                                    }.font(.custom("Averia-Regular", size: 18))
+                                    if self.completedStops.contains { $0.hasPrefix("\(hunt)") } {
+                                        Text("Underway").foregroundColor(.green).font(.custom("Averia-Bold", size: 16))
+                                    }
+                                    Spacer()
+                                    Text("Closest Stop: \(self.metersToMiles(meters: self.hunts[hunt]!)) miles away").font(.custom("Averia-Bold", size: 12))
+                                    Spacer()
+                                    if self.images[hunt.name] != nil {
+                                        Image(uiImage: self.images[hunt.name]!).resizable()
+                                            .frame(width: 50, height: 50, alignment: .trailing).clipShape(RoundedRectangle(cornerRadius: 10))
+                                        
+                                    }
+                                    
+                                }
                             }
                         }
                     }
+                    
                 }
+            
                 
                 VStack {
                     HStack {
@@ -240,4 +262,5 @@ struct Search_Previews: PreviewProvider {
     static var previews: some View {
         Search()
     }
+}
 }
