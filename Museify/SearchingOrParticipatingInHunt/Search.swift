@@ -92,8 +92,8 @@ struct Search: View {
     @State var completedStops = [String]()
     @State var huntsUnderway = [String]()
     @State var huntsGotten: Bool = false
-    @State var stopsGotten: Bool = true
-    //@State var distancesGotten: Bool = false
+    @State var stopsGotten: Bool = false
+    @State var distancesGotten: Bool = false
     @EnvironmentObject var auth: Authentication
     @ObservedObject var locationManager = LocationManager()
     
@@ -120,7 +120,8 @@ struct Search: View {
                             for documentTwo in querySnapshotTwo!.documents {
                                 huntStops.append(Stop(Name: documentTwo.data()["name"] as! String, StopDescription: documentTwo.data()["description"] as! String, ImgName: documentTwo.data()["imageName"] as! String, Latitude: documentTwo.data()["latitude"] as! Double, Longitude: documentTwo.data()["longitude"] as! Double, Direction: documentTwo.data()["direction"] as! Double))
                             }
-                            if querySnapshotTwo!.documents.count != huntStops.count {self.stopsGotten = false}
+                            print(huntStops)
+                            if querySnapshotTwo!.documents.count == huntStops.count {self.stopsGotten = true}
                         }
                     }
                     let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String, key: (document.data()["huntID"] as? Int), stops: huntStops, closestStop: 0.0)
@@ -143,6 +144,7 @@ struct Search: View {
                 hunt.closestStop = distances.min()!
             }
         }
+        self.distancesGotten = true
     }
     
     func getAllImages() {
@@ -218,7 +220,7 @@ struct Search: View {
                 
                 SearchBar(text: $searchBar, placeholder: "Search")
                 
-                if self.huntsGotten && self.stopsGotten {
+                if self.huntsGotten && self.stopsGotten && self.distancesGotten {
                     List {
                         VStack {
                             ForEach(hunts.sorted(by: { $0.closestStop < $1.closestStop})) { hunt in
