@@ -68,7 +68,7 @@ struct HuntStops: View {
                     
                     
 //                    print(document.data())
-                    self.stops.append(Stop(Name: document.data()["name"] as! String, StopDescription: document.data()["description"] as! String, ImgName: document.data()["imageName"] as! String, Latitude: document.data()["latitude"] as! Double, Longitude: document.data()["longitude"] as! Double, Direction: document.data()["direction"] as! Double))
+                    self.stops.append(Stop(Name: document.data()["name"] as! String, StopDescription: document.data()["description"] as! String, ImgName: document.data()["imageName"] as! String, Latitude: document.data()["latitude"] as! Double, Longitude: document.data()["longitude"] as! Double, Direction: document.data()["direction"] as! Double, distanceAway: Double(CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: document.data()["latitude"] as! Double, longitude: document.data()["longitude"] as! Double)))))
 //                    print(self.stops)
 //                    print("images: \(self.images)")
                     
@@ -165,7 +165,7 @@ struct HuntStops: View {
                 Text("Stops:")
                 if self.images.count > 0 && self.stops.count == images.count {
                     List {
-                        ForEach(self.stops, id: \.self) { stop in
+                        ForEach(self.stops.sorted(by: {$0.distanceAway < $1.distanceAway}), id: \.self) { stop in
                             //NavigationLink(destination: CompleteAStop(stop: stop, images: self.images)) {
                             HStack {
                                 VStack {
@@ -182,7 +182,7 @@ struct HuntStops: View {
                                     }
                                     HStack {
                                         ArrowView().rotationEffect(.degrees((self.calculateAngleToStop(yourLat: self.userLatitude, yourLon: self.userLongitude, stopLat: stop.latitude, stopLon: stop.longitude)) - self.direction)).padding()
-                                        Text("\(self.metersToMiles(meters: CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))), specifier: "%.2f") miles away!").padding()
+                                        Text("\(self.metersToMiles(meters: stop.distanceAway), specifier: "%.2f") miles away!").padding()
                                             .font(.custom("Averia-Regular", size: 18))
                                     }
                                     if self.metersToMiles(meters: CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) < 0.15 {

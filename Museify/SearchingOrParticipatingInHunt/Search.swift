@@ -131,7 +131,7 @@ struct Search: View {
                     self.db.collection("hunts").document("\(hunt.data()["name"] as! String)").collection("stops").getDocuments() { (gotStops, stopsErr) in
                         if let stopsError = stopsErr {print("Error getting documents: \(stopsError)")} else {
                             for stop in gotStops!.documents {
-                                huntStops.append(Stop(Name: stop.data()["name"] as! String, StopDescription: stop.data()["description"] as! String, ImgName: stop.data()["imageName"] as! String, Latitude: stop.data()["latitude"] as! Double, Longitude: stop.data()["longitude"] as! Double, Direction: stop.data()["direction"] as! Double))
+                                huntStops.append(Stop(Name: stop.data()["name"] as! String, StopDescription: stop.data()["description"] as! String, ImgName: stop.data()["imageName"] as! String, Latitude: stop.data()["latitude"] as! Double, Longitude: stop.data()["longitude"] as! Double, Direction: stop.data()["direction"] as! Double, distanceAway: 0.0))
                             }
                             
                             let newHunt = Hunt(name: hunt.data()["name"] as! String, description: hunt.data()["description"] as! String, key: (hunt.data()["huntID"] as? Int), stops: huntStops, closestStop: 0.0)
@@ -200,23 +200,23 @@ struct Search: View {
         //print("no hunt")
     }
     
-    /*func getCompletedStops() {
-     let stopRef = db.collection("users").document("\(auth.currentEmail!)").collection("stopsCompleted")
-     
-     stopRef.getDocuments() { (querySnapshot, err) in
-     if let err = err {
-     print("Error getting documents: \(err)")
-     } else {
-     for document in querySnapshot!.documents {
-     //if (document.data()["name"] as! String).hasPrefix("\(self.name)") {
-     //print(document.data())
-     self.completedStops.append(document.data()["name"] as! String)
-     //print(self.stops)
-     //}
-     }
-     }
-     }
-     }*/
+    func getCompletedStops() {
+        let stopRef = db.collection("users").document("\(auth.currentEmail!)").collection("stopsCompleted")
+        
+        stopRef.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    //if (document.data()["name"] as! String).hasPrefix("\(self.name)") {
+                        //print(document.data())
+                        self.completedStops.append(document.data()["name"] as! String)
+                        //print(self.stops)
+                    //}
+                }
+            }
+        }
+    }
     
     
     
@@ -297,9 +297,10 @@ struct Search: View {
                     }.background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                     Spacer().frame(height: 20)
                 }
-                //   .onAppear { self.getCompletedStops() }
+                
             }//.font(.custom("Averia-Regular", size: 18))
               .onAppear { self.getAllHunts() }
+            .onAppear { self.getCompletedStops() }
         }
     }
     
