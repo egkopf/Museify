@@ -50,6 +50,7 @@ struct HuntStops: View {
     }
     
     func getStops() {
+        print("Getting stops for \(name)...")
         let stopRef = db.collection("hunts").document("\(String(describing: name))").collection("stops")
         
         stopRef.getDocuments() { (querySnapshot, err) in
@@ -57,6 +58,7 @@ struct HuntStops: View {
                 print("Error getting documents: \(err)")
             } else {
                 self.stops = [Stop]()
+                print("Getting images for \(self.name)...")
                 for document in querySnapshot!.documents {
                     
                     let storageRef = Storage.storage().reference()
@@ -65,24 +67,24 @@ struct HuntStops: View {
                     
                     
                     
-                    print(document.data())
+//                    print(document.data())
                     self.stops.append(Stop(Name: document.data()["name"] as! String, StopDescription: document.data()["description"] as! String, ImgName: document.data()["imageName"] as! String, Latitude: document.data()["latitude"] as! Double, Longitude: document.data()["longitude"] as! Double, Direction: document.data()["direction"] as! Double))
-                    print(self.stops)
-                    print("images: \(self.images)")
+//                    print(self.stops)
+//                    print("images: \(self.images)")
                     
                     
                     imgRef.getData(maxSize: 1 * 8000 * 8000) { data, error in
                         if let theError = error {print(theError); return}
-                        print("no error")
+//                        print("no error")
                         let imageNm = document.data()["imageName"] as! String
-                        print(imageNm)
+//                        print(imageNm)
                         self.images[imageNm] = UIImage(data: data!)!
-                        print("images: \(self.images)")
+//                        print("images: \(self.images)")
                     }
                     
                     
                 }
-                print("IMAGES: \(self.images)")
+//                print("IMAGES: \(self.images)")
             }
         }
         

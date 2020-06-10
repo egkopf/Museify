@@ -125,18 +125,24 @@ struct Search: View {
         hunts = []
         db.collection("hunts").getDocuments() { (querySnapshot, err) in
             if let err = err {print("Error getting documents: \(err)")} else {
-                for document in querySnapshot!.documents {
+                print("Getting hunts...")
+                for hunt in querySnapshot!.documents {
                     var huntStops = [Stop]()
-                    self.db.collection("hunts").document("\(document.data()["name"] as! String)").collection("stops").getDocuments() { (querySnapshotTwo, errTwo) in
-                        if let errTwo = errTwo {print("Error getting documents: \(errTwo)")} else {
-                            for documentTwo in querySnapshotTwo!.documents {
-                                huntStops.append(Stop(Name: documentTwo.data()["name"] as! String, StopDescription: documentTwo.data()["description"] as! String, ImgName: documentTwo.data()["imageName"] as! String, Latitude: documentTwo.data()["latitude"] as! Double, Longitude: documentTwo.data()["longitude"] as! Double, Direction: documentTwo.data()["direction"] as! Double))
+                    self.db.collection("hunts").document("\(hunt.data()["name"] as! String)").collection("stops").getDocuments() { (gotStops, stopsErr) in
+                        if let stopsError = stopsErr {print("Error getting documents: \(stopsError)")} else {
+                            for stop in gotStops!.documents {
+                                huntStops.append(Stop(Name: stop.data()["name"] as! String, StopDescription: stop.data()["description"] as! String, ImgName: stop.data()["imageName"] as! String, Latitude: stop.data()["latitude"] as! Double, Longitude: stop.data()["longitude"] as! Double, Direction: stop.data()["direction"] as! Double))
                             }
-                            print(huntStops)
-                            let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String, key: (document.data()["huntID"] as? Int), stops: huntStops, closestStop: 0.0)
-                            print("all stops added: \(huntStops)")
+                            
+                            let newHunt = Hunt(name: hunt.data()["name"] as! String, description: hunt.data()["description"] as! String, key: (hunt.data()["huntID"] as? Int), stops: huntStops, closestStop: 0.0)
                             self.hunts.append(newHunt)
-                            self.getAllImages()
+                            if querySnapshot!.documents.count == self.hunts.count {
+                                print("Getting images...")
+                                self.getAllImages()
+                            } else {
+                            }
+                            
+                            
                             // THIS IS VERY RISKY but it seems to work
                             
 //                            if querySnapshot!.documents.count == self.hunts.count {self.getAllImages()} else {
@@ -150,17 +156,16 @@ struct Search: View {
                 
             }
         }
-        print("hunts: \(hunts)")
     }
     
     func calculateClosestStop(hunts: [Hunt], currLat: Double, currLon: Double) {
+        print("Calculating closest stops...")
         for hunt in hunts {
             var distances = [Double]()
             for stop in hunt.stops {
                 distances.append(Double(CLLocation(latitude: currLat, longitude: currLon).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))))
             }
             hunt.closestStop = distances.min()!
-            print("Closest stop calculated: \(hunt.closestStop)")
         }
         self.distancesGotten = true
         
@@ -184,8 +189,6 @@ struct Search: View {
             
         }
     }
-    
-    func doNothing() {}
     
     func getPrivHunt() {
         for hunt in self.hunts {

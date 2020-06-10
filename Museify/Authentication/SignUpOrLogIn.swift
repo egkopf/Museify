@@ -25,7 +25,8 @@ struct SignUpOrLogIn: View {
                     NavigationLink(destination: LogIn()) {
                         Text("Log In")
                     }
-                    Spacer()
+                    Spacer().navigationBarTitle("")
+                    //.navigationBarHidden(true)
                 }
             }
             }.font(.custom("Averia-Regular", size: 18))

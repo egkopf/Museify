@@ -81,6 +81,6 @@ class Stop: CustomStringConvertible, Hashable {
     }
     
     var description: String {
-        return "|name: \(name), description: \(stopDescription) imageName: \(imgName)|"
+        return "STOP: \(name), \(stopDescription), \(imgName)"
     }
 }

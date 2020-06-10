@@ -64,8 +64,9 @@ struct CreateAHunt: View {
             guard let metadata = metadata else {return}
             
             // Metadata contains file metadata such as size, content-type.
-            let size = metadata.size
+//            let size = metadata.size
             // You can also access to download URL after upload.
+            
             storageRefSpecific.downloadURL { (url, error) in
                 guard let downloadURL = url else {return}
             }
