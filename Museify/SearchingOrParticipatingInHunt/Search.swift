@@ -91,8 +91,6 @@ struct Search: View {
     @State var images = [String: UIImage]()
     @State var completedStops = [String]()
     @State var huntsUnderway = [String]()
-    @State var huntsGotten: Bool = false
-    @State var stopsGotten: Bool = false
     @State var distancesGotten: Bool = false
     @EnvironmentObject var auth: Authentication
     @ObservedObject var locationManager = LocationManager()
@@ -109,8 +107,22 @@ struct Search: View {
         return Double(meters / 16.0934).rounded() / 100
     }
     
+    func thereAreHunts() -> Bool {
+        return (hunts.count > 2)
+    }
+    
+    func thereAreStops() -> Bool {
+        for hunt in hunts {
+            if hunt.stops.count == 0 {
+                return false
+            }
+        }
+        return true
+    }
+    
     
     func getAllHunts() {
+        hunts = []
         db.collection("hunts").getDocuments() { (querySnapshot, err) in
             if let err = err {print("Error getting documents: \(err)")} else {
                 for document in querySnapshot!.documents {
@@ -121,30 +133,37 @@ struct Search: View {
                                 huntStops.append(Stop(Name: documentTwo.data()["name"] as! String, StopDescription: documentTwo.data()["description"] as! String, ImgName: documentTwo.data()["imageName"] as! String, Latitude: documentTwo.data()["latitude"] as! Double, Longitude: documentTwo.data()["longitude"] as! Double, Direction: documentTwo.data()["direction"] as! Double))
                             }
                             print(huntStops)
-                            if querySnapshotTwo!.documents.count == huntStops.count {self.stopsGotten = true}
+                            let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String, key: (document.data()["huntID"] as? Int), stops: huntStops, closestStop: 0.0)
+                            print("all stops added: \(huntStops)")
+                            self.hunts.append(newHunt)
+                            self.getAllImages()
+                            // THIS IS VERY RISKY but it seems to work
+                            
+//                            if querySnapshot!.documents.count == self.hunts.count {self.getAllImages()} else {
+//                                print("QS dox: \(querySnapshot!.documents.count)")
+//                                print("Hunts dox: \(self.hunts.count)")
+//                            }
                         }
                     }
-                    let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String, key: (document.data()["huntID"] as? Int), stops: huntStops, closestStop: 0.0)
-                    self.hunts.append(newHunt)
+                    
                 }
-                if querySnapshot!.documents.count == self.hunts.count {self.getAllImages()}
-                if querySnapshot!.documents.count == self.hunts.count {self.huntsGotten = true}
+                
             }
         }
         print("hunts: \(hunts)")
     }
     
     func calculateClosestStop(hunts: [Hunt], currLat: Double, currLon: Double) {
-        if self.huntsGotten && self.stopsGotten {
-            for hunt in hunts {
-                var distances = [Double]()
-                for stop in hunt.stops {
-                    distances.append(Double(CLLocation(latitude: currLat, longitude: currLon).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))))
-                }
-                hunt.closestStop = distances.min()!
+        for hunt in hunts {
+            var distances = [Double]()
+            for stop in hunt.stops {
+                distances.append(Double(CLLocation(latitude: currLat, longitude: currLon).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))))
             }
+            hunt.closestStop = distances.min()!
+            print("Closest stop calculated: \(hunt.closestStop)")
         }
         self.distancesGotten = true
+        
     }
     
     func getAllImages() {
@@ -201,11 +220,13 @@ struct Search: View {
     var body: some View {
         NavigationView {
             VStack {
-                if self.huntsGotten && self.stopsGotten {
+                if self.thereAreHunts() && self.thereAreStops() {
                     Rectangle()
                         .frame(width: 1, height: 1)
                         .opacity(0.01)
-                        .onAppear {self.calculateClosestStop(hunts: self.hunts, currLat: self.userLatitude, currLon: self.userLongitude)}
+                        .onAppear {
+                            self.calculateClosestStop(hunts: self.hunts, currLat: self.userLatitude, currLon: self.userLongitude)
+                    }
                 }
                 Spacer().navigationBarTitle("").navigationBarHidden(true).frame(height: 40)
                 HStack {
@@ -220,64 +241,61 @@ struct Search: View {
                 
                 SearchBar(text: $searchBar, placeholder: "Search")
                 
-                if self.huntsGotten && self.stopsGotten && self.distancesGotten {
+                if self.thereAreStops() && self.thereAreHunts() && self.distancesGotten {
                     List {
-                        VStack {
-                            ForEach(hunts.sorted(by: { $0.closestStop < $1.closestStop})) { hunt in
-                                if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
-                                    NavigationLink(destination: HuntStops(name: hunt.name)) {
-                                        HStack {
-                                            VStack(alignment: .leading) {
-                                                Text("\(hunt.name)").font(.custom("Averia-Bold", size: 18))
-                                                Text("\(hunt.description)")
-                                                
-                                            }.font(.custom("Averia-Regular", size: 18))
-                                            if self.completedStops.contains { $0.hasPrefix("\(hunt)") } {
-                                                Text("Underway").foregroundColor(.gray).font(.custom("Averia-Bold", size: 16))
-                                            }
-                                            Spacer()
+                        ForEach(hunts.sorted(by: { $0.closestStop < $1.closestStop})) { hunt in
+                            if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
+                                NavigationLink(destination: HuntStops(name: hunt.name)) {
+                                    HStack {
+                                        VStack(alignment: .leading) {
+                                            Text("\(hunt.name)").font(.custom("Averia-Bold", size: 18))
+                                            Text("\(hunt.description)")
                                             Text("Closest Stop: \(self.metersToMiles(meters: hunt.closestStop), specifier: "%.2f") miles away").font(.custom("Averia-Bold", size: 12))
-                                            Spacer()
-                                            if self.images[hunt.name] != nil {
-                                                Image(uiImage: self.images[hunt.name]!).resizable()
-                                                    .frame(width: 50, height: 50, alignment: .trailing).clipShape(RoundedRectangle(cornerRadius: 10))
-                                                
-                                            }
+                                            
+                                        }.font(.custom("Averia-Regular", size: 18))
+                                        if self.completedStops.contains { $0.hasPrefix("\(hunt)") } {
+                                            Text("Underway").foregroundColor(.gray).font(.custom("Averia-Bold", size: 16))
+                                        }
+                                        
+                                        Spacer()
+                                        
+                                        if self.images[hunt.name] != nil {
+                                            Image(uiImage: self.images[hunt.name]!).resizable()
+                                                .frame(width: 50, height: 50, alignment: .trailing).clipShape(RoundedRectangle(cornerRadius: 10))
                                             
                                         }
+                                        
                                     }
                                 }
                             }
-                            
                         }
-                        
-                        
-                        VStack {
-                            HStack {
-                                Text("Enter a Private Hunt Key:")
-                                TextField("enter", text: $privKey).frame(width: 60)
-                                Button(action: self.getPrivHunt) {
-                                    Text("find")
-                                }
-                                VStack {
-                                    if currentHuntName != "" {
-                                        Text(currentHuntName)
-                                    }
-                                    
-                                    NavigationLink(destination: HuntStops(name: currentHuntName)) {
-                                        Text("embark")
-                                    }.disabled(currentHuntName == "")
-                                }
-                                
-                                
-                                
-                            }.padding()
-                        }.background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
-                        Spacer().frame(height: 20)
                     }.frame(width: 400)
+                    
+                    VStack {
+                        HStack {
+                            Text("Enter a Private Hunt Key:")
+                            TextField("enter", text: $privKey).frame(width: 60)
+                            Button(action: self.getPrivHunt) {
+                                Text("find")
+                            }
+                            VStack {
+                                if currentHuntName != "" {
+                                    Text(currentHuntName)
+                                }
+                                
+                                NavigationLink(destination: HuntStops(name: currentHuntName)) {
+                                    Text("embark")
+                                }.disabled(currentHuntName == "")
+                            }
+                            
+                            
+                            
+                        }.padding()
+                    }.background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
+                    Spacer().frame(height: 20)
                 }
                 //   .onAppear { self.getCompletedStops() }
-            }.font(.custom("Averia-Regular", size: 18))
+            }//.font(.custom("Averia-Regular", size: 18))
               .onAppear { self.getAllHunts() }
         }
     }
