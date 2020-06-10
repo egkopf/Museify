@@ -64,6 +64,7 @@ class Hunt: Identifiable, Equatable, CustomStringConvertible, Hashable {
     var description: String
     var key: Int?
     var stops: [Stop]
+    var closestStop: Double
     
     var id: String { name }
     
@@ -71,11 +72,12 @@ class Hunt: Identifiable, Equatable, CustomStringConvertible, Hashable {
         hasher.combine(name)
     }
     
-    init(name: String, description: String, key: Int?, stops: [Stop]) {
+    init(name: String, description: String, key: Int?, stops: [Stop], closestStop: Double) {
         self.name = name
         self.description = description
         self.key = key
         self.stops = stops
+        self.closestStop = closestStop
     }
 }
 
@@ -90,6 +92,7 @@ struct Search: View {
     @State var completedStops = [String]()
     @State var huntsUnderway = [String]()
     @State var huntsGotten: Bool = false
+    @State var stopsGotten: Bool = true
     //@State var distancesGotten: Bool = false
     @EnvironmentObject var auth: Authentication
     @ObservedObject var locationManager = LocationManager()
@@ -117,9 +120,10 @@ struct Search: View {
                             for documentTwo in querySnapshotTwo!.documents {
                                 huntStops.append(Stop(Name: documentTwo.data()["name"] as! String, StopDescription: documentTwo.data()["description"] as! String, ImgName: documentTwo.data()["imageName"] as! String, Latitude: documentTwo.data()["latitude"] as! Double, Longitude: documentTwo.data()["longitude"] as! Double, Direction: documentTwo.data()["direction"] as! Double))
                             }
+                            if querySnapshotTwo!.documents.count != huntStops.count {self.stopsGotten = false}
                         }
                     }
-                    let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String, key: (document.data()["huntID"] as? Int), stops: huntStops)
+                    let newHunt = Hunt(name: document.data()["name"] as! String, description: document.data()["description"] as! String, key: (document.data()["huntID"] as? Int), stops: huntStops, closestStop: 0.0)
                     self.hunts.append(newHunt)
                 }
                 if querySnapshot!.documents.count == self.hunts.count {self.getAllImages()}
@@ -129,15 +133,16 @@ struct Search: View {
         print("hunts: \(hunts)")
     }
     
-    func calculateClosestStop(stops: [Stop], currLat: Double, currLon: Double) -> Double {
-        if huntsGotten {
-            var distances = [Double]()
-            for stop in stops {
-                distances.append(Double(CLLocation(latitude: currLat, longitude: currLon).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))))
+    func calculateClosestStop(hunts: [Hunt], currLat: Double, currLon: Double) {
+        if self.huntsGotten && self.stopsGotten {
+            for hunt in hunts {
+                var distances = [Double]()
+                for stop in hunt.stops {
+                    distances.append(Double(CLLocation(latitude: currLat, longitude: currLon).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))))
+                }
+                hunt.closestStop = distances.min()!
             }
-            return distances.min()!
         }
-        return 10.0
     }
     
     func getAllImages() {
@@ -194,6 +199,12 @@ struct Search: View {
     var body: some View {
         NavigationView {
             VStack {
+                if self.huntsGotten && self.stopsGotten {
+                    Rectangle()
+                        .frame(width: 1, height: 1)
+                        .opacity(0.01)
+                        .onAppear {self.calculateClosestStop(hunts: self.hunts, currLat: self.userLatitude, currLon: self.userLongitude)}
+                }
                 Spacer().navigationBarTitle("").navigationBarHidden(true).frame(height: 40)
                 HStack {
                     Logo().frame(width: 80)
@@ -207,10 +218,10 @@ struct Search: View {
                 
                 SearchBar(text: $searchBar, placeholder: "Search")
                 
-                if self.huntsGotten {
+                if self.huntsGotten && self.stopsGotten {
                     List {
                         VStack {
-                            ForEach(hunts.sorted(by: { self.calculateClosestStop(stops: $0.stops, currLat: self.userLatitude, currLon: self.userLongitude) < self.calculateClosestStop(stops: $1.stops, currLat: self.userLatitude, currLon: self.userLongitude) })) { hunt in
+                            ForEach(hunts.sorted(by: { $0.closestStop < $1.closestStop})) { hunt in
                                 if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
                                     NavigationLink(destination: HuntStops(name: hunt.name)) {
                                         HStack {
@@ -223,7 +234,7 @@ struct Search: View {
                                                 Text("Underway").foregroundColor(.gray).font(.custom("Averia-Bold", size: 16))
                                             }
                                             Spacer()
-                                            Text("Closest Stop: \(self.metersToMiles(meters: self.calculateClosestStop(stops: hunt.stops, currLat: self.userLatitude, currLon: self.userLongitude)), specifier: "%.2f") miles away").font(.custom("Averia-Bold", size: 12))
+                                            Text("Closest Stop: \(self.metersToMiles(meters: hunt.closestStop), specifier: "%.2f") miles away").font(.custom("Averia-Bold", size: 12))
                                             Spacer()
                                             if self.images[hunt.name] != nil {
                                                 Image(uiImage: self.images[hunt.name]!).resizable()
