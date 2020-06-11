@@ -256,9 +256,10 @@ struct Search: View {
                                             Text("Closest Stop: \(self.metersToMiles(meters: hunt.closestStop), specifier: "%.2f") miles away").font(.custom("Averia-Bold", size: 12))
                                             
                                         }.font(.custom("Averia-Regular", size: 18))
-                                        if self.completedStops.contains { $0.hasPrefix("\(hunt)") } {
-                                            Text("Underway").foregroundColor(.gray).font(.custom("Averia-Bold", size: 16))
+                                        if self.completedStops.filter( { $0.starts(with: "\(hunt.name)") }).count > 0 {
+                                            Text("Underway!").foregroundColor(.orange).font(.custom("Averia-Bold", size: 12))
                                         }
+                                            
                                         
                                         Spacer()
                                         

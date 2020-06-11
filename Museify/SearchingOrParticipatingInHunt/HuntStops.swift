@@ -29,15 +29,20 @@ struct HuntStops: View {
     @State var photoLatitude: Double = 0.0
     @State var photoLongitude: Double = 0.0
     @State var photoDirection: Double = 0.0
+    @State var prevLat: Double = 0.0
+    @State var prevLon: Double = 0.0
+    @State var prevDir: Double = 0.0
+    @State var currLat: Double = 0.0
+    @State var currLon: Double = 0.0
+    @State var currDir: Double = 0.0
     @State var showingGoodAlert = false
     @State var showingWrongAlert = false
-    //@State var showDescription = false
     @State var completedStops = [String]()
     var db = Firestore.firestore()
     @ObservedObject var locationManager = LocationManager()
     @EnvironmentObject var auth: Authentication
     
-    var userLatitude: Double {
+    /*var userLatitude: Double {
         return Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
     }
     
@@ -47,7 +52,23 @@ struct HuntStops: View {
     
     var direction: Double {
         return Double(locationManager.direction ?? 0.0)
+    }*/
+    
+    func getCoordinatesAndDirection() {
+        self.prevLat = self.currLat
+        self.prevLon = self.currLon
+        self.prevDir = self.currDir
+        self.currLat = Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
+        self.currLon = Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
+        self.currDir = Double(locationManager.direction ?? 0.0)
     }
+    
+    var timer: Timer {
+        Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
+            self.getCoordinatesAndDirection()
+        }
+    }
+
     
     func getStops() {
         print("Getting stops for \(name)...")
@@ -68,7 +89,7 @@ struct HuntStops: View {
                     
                     
 //                    print(document.data())
-                    self.stops.append(Stop(Name: document.data()["name"] as! String, StopDescription: document.data()["description"] as! String, ImgName: document.data()["imageName"] as! String, Latitude: document.data()["latitude"] as! Double, Longitude: document.data()["longitude"] as! Double, Direction: document.data()["direction"] as! Double, distanceAway: Double(CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: document.data()["latitude"] as! Double, longitude: document.data()["longitude"] as! Double)))))
+                    self.stops.append(Stop(Name: document.data()["name"] as! String, StopDescription: document.data()["description"] as! String, ImgName: document.data()["imageName"] as! String, Latitude: document.data()["latitude"] as! Double, Longitude: document.data()["longitude"] as! Double, Direction: document.data()["direction"] as! Double, distanceAway: Double(CLLocation(latitude: self.currLat, longitude: self.currLon).distance(from: CLLocation(latitude: document.data()["latitude"] as! Double, longitude: document.data()["longitude"] as! Double)))))
 //                    print(self.stops)
 //                    print("images: \(self.images)")
                     
@@ -165,7 +186,7 @@ struct HuntStops: View {
                 Text("Stops:")
                 if self.images.count > 0 && self.stops.count == images.count {
                     List {
-                        ForEach(self.stops.sorted(by: {$0.distanceAway < $1.distanceAway}), id: \.self) { stop in
+                        ForEach(self.stops.sorted(by: {$0.distanceAway > $1.distanceAway}), id: \.self) { stop in
                             //NavigationLink(destination: CompleteAStop(stop: stop, images: self.images)) {
                             HStack {
                                 VStack {
@@ -181,11 +202,11 @@ struct HuntStops: View {
                                         Text("\(stop.stopDescription)").font(.custom("Averia-Regular", size: 18)).foregroundColor(.green)
                                     }
                                     HStack {
-                                        ArrowView().rotationEffect(.degrees((self.calculateAngleToStop(yourLat: self.userLatitude, yourLon: self.userLongitude, stopLat: stop.latitude, stopLon: stop.longitude)) - self.direction)).padding()
-                                        Text("\(self.metersToMiles(meters: stop.distanceAway), specifier: "%.2f") miles away!").padding()
+                                        ArrowView().rotationEffect(.degrees((self.calculateAngleToStop(yourLat: self.currLat, yourLon: self.currLon, stopLat: stop.latitude, stopLon: stop.longitude)) - self.currDir)).padding()
+                                        Text("\(self.metersToMiles(meters: CLLocation(latitude: self.currLat, longitude: self.currLon).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))), specifier: "%.2f") miles away!").padding()
                                             .font(.custom("Averia-Regular", size: 18))
                                     }
-                                    if self.metersToMiles(meters: CLLocation(latitude: self.userLatitude, longitude: self.userLongitude).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) < 0.15 {
+                                    if self.metersToMiles(meters: CLLocation(latitude: self.currLat, longitude: self.currLon).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))) < 0.15 {
                                         Button(action: self.changeActionSheet) {
                                             ZStack {
                                                 Rectangle()
@@ -226,12 +247,14 @@ struct HuntStops: View {
                             //}
                         }
                     }
+                .onAppear(perform: {_ = self.timer})
                 } else {
                     Text("No stops yet!")
                 }
                 Spacer()
             }.onAppear {self.getStops()}
                 .onAppear { self.getCompletedStops() }
+            
                 .offset(y: -60)
         }.font(.custom("Averia-Regular", size: 18))
     }
