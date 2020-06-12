@@ -190,6 +190,10 @@ struct Search: View {
         }
     }
     
+    func huntstops(hunt: Hunt) -> Int {
+        return hunt.stops.count
+    }
+    
     func getPrivHunt() {
         for hunt in self.hunts {
             if hunt.key == Int(privKey) {
@@ -248,7 +252,9 @@ struct Search: View {
                     List {
                         ForEach(hunts.sorted(by: { $0.closestStop < $1.closestStop})) { hunt in
                             if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
-                                NavigationLink(destination: HuntStops(name: hunt.name)) {
+                                ZStack {
+                                    NavigationLink(destination: HuntStops(name: hunt.name)) {                                EmptyView()
+                                    }.hidden()
                                     HStack {
                                         VStack(alignment: .leading) {
                                             Text("\(hunt.name)").font(.custom("Averia-Bold", size: 18))
@@ -256,9 +262,15 @@ struct Search: View {
                                             Text("Closest Stop: \(self.metersToMiles(meters: hunt.closestStop), specifier: "%.2f") miles away").font(.custom("Averia-Bold", size: 12))
                                             
                                         }.font(.custom("Averia-Regular", size: 18))
-                                        if self.completedStops.filter( { $0.starts(with: "\(hunt.name)") }).count > 0 {
-                                            Text("Underway!").foregroundColor(.orange).font(.custom("Averia-Bold", size: 12))
+                                        if self.completedStops.filter( { $0.starts(with: "\(hunt.name)") }).count == self.huntstops(hunt: hunt) {
+                                            Text("Complete!").foregroundColor(.green).font(.custom("Averia-Bold", size: 12))
+                                        } else {
+                                            if self.completedStops.filter( { $0.starts(with: "\(hunt.name)") }).count > 0 {
+                                                Text("Underway!").foregroundColor(.orange).font(.custom("Averia-Bold", size: 12))
+                                            }
                                         }
+                                        
+                                        
                                             
                                         
                                         Spacer()
@@ -268,7 +280,6 @@ struct Search: View {
                                                 .frame(width: 50, height: 50, alignment: .trailing).clipShape(RoundedRectangle(cornerRadius: 10))
                                             
                                         }
-                                        
                                     }
                                 }
                             }
@@ -302,7 +313,7 @@ struct Search: View {
             }//.font(.custom("Averia-Regular", size: 18))
               .onAppear { self.getAllHunts() }
             .onAppear { self.getCompletedStops() }
-        }
+            }.offset(y: -1).navigationBarBackButtonHidden(true)
     }
     
     struct Search_Previews: PreviewProvider {

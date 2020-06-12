@@ -183,10 +183,13 @@ struct HuntStops: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Stops:")
+                Text("").navigationBarTitle("").navigationBarHidden(true)
                 if self.images.count > 0 && self.stops.count == images.count {
                     List {
-                        ForEach(self.stops.sorted(by: {$0.distanceAway > $1.distanceAway}), id: \.self) { stop in
+                        ForEach(self.stops.sorted(by: {self.metersToMiles(meters: CLLocation(latitude: self.currLat, longitude: self.currLon).distance(from: CLLocation(latitude: $0.latitude, longitude: $0.longitude))) < self.metersToMiles(meters: CLLocation(latitude: self.currLat, longitude: self.currLon).distance(from: CLLocation(latitude: $1.latitude, longitude: $1.longitude)))}), id: \.self) { stop in
+                            
+                            // This code is horrible but it works
+                            
                             //NavigationLink(destination: CompleteAStop(stop: stop, images: self.images)) {
                             HStack {
                                 VStack {
@@ -249,7 +252,7 @@ struct HuntStops: View {
                     }
                 .onAppear(perform: {_ = self.timer})
                 } else {
-                    Text("No stops yet!")
+                    Text("Loading stops...")
                 }
                 Spacer()
             }.onAppear {self.getStops()}

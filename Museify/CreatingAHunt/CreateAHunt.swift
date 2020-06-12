@@ -239,7 +239,7 @@ struct CreateAHunt: View {
                     }.padding()
                 }.frame(width: 400)
             }
-        }.font(.custom("Averia-Regular", size: 18))
+        }.font(.custom("Averia-Regular", size: 18)).offset(y: -1).navigationBarBackButtonHidden(true)
     }
 }
 
