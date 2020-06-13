@@ -147,7 +147,7 @@ struct HuntStops: View {
     
     func addCompletedStop(name: String) {
         
-        db.collection("users").document("\(auth.currentEmail!)").collection("stopsCompleted").document("\(name)").setData(["name": name])
+        db.collection("users").document("\(auth.currentEmail!)").collection("stopsCompleted").document("\(name)").setData(["name": self.name + "_" + name])
 
     }
     
@@ -195,13 +195,13 @@ struct HuntStops: View {
                                 VStack {
                                     Image(uiImage: self.images[stop.imgName]!).resizable()
                                         .frame(width: 120, height: 150)
-                                    if self.completedStops.contains("\(self.name + stop.name)") {
+                                    if self.completedStops.contains("\(self.name + "_" + stop.name)") {
                                         Text("Stop completed!").font(.custom("Averia-Regular", size: 10)).foregroundColor(.green).padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                                     }
                                 }
                                 VStack {
                                     Text("\(stop.name)").font(.custom("Averia-Regular", size: 32)).foregroundColor(.blue)
-                                    if self.completedStops.contains("\(self.name + stop.name)") {
+                                    if self.completedStops.contains("\(self.name + "_" + stop.name)") {
                                         Text("\(stop.stopDescription)").font(.custom("Averia-Regular", size: 18)).foregroundColor(.green)
                                     }
                                     HStack {
@@ -216,6 +216,7 @@ struct HuntStops: View {
                                                     .frame(width: 200, height: 24)
                                                     .foregroundColor(.gray)
                                                     .opacity(0.3)
+                                                    .clipShape(RoundedRectangle(cornerRadius: 10))
                                                     //.border(.black, width: 1)
                                                 Text("Open Camera!").font(.custom("Averia-Regular", size: 18))
                                             }

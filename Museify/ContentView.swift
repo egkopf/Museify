@@ -54,7 +54,7 @@ extension Color {
 }
 
 struct ContentView: View {
-    @State var selectedView = 0
+    @State var selectedView = 1
     var username: String
 
     var body: some View {
