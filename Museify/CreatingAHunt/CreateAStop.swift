@@ -72,6 +72,7 @@ struct CreateAStop: View {
             logoImagesRef.downloadURL { (url, error) in
                 guard let _ = url else {print("url error; url: \(String(describing: url)), error: \(String(describing: error))"); return}
             }
+            self.variable.toggle()
         }
     }
     
@@ -89,7 +90,7 @@ struct CreateAStop: View {
             else {print("Document successfully written!")}
         }
         uploadImage()
-        self.variable.toggle()
+        
     }
     
     func getPhotoCoordinatesAndDirection() {
@@ -138,7 +139,7 @@ struct CreateAStop: View {
                             .onDisappear(perform: {self.getPhotoCoordinatesAndDirection()})
                 }
                 if self.uiimage != nil {
-                    Image(uiImage: uiimage!).resizable().frame(width: 180, height: 180)
+                    Image(uiImage: uiimage!).resizable().frame(width: 180, height: 180).clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 
                 Button(action: self.addStop) {

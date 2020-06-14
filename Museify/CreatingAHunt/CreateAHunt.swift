@@ -97,24 +97,24 @@ struct CreateAHunt: View {
                     let imgRef = storageRef.child("images/\(document.data()["imageName"] as! String)")
                     
                     
-                    print(document.data())
+                    //print(document.data())
                     self.stops.append(Stop(Name: document.data()["name"] as! String, StopDescription: document.data()["description"] as! String, ImgName: document.data()["imageName"] as! String, Latitude: document.data()["latitude"] as! Double, Longitude: document.data()["longitude"] as! Double, Direction: document.data()["direction"] as! Double, distanceAway: 0.0))
-                    print(self.stops)
-                    print("images: \(self.images)")
+                    //print(self.stops)
+                    //print("images: \(self.images)")
                     
                     
                     imgRef.getData(maxSize: 1 * 8000 * 8000) { data, error in
                         if let _ = error {print("error"); return}
-                        print("no error")
+                        //print("no error")
                         let imageNm = document.data()["imageName"] as! String
-                        print(imageNm)
+                        //print(imageNm)
                         self.images[imageNm] = UIImage(data: data!)!
-                        print("images: \(self.images)")
+                        //print("images: \(self.images)")
                     }
                     
                     
                 }
-                print("IMAGES: \(self.images)")
+                //print("IMAGES: \(self.images)")
             }
         }
         
@@ -174,16 +174,18 @@ struct CreateAHunt: View {
                                     ImagePicker(isVisible: self.$showImagePicker, uiimage: self.$coverImage, sourceType: self.sourceType)
                             }
                             if coverImage != nil {
-                                Image(uiImage: coverImage!).resizable().frame(width: 75, height: 75)
+                                Image(uiImage: coverImage!).resizable().frame(width: 75, height: 75).clipShape(RoundedRectangle(cornerRadius: 10))
                             }
                         }
                         
                     }.padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
-                    Text("Stops:")
-                    Button(action: self.getStops) {
-                        Text("Get Stops")
-                    }.disabled(!self.active)
-                    Spacer()
+                    if (!self.variable && self.name != "") {
+                        Text("Stops:").font(.custom("Averia-Bold", size: 24)).onAppear() {
+                            print("Getting stops")
+                            self.getStops()
+                        }
+                    }
+                    
                     if images.count > 0 && stops.count == images.count {
                         ScrollView {
                             ForEach(stops, id: \.self) { stop in
@@ -200,18 +202,16 @@ struct CreateAHunt: View {
                                 
                             }
                             }.padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.gray).opacity(0.12), alignment: .bottom)
-                    } else {
-                        Text("No stops yet!")
                     }
                     
                     Button(action: self.addHuntAndCreateStop) {
                         
-                        Text("Add a Stop (+)").font(.custom("Averia-Bold", size: 24))
+                        Text("Add a Stop").font(.custom("Averia-Bold", size: 24))
                     }.disabled(!self.active)
                         .sheet(isPresented: $variable) {
                             CreateAStop(huntName: "\(self.name)", variable: self.$variable)
                     }
-                    
+                    Spacer()
                     HStack{
                         VStack {
                             Toggle("", isOn: $isItPublic).frame(width: 140).toggleStyle(ColoredToggleStyle(label: "Public", onColor: .blue, offColor: .gray)).saturation(self.active ? 1.0 : 0.2).disabled(!self.active)

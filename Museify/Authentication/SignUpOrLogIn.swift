@@ -12,24 +12,29 @@ struct SignUpOrLogIn: View {
     var body: some View {
         NavigationView {
             VStack {
-                Spacer().frame(height: 150)
+                Spacer().frame(height: 100)
                 Logo().frame(width: 300, height: 300)
                 Text("Museify").font(.custom("Averia-Regular", size: 36))
                 
                 VStack {
-                    
-                    NavigationLink(destination: SignUp()) {
-                        Text("Create an Account")
-                    }
+                    Spacer().frame(height: 15)
                     
                     NavigationLink(destination: LogIn()) {
-                        Text("Log In")
+                        Text("Log In").padding(.all, 7.0).background(RoundedRectangle(cornerRadius: 5).foregroundColor(.gray).opacity(0.4))
                     }
+                    Spacer().frame(height: 15)
+                    
+                    NavigationLink(destination: SignUp()) {
+                        Text("Create an Account").padding(.all, 7.0).background(RoundedRectangle(cornerRadius: 5).foregroundColor(.gray).opacity(0.4))
+                    }
+                    
+                    
+                    
                     Spacer().navigationBarTitle("")
                     //.navigationBarHidden(true)
                 }
             }
-            }.font(.custom("Averia-Regular", size: 18))
+        }.padding().font(.custom("Averia-Regular", size: 18))
     }
 }
 

@@ -194,7 +194,7 @@ struct HuntStops: View {
                             HStack {
                                 VStack {
                                     Image(uiImage: self.images[stop.imgName]!).resizable()
-                                        .frame(width: 120, height: 150)
+                                        .frame(width: 120, height: 150).clipShape(RoundedRectangle(cornerRadius: 10))
                                     if self.completedStops.contains("\(self.name + "_" + stop.name)") {
                                         Text("Stop completed!").font(.custom("Averia-Regular", size: 10)).foregroundColor(.green).padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                                     }

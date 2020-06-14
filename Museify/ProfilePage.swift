@@ -30,8 +30,8 @@ struct ProfilePage: View {
                 if stop == pair.0 {
                     break
                 }
-                hunts.append(pair.0)
             }
+            hunts.append(pair.0)
         }
         return hunts
     }
