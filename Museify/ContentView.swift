@@ -64,7 +64,7 @@ struct ContentView: View {
                     Image(systemName: "plus.app")
                         .font(.system(size: 25))
             }.tag(0)
-            Search()
+            TabbedSearching()
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                         .font(.system(size: 25))
