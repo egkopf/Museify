@@ -121,6 +121,12 @@ struct MapSearching: View {
                             self.calculateClosestStop(hunts: self.hunts, currLat: self.userLatitude, currLon: self.userLongitude)
                     }
                 }
+                if self.distancesGotten {
+                    Rectangle()
+                        .frame(width: 1, height: 1)
+                        .opacity(0.01)
+                        .onAppear {self.setLocations(hunts: self.hunts) }
+                }
                 ZStack {
                     VStack {
                         MapView(centerCoordinate: self.$centerCoordinate, selectedPlace: self.$selectedPlace, showingPlaceDetails: self.$showingPlaceDetails, annotations: self.locations)
@@ -128,12 +134,12 @@ struct MapSearching: View {
                     }.frame(height: self.isShowing ? 0.0 : geometry.size.height)
                 }
                 NavigationView {
-                    NavigationLink(destination: HuntStops(name: self.selectedPlace?.title ?? "Forest"), isActive: self.$isShowing) { EmptyView()
+                    NavigationLink(destination: TabbedHuntStops(name: self.selectedPlace?.title ?? "Forest"), isActive: self.$isShowing) { EmptyView()
                     }.hidden()
                 }.frame(height: self.isShowing ? geometry.size.height : 0.0)
             }
             .onAppear { self.getAllHunts() }
-            .onAppear {self.setLocations(hunts: self.hunts) }
+            
                 .alert(isPresented: self.$showingPlaceDetails) {
                     Alert(title: Text(self.selectedPlace?.title ?? "Unknown"), message: Text(self.selectedPlace?.subtitle ?? "Missing place information"), primaryButton: .default(Text("Go to hunt")) {
                         self.isShowing.toggle()

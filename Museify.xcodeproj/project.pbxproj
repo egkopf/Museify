@@ -33,6 +33,8 @@
 		8D081740241C1EBE000C217F /* CreateAHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08173F241C1EBE000C217F /* CreateAHunt.swift */; };
 		8D081744241C280C000C217F /* CreateAStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D081743241C280C000C217F /* CreateAStop.swift */; };
 		8D53D2E12476EB7D00635B0E /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D53D2E02476EB7D00635B0E /* ArrowView.swift */; };
+		8D8D46522497F2FF00C55EDC /* TabbedHuntStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D46512497F2FF00C55EDC /* TabbedHuntStops.swift */; };
+		8D8D46542497F30A00C55EDC /* HuntStopsMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D46532497F30A00C55EDC /* HuntStopsMap.swift */; };
 		8D9946272443EA9D00A41B43 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9946262443EA9D00A41B43 /* LocationManager.swift */; };
 		8D99462B2449053700A41B43 /* CompleteAStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D99462A2449053700A41B43 /* CompleteAStop.swift */; };
 		8D9EE32C23FC51730022B9C9 /* SignUpOrLogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */; };
@@ -103,6 +105,8 @@
 		8D08173F241C1EBE000C217F /* CreateAHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAHunt.swift; sourceTree = "<group>"; };
 		8D081743241C280C000C217F /* CreateAStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAStop.swift; sourceTree = "<group>"; };
 		8D53D2E02476EB7D00635B0E /* ArrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
+		8D8D46512497F2FF00C55EDC /* TabbedHuntStops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedHuntStops.swift; sourceTree = "<group>"; };
+		8D8D46532497F30A00C55EDC /* HuntStopsMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntStopsMap.swift; sourceTree = "<group>"; };
 		8D9946262443EA9D00A41B43 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		8D99462A2449053700A41B43 /* CompleteAStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteAStop.swift; sourceTree = "<group>"; };
 		8D9EE32B23FC51730022B9C9 /* SignUpOrLogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpOrLogIn.swift; sourceTree = "<group>"; };
@@ -268,6 +272,8 @@
 				8DCD67942436B4C900AA6C44 /* Search.swift */,
 				8DCD679A2436B85D00AA6C44 /* HuntRow.swift */,
 				8DB984742436D566009CDBF2 /* HuntStops.swift */,
+				8D8D46512497F2FF00C55EDC /* TabbedHuntStops.swift */,
+				8D8D46532497F30A00C55EDC /* HuntStopsMap.swift */,
 				8D99462A2449053700A41B43 /* CompleteAStop.swift */,
 			);
 			path = SearchingOrParticipatingInHunt;
@@ -560,6 +566,8 @@
 				40A1AAF3241D55DE004B0DDD /* UploadImage.swift in Sources */,
 				8DD98E422497E7190097710B /* MapSearching.swift in Sources */,
 				402824D923E49CF30039C74A /* AppDelegate.swift in Sources */,
+				8D8D46522497F2FF00C55EDC /* TabbedHuntStops.swift in Sources */,
+				8D8D46542497F30A00C55EDC /* HuntStopsMap.swift in Sources */,
 				8D081744241C280C000C217F /* CreateAStop.swift in Sources */,
 				8D9946272443EA9D00A41B43 /* LocationManager.swift in Sources */,
 				8D53D2E12476EB7D00635B0E /* ArrowView.swift in Sources */,
@@ -749,7 +757,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Museify/Preview Content\"";
-				DEVELOPMENT_TEAM = Y2A32J363X;
+				DEVELOPMENT_TEAM = 49YLFBSVG9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Museify/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
@@ -757,7 +765,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Museify;
+				PRODUCT_BUNDLE_IDENTIFIER = Museifyy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -771,7 +779,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Museify/Preview Content\"";
-				DEVELOPMENT_TEAM = Y2A32J363X;
+				DEVELOPMENT_TEAM = 49YLFBSVG9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Museify/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
@@ -779,7 +787,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Museify;
+				PRODUCT_BUNDLE_IDENTIFIER = Museifyy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
