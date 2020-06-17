@@ -73,7 +73,7 @@ struct SignUp: View {
             }.frame(width: 350)
             
             
-            NavigationLink(destination: ContentView(username: email), isActive: $didItWork) {
+            NavigationLink(destination: ContentView(username: email).navigationBarBackButtonHidden(true), isActive: $didItWork) {
                 Button(action: self.SignUpAndAddPerson) {
                     Text("Sign up")
                 }

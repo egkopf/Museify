@@ -52,6 +52,7 @@ struct CreateAHunt: View {
             }
         }
         
+        
     }
     
     func uploadCoverImage() {
@@ -59,7 +60,7 @@ struct CreateAHunt: View {
         let storageRef = Storage.storage().reference()
         let storageRefSpecific = storageRef.child("images/\(name)CoverImage")
         
-        let imgData = coverImage?.jpegData(compressionQuality: 100)
+        let imgData = coverImage?.jpegData(compressionQuality: 0.1)
         let uploadTask = storageRefSpecific.putData(imgData!, metadata: nil) { (metadata, error) in
             guard let metadata = metadata else {return}
             
@@ -77,6 +78,19 @@ struct CreateAHunt: View {
         addHunt()
         uploadCoverImage()
         variable = true
+    }
+    
+    func addHuntandClearFields() {
+        addHunt()
+        clearFields()
+    }
+    
+    func clearFields() {
+        name = ""
+        description = ""
+        coverImage = nil
+        stops = []
+        images = [:]
     }
     
     func addCoverImage() {
@@ -231,7 +245,7 @@ struct CreateAHunt: View {
                         }
                         
                         Spacer()
-                        Button(action: self.addHunt) {
+                        Button(action: self.addHuntandClearFields) {
                             Text("Publish Hunt")
                         }.disabled(!self.active).padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.green).opacity(0.12), alignment: .bottom)
                         

@@ -15,13 +15,20 @@ struct TabbedSearching: View {
         TabView(selection: $selectedView) {
             Search()
                 .tabItem {
-                    Text("Search")
+                    VStack {
+                        Image(systemName: "list.bullet")
                         .font(.system(size: 25))
+                        Text("List")
+                    }
+                    
             }.tag(0)
             MapSearching()
                 .tabItem {
-                    Text("Map")
+                    VStack {
+                        Image(systemName: "mappin")
                         .font(.system(size: 25))
+                        Text("Map")
+                    }
                     
             }.tag(1)
         }

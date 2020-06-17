@@ -51,7 +51,7 @@ struct LogIn: View {
             
             
             
-            NavigationLink(destination: ContentView(username: email), isActive: $didItWork) {
+            NavigationLink(destination: ContentView(username: email).navigationBarBackButtonHidden(true), isActive: $didItWork) {
                 Button(action: self.signIn) {
                     Text("Sign in")
                 }

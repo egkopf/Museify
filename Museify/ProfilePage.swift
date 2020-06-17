@@ -26,12 +26,15 @@ struct ProfilePage: View {
         var hunts = [String]()
         for pair in theStops {
             if hunts.isEmpty {hunts.append(pair.0)}
-            for stop in hunts {
-                if stop == pair.0 {
-                    break
+            else {
+                var status = true
+                for stop in hunts {
+                    if stop == pair.0 {
+                        status = false
+                    }
                 }
+                if status {hunts.append(pair.0)}
             }
-            hunts.append(pair.0)
         }
         return hunts
     }

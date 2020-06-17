@@ -31,6 +31,7 @@ struct HuntStopsMap: View {
     @State var stops = [Stop]()
     
     func getStops() {
+        stops = []
         print("Getting stops for \(name)...")
         let stopRef = db.collection("hunts").document("\(String(describing: name))").collection("stops")
         
@@ -64,31 +65,34 @@ struct HuntStopsMap: View {
                      }*/
                     
                     
+                    
                 }
                 //                print("IMAGES: \(self.images)")
             }
+            self.setLocations(stops: self.stops)
         }
         
     }
     
     func setLocations(stops: [Stop]) {
+        locations = []
         for stop in stops {
             self.locations.append(MKPointAnnotation(__coordinate: CLLocationCoordinate2D(latitude: stop.latitude, longitude: stop.longitude), title: stop.name, subtitle: stop.description))
         }
+        print("done setting locations")
+        print("Stops: \(stops), locations: \(locations)")
     }
     
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                ZStack {
-                    VStack {
-                        MapView(centerCoordinate: self.$centerCoordinate, selectedPlace: self.$selectedPlace, showingPlaceDetails: self.$showingPlaceDetails, annotations: self.locations)
-                            .edgesIgnoringSafeArea(.all)
-                    }
+                if self.stops.count == self.locations.count {
+                    MapView(centerCoordinate: self.$centerCoordinate, selectedPlace: self.$selectedPlace, showingPlaceDetails: self.$showingPlaceDetails, annotations: self.locations)
+                    .edgesIgnoringSafeArea(.all)
                 }
-                }
+                EmptyView()
+            }
             .onAppear { self.getStops() }
-            .onAppear { self.setLocations(stops: self.stops) }
                 
             .alert(isPresented: self.$showingPlaceDetails) {
                 Alert(title: Text(self.selectedPlace?.title ?? "Unknown"), message: Text(self.selectedPlace?.subtitle ?? "Missing place information"), dismissButton: .default(Text("Complete the stop in the list!")) )

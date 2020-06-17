@@ -151,7 +151,6 @@ struct Search: View {
 //                            }
                         }
                     }
-                    
                 }
                 
             }
@@ -159,7 +158,7 @@ struct Search: View {
     }
     
     func calculateClosestStop(hunts: [Hunt], currLat: Double, currLon: Double) {
-        print("Calculating closest stops...")
+        
         for hunt in hunts {
             var distances = [Double]()
             for stop in hunt.stops {
@@ -168,25 +167,24 @@ struct Search: View {
             hunt.closestStop = distances.min()!
         }
         self.distancesGotten = true
-        
+        print("Done calculating closest stops")
     }
     
     func getAllImages() {
         let tempHunts = hunts.filter({$0.key == nil})
         if tempHunts.count == images.count {return}
         
-        for hunt in hunts {
-            if hunt.key == nil {
-                let storageRef = Storage.storage().reference()
-                let imgRef = storageRef.child("images/\(hunt.name)CoverImage")
-                
-                imgRef.getData(maxSize: 1 * 8000 * 8000) { data, error in
-                    if let theError = error {print(theError); return}
-                    //print("no error")
-                    self.images[hunt.name] = UIImage(data: data!)!
-                }
-            }
+        for hunt in tempHunts {
+            let storageRef = Storage.storage().reference()
+            let imgRef = storageRef.child("images/\(hunt.name)CoverImage")
+            print("Start uploading image")
             
+            imgRef.getData(maxSize: 1 * 8000 * 8000) { data, error in
+                if let theError = error {print(theError); return}
+                //print("no error")
+                self.images[hunt.name] = UIImage(data: data!)!
+                print("Done uploading image")
+            }
         }
     }
     
@@ -284,7 +282,7 @@ struct Search: View {
                                 }
                             }
                         }
-                    }.frame(width: 400)
+                    }
                     
                     VStack {
                         HStack {

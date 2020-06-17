@@ -61,19 +61,30 @@ struct ContentView: View {
         TabView(selection: $selectedView) {
             CreateAHunt()
                 .tabItem {
-                    Image(systemName: "plus.app")
+                    VStack {
+                        Image(systemName: "plus.app")
                         .font(.system(size: 25))
+                        Text("Create")
+                    }
+                    
             }.tag(0)
             TabbedSearching()
                 .tabItem {
-                    Image(systemName: "magnifyingglass")
+                    VStack {
+                        Image(systemName: "magnifyingglass")
                         .font(.system(size: 25))
+                        Text("Search")
+                    }
+                    
                     
             }.tag(1)
             ProfilePage(username: self.username)
                 .tabItem {
-                    Image(systemName: "person")
+                    VStack {
+                        Image(systemName: "person")
                         .font(.system(size: 25))
+                        Text("Profile")
+                    }
             }.tag(2)
         }
     }
