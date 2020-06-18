@@ -251,7 +251,7 @@ struct Search: View {
                         ForEach(hunts.sorted(by: { $0.closestStop < $1.closestStop})) { hunt in
                             if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
                                 ZStack {
-                                    NavigationLink(destination: TabbedHuntStops(name: hunt.name)) {                                EmptyView()
+                                    NavigationLink(destination: HuntStops(name: hunt.name)) {                                EmptyView()
                                     }.hidden()
                                     HStack {
                                         VStack(alignment: .leading) {

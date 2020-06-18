@@ -37,6 +37,7 @@ struct HuntStops: View {
     @State var currDir: Double = 0.0
     @State var showingGoodAlert = false
     @State var showingWrongAlert = false
+    @State var showMap = false
     @State var completedStops = [String]()
     var db = Firestore.firestore()
     @ObservedObject var locationManager = LocationManager()
@@ -119,6 +120,10 @@ struct HuntStops: View {
         self.showActionSheet.toggle()
     }
     
+    func changeShowMap() {
+        self.showMap.toggle()
+    }
+    
     func getPhotoCoordinatesAndDirection() {
         self.photoLatitude = Double(locationManager.lastLocation?.coordinate.latitude ?? 0.0)
         self.photoLongitude = Double(locationManager.lastLocation?.coordinate.longitude ?? 0.0)
@@ -170,7 +175,7 @@ struct HuntStops: View {
     }
     
     func isMyPhotoRight(photoLat: Double, photoLon: Double, photoDir: Double, stopLat: Double, stopLon: Double, stopDir: Double, stopNam: String) {
-        if abs(photoLat - stopLat) < 15.0 && abs(photoLon - stopLon) < 15.0 && abs(photoDir - stopDir) < 25.0 {
+        if abs(photoLat - stopLat) < 15.0 && abs(photoLon - stopLon) < 15.0 && abs(photoDir - stopDir) < 60.0 {
             self.addCompletedStop(name: stopNam)
             self.showingGoodAlert = true
         } else {
@@ -200,7 +205,7 @@ struct HuntStops: View {
                                     }
                                 }
                                 VStack {
-                                    Text("\(stop.name)").font(.custom("Averia-Regular", size: 32)).foregroundColor(.blue)
+                                    Text("\(stop.name)").font(.custom("Averia-Regular", size: 26)).foregroundColor(.blue)
                                     if self.completedStops.contains("\(self.name + "_" + stop.name)") {
                                         Text("\(stop.stopDescription)").font(.custom("Averia-Regular", size: 18)).foregroundColor(.green)
                                     }
@@ -255,7 +260,12 @@ struct HuntStops: View {
                 } else {
                     Text("Loading stops...")
                 }
-                Spacer()
+                Button(action: self.changeShowMap) {
+                    Text("Show Map >")
+                }
+                .sheet(isPresented: self.$showMap) {
+                    HuntStopsMap(name: self.name)
+                }
             }.onAppear {self.getStops()}
                 .onAppear { self.getCompletedStops() }
             
@@ -266,6 +276,6 @@ struct HuntStops: View {
 
 struct HuntStops_Previews: PreviewProvider {
     static var previews: some View {
-        Circle()
+        HuntStops(name: "Trees")
     }
 }

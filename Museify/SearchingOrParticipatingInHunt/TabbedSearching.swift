@@ -18,7 +18,7 @@ struct TabbedSearching: View {
                     VStack {
                         Image(systemName: "list.bullet")
                         .font(.system(size: 25))
-                        Text("List")
+                        Text("List of Hunts")
                     }
                     
             }.tag(0)
@@ -27,7 +27,7 @@ struct TabbedSearching: View {
                     VStack {
                         Image(systemName: "mappin")
                         .font(.system(size: 25))
-                        Text("Map")
+                        Text("Map of Hunts")
                     }
                     
             }.tag(1)
