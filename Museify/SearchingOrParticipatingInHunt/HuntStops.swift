@@ -261,10 +261,16 @@ struct HuntStops: View {
                     Text("Loading stops...")
                 }
                 Button(action: self.changeShowMap) {
-                    Text("Show Map >")
+                    Text("Show Map >").padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                 }
                 .sheet(isPresented: self.$showMap) {
-                    HuntStopsMap(name: self.name)
+                    VStack {
+                        HuntStopsMap(name: self.name)
+                        Button(action: self.changeShowMap) {
+                            Text("Done")
+                        }
+                    }
+                    
                 }
             }.onAppear {self.getStops()}
                 .onAppear { self.getCompletedStops() }

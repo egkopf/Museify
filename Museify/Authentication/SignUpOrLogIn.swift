@@ -20,12 +20,12 @@ struct SignUpOrLogIn: View {
                     Spacer().frame(height: 15)
                     
                     NavigationLink(destination: LogIn()) {
-                        Text("Log In").padding(.all, 7.0).background(RoundedRectangle(cornerRadius: 5).foregroundColor(.gray).opacity(0.4))
+                        Text("Log In").padding(.all, 7.0).background(RoundedRectangle(cornerRadius: 5).foregroundColor(.gray).opacity(0.2))
                     }
                     Spacer().frame(height: 15)
                     
                     NavigationLink(destination: SignUp()) {
-                        Text("Create an Account").padding(.all, 7.0).background(RoundedRectangle(cornerRadius: 5).foregroundColor(.gray).opacity(0.4))
+                        Text("Create an Account").padding(.all, 7.0).background(RoundedRectangle(cornerRadius: 5).foregroundColor(.gray).opacity(0.2))
                     }
                     
                     

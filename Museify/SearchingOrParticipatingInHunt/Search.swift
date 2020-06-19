@@ -303,7 +303,7 @@ struct Search: View {
                             
                             
                             
-                        }.padding()
+                        }.padding(.leading).padding(.trailing).padding(.top)
                     }.background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                     Spacer().frame(height: 20)
                 }
