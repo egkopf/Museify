@@ -170,6 +170,14 @@ struct Search: View {
         print("Done calculating closest stops")
     }
     
+    func calcClosestStop(hunt: Hunt, currLat: Double, currLon: Double) -> Double {
+        var distances = [Double]()
+        for stop in hunt.stops {
+            distances.append(Double(CLLocation(latitude: currLat, longitude: currLon).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))))
+        }
+        return distances.min()!
+    }
+    
     func getAllImages() {
         let tempHunts = hunts.filter({$0.key == nil})
         if tempHunts.count == images.count {return}
@@ -220,6 +228,15 @@ struct Search: View {
         }
     }
     
+    func nameToHunt(name: String) -> Hunt {
+        for hunt in hunts {
+            if name == hunt.name {
+                return hunt
+            }
+        }
+        return hunts[0]
+    }
+    
     
     
     var body: some View {
@@ -251,7 +268,7 @@ struct Search: View {
                         ForEach(hunts.sorted(by: { $0.closestStop < $1.closestStop})) { hunt in
                             if (hunt.name.lowercased().contains(self.searchBar.lowercased()) || hunt.description.lowercased().contains(self.searchBar.lowercased()) || self.searchBar == "") && (hunt.key == nil) {
                                 ZStack {
-                                    NavigationLink(destination: HuntStops(name: hunt.name)) {                                EmptyView()
+                                    NavigationLink(destination: HuntPortal(dist: self.metersToMiles(meters: hunt.closestStop), name: hunt.name)) {EmptyView()
                                     }.hidden()
                                     HStack {
                                         VStack(alignment: .leading) {
@@ -295,15 +312,17 @@ struct Search: View {
                                 if currentHuntName != "" {
                                     Text(currentHuntName)
                                 }
-                                
-                                NavigationLink(destination: HuntStops(name: currentHuntName)) {
+                                if currentHuntName != nil {
+                                    
+                                }
+                                NavigationLink(destination: HuntPortal(dist: self.metersToMiles(meters: self.calcClosestStop(hunt: self.nameToHunt(name: currentHuntName), currLat: self.userLatitude, currLon: self.userLongitude)), name: currentHuntName)) {
                                     Text("embark")
                                 }.disabled(currentHuntName == "")
                             }
                             
                             
                             
-                        }.padding(.leading).padding(.trailing).padding(.top)
+                        }.padding()
                     }.background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                     Spacer().frame(height: 20)
                 }
