@@ -21,6 +21,7 @@ import CoreLocation
 
 struct MapSearching: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
+    @State private var span = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
     @State private var locations = [MKPointAnnotation]()
     @State private var selectedPlace: MKPointAnnotation?
     @State private var showingPlaceDetails = false
@@ -93,6 +94,7 @@ struct MapSearching: View {
             hunt.closestStop = distances.min()!
         }
         self.distancesGotten = true
+        self.centerCoordinate = CLLocationCoordinate2D(latitude: currLat, longitude: currLon)
         
     }
     
@@ -129,7 +131,7 @@ struct MapSearching: View {
                 }
                 ZStack {
                     VStack {
-                        MapView(centerCoordinate: self.$centerCoordinate, selectedPlace: self.$selectedPlace, showingPlaceDetails: self.$showingPlaceDetails, annotations: self.locations)
+                        MapView(centerCoordinate: self.$centerCoordinate, span: self.$span, selectedPlace: self.$selectedPlace, showingPlaceDetails: self.$showingPlaceDetails, annotations: self.locations)
                             .edgesIgnoringSafeArea(.all)
                     }.frame(height: self.isShowing ? 0.0 : geometry.size.height)
                 }

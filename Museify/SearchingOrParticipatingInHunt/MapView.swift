@@ -11,6 +11,7 @@ import SwiftUI
 
 struct MapView: UIViewRepresentable {
     @Binding var centerCoordinate: CLLocationCoordinate2D
+    @Binding var span: MKCoordinateSpan
     @Binding var selectedPlace: MKPointAnnotation?
     @Binding var showingPlaceDetails: Bool
     var annotations: [MKPointAnnotation]
@@ -26,6 +27,10 @@ struct MapView: UIViewRepresentable {
             view.removeAnnotations(view.annotations)
             view.addAnnotations(annotations)
         }
+        let coordinate = centerCoordinate
+        let theSpan = span
+        let region = MKCoordinateRegion(center: coordinate, span: theSpan)
+        view.setRegion(region, animated: true)
     }
 
     func makeCoordinator() -> Coordinator {
@@ -41,6 +46,7 @@ struct MapView: UIViewRepresentable {
         
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
             parent.centerCoordinate = mapView.centerCoordinate
+            parent.span = mapView.region.span
         }
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -77,8 +83,8 @@ extension MKPointAnnotation {
     }
 }
 
-struct MapView_Previews: PreviewProvider {
+/*struct MapView_Previews: PreviewProvider {
     static var previews: some View {
         MapView(centerCoordinate: .constant(MKPointAnnotation.example.coordinate), selectedPlace: .constant(MKPointAnnotation.example), showingPlaceDetails: .constant(false), annotations: [MKPointAnnotation.example])
     }
-}
+}*/
