@@ -21,7 +21,7 @@ import CoreLocation
 struct HuntPortal: View {
     @State var dist: Double
     @State var stopsCounter = 0
-    @State var coverImage: Image?
+    //@State var coverImage: Image?
     @State var name: String
     @State var uiimage: UIImage?
     @State var retrieved = false

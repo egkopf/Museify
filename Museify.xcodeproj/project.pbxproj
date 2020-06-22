@@ -275,8 +275,8 @@
 				8DCD67942436B4C900AA6C44 /* Search.swift */,
 				8DCD679A2436B85D00AA6C44 /* HuntRow.swift */,
 				8DB984742436D566009CDBF2 /* HuntStops.swift */,
-				8D8D46512497F2FF00C55EDC /* TabbedHuntStops.swift */,
 				8D8D46532497F30A00C55EDC /* HuntStopsMap.swift */,
+				8D8D46512497F2FF00C55EDC /* TabbedHuntStops.swift */,
 				8D99462A2449053700A41B43 /* CompleteAStop.swift */,
 			);
 			path = SearchingOrParticipatingInHunt;

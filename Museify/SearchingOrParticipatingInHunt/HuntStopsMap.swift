@@ -27,7 +27,7 @@ struct HuntStopsMap: View {
     @State private var showingPlaceDetails = false
     @State private var isShowing = false
     @ObservedObject var locationManager = LocationManager()
-    @EnvironmentObject var auth: Authentication
+    @State var email: String
     var db = Firestore.firestore()
     @State public var name: String
     @State var completedStops = [String]()
@@ -81,13 +81,13 @@ struct HuntStopsMap: View {
                 }
                 //                print("IMAGES: \(self.images)")
             }
-            self.setLocations(stops: self.stops)
+            self.getCompletedStops()
         }
         
     }
     
     func getCompletedStops() {
-        let stopRef = db.collection("users").document("\(auth.currentEmail!)").collection("stopsCompleted")
+        let stopRef = db.collection("users").document("\(email)").collection("stopsCompleted")
         
         stopRef.getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -102,6 +102,8 @@ struct HuntStopsMap: View {
                 }
             }
         }
+
+        self.setLocations(stops: self.stops)
     }
     
     func setLocations(stops: [Stop]) {
@@ -135,10 +137,10 @@ struct HuntStopsMap: View {
                 EmptyView()
             }
             .onAppear { self.getStops() }
-                .onAppear { self.getCompletedStops() }
+               
                 
             .alert(isPresented: self.$showingPlaceDetails) {
-                Alert(title: Text(self.selectedPlace?.title ?? "Unknown"), message: Text(self.selectedPlace?.subtitle ?? "Missing place information"), dismissButton: .default(Text("Complete the stop in the list!")) )
+                Alert(title: Text(self.selectedPlace?.title ?? "Unknown"), message: Text(self.selectedPlace?.subtitle ?? ""), dismissButton: .default(Text("Complete the stop in the list!")) )
             }
         }
     }

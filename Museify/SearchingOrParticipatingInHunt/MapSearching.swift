@@ -98,6 +98,15 @@ struct MapSearching: View {
         
     }
     
+    func nameToHunt(name: String) -> Hunt {
+        for hunt in hunts {
+            if name == hunt.name {
+                return hunt
+            }
+        }
+        return Hunt(name: "Hello", description: "hi", key: nil, stops: [], closestStop: 0.0)
+    }
+    
     func setLocations(hunts: [Hunt]) {
         var lat = Double()
         var lon = Double()
@@ -110,6 +119,18 @@ struct MapSearching: View {
             }
             self.locations.append(MKPointAnnotation(__coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon), title: hunt.name, subtitle: hunt.description))
         }
+    }
+    
+    func metersToMiles(meters: Double) -> Double {
+        return Double(meters / 16.0934).rounded() / 100
+    }
+    
+    func calcClosestStop(hunt: Hunt, currLat: Double, currLon: Double) -> Double {
+        var distances = [Double]()
+        for stop in hunt.stops {
+            distances.append(Double(CLLocation(latitude: currLat, longitude: currLon).distance(from: CLLocation(latitude: stop.latitude, longitude: stop.longitude))))
+        }
+        return distances.min()!
     }
     
     var body: some View {
@@ -128,7 +149,7 @@ struct MapSearching: View {
                         .frame(width: 1, height: 1)
                         .opacity(0.01)
                         .onAppear {self.setLocations(hunts: self.hunts) }
-                }
+                
                 ZStack {
                     VStack {
                         MapView(centerCoordinate: self.$centerCoordinate, span: self.$span, selectedPlace: self.$selectedPlace, showingPlaceDetails: self.$showingPlaceDetails, annotations: self.locations)
@@ -136,9 +157,10 @@ struct MapSearching: View {
                     }.frame(height: self.isShowing ? 0.0 : geometry.size.height)
                 }
                 NavigationView {
-                    NavigationLink(destination: TabbedHuntStops(name: self.selectedPlace?.title ?? "Forest"), isActive: self.$isShowing) { EmptyView()
+                    NavigationLink(destination: HuntPortal(dist: self.metersToMiles(meters: self.calcClosestStop(hunt: self.nameToHunt(name: self.selectedPlace?.title ?? "Trees"), currLat: self.userLatitude, currLon: self.userLongitude)), name: self.selectedPlace?.title ?? "Trees"), isActive: self.$isShowing) { EmptyView()
                     }.hidden()
                 }.frame(height: self.isShowing ? geometry.size.height : 0.0)
+            }
             }
             .onAppear { self.getAllHunts() }
             

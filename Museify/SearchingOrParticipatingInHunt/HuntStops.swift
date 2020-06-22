@@ -265,7 +265,7 @@ struct HuntStops: View {
                 }
                 .sheet(isPresented: self.$showMap) {
                     VStack {
-                        HuntStopsMap(name: self.name)
+                        HuntStopsMap(email: "\(self.auth.currentEmail!)", name: self.name)
                         Button(action: self.changeShowMap) {
                             Text("Done")
                         }
