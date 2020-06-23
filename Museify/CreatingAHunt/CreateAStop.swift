@@ -127,10 +127,6 @@ struct CreateAStop: View {
                                 self.sourceType = 0
                                 self.showImagePicker.toggle()
                             }),
-                            ActionSheet.Button.default(Text("Photo Gallery"), action: {
-                                self.sourceType = 1
-                                self.showImagePicker.toggle()
-                            }),
                             ActionSheet.Button.cancel()
                         ])
                     })
