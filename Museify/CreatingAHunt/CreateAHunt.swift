@@ -192,7 +192,7 @@ struct CreateAHunt: View {
                             }
                         }
                         
-                    }.padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
+                    }.frame(width: 368).padding().background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color.blue).opacity(0.12), alignment: .bottom)
                     if (!self.variable && self.name != "") {
                         Text("Stops:").font(.custom("Averia-Bold", size: 24)).onAppear() {
                             print("Getting stops")
